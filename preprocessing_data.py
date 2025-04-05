@@ -4,8 +4,11 @@ import torchaudio
 
 DB_PATH = "DB/"
 SAVE_PATH = "preprocessed_data/"
-NB_TIME = 16000 * 1  # 3 seconds (modify as needed)
+NB_TIME = 16000 * 1  # 1 second (modify as needed)
 SEGMENT_STRIDE = NB_TIME // 2  # 50% overlap
+
+# Make sure the correct backend is used for decoding mp3
+torchaudio.set_audio_backend("sox_io")  # or "ffmpeg" if installed and preferred
 
 os.makedirs(SAVE_PATH, exist_ok=True)
 
@@ -15,9 +18,15 @@ for subfolder in ["synthetic voice", "real voice"]:
     os.makedirs(save_folder, exist_ok=True)
 
     for file_name in os.listdir(folder_path):
-        if file_name.endswith(".wav"):
+        if file_name.endswith((".wav", ".mp3")):  # support both formats
             file_path = os.path.join(folder_path, file_name)
-            waveform, _ = torchaudio.load(file_path)
+            waveform, sample_rate = torchaudio.load(file_path)
+
+            # Resample if not 16kHz
+            if sample_rate != 16000:
+                resampler = torchaudio.transforms.Resample(orig_freq=sample_rate, new_freq=16000)
+                waveform = resampler(waveform)
+                sample_rate = 16000
 
             # Convert to numpy array
             audio_np = waveform.numpy()
@@ -34,7 +43,8 @@ for subfolder in ["synthetic voice", "real voice"]:
                     segment = audio_np[:, start_idx:end_idx]
 
                     # Save as .npy with segment numbering
-                    segment_filename = f"{file_name.replace('.wav', '')}_{segment_count}.npy"
+                    base_name = os.path.splitext(file_name)[0]
+                    segment_filename = f"{base_name}_{segment_count}.npy"
                     np.save(os.path.join(save_folder, segment_filename), segment)
 
                     segment_count += 1
