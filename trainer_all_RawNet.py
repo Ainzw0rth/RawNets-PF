@@ -115,11 +115,12 @@ if __name__ == "__main__":
     }
     model = RawNet(model_config, device).to(device)
 
-    # Train
+    # Train RawNet1
+    print("\n=== Training RawNet1 ===")
     train_rawnet1_with_loaders(model, train_loader, val_loader, device=device, epochs=40, lr=0.001)
 
-    # Test
-    print("\n--- Testing Model ---")
+    # Test RawNet1
+    print("\n--- Testing RawNet1 ---")
     predictions, targets = test_rawnet1(model, test_loader, device=device)
 
 
@@ -140,10 +141,10 @@ if __name__ == "__main__":
         'pathology_dim': 128
     }
 
-    print("\n=== Training RawNet2 ===")
     model2 = RawNet2(model_config2, pathology_dim=model_config2['pathology_dim']).to(device)
 
     # Train RawNet2
+    print("\n=== Training RawNet2 ===")
     train_rawnet2_with_loaders(model2, train_loader, val_loader, class_labels=["synthetic voice", "real voice"], device=device, epochs=40, lr=0.001)
 
     # Test RawNet2
