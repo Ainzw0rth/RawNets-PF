@@ -20,7 +20,9 @@ def train_rawnet1_with_loaders(model, train_loader, val_loader=None, device="cud
             elif inputs.dim() == 3 and inputs.shape[1] != 1:
                 inputs = inputs.permute(0, 2, 1)
 
+            # Feed raw input to both audio and pathology branches
             outputs = model(inputs)
+
             loss = criterion(outputs, labels)
 
             optimizer.zero_grad()
@@ -55,6 +57,7 @@ def validate_rawnet1(model, val_loader, device="cuda"):
                 inputs = inputs.permute(0, 2, 1)
 
             outputs = model(inputs)
+
             loss = criterion(outputs, labels)
             running_loss += loss.item() * inputs.size(0)
 
@@ -66,7 +69,6 @@ def validate_rawnet1(model, val_loader, device="cuda"):
     accuracy = 100.0 * correct / total
     model.train()
     return avg_loss, accuracy
-
 
 def test_rawnet1(model, test_loader, device="cuda"):
     model.eval()
@@ -96,7 +98,6 @@ def test_rawnet1(model, test_loader, device="cuda"):
     accuracy = 100.0 * correct / total
     print(f"Test Accuracy: {accuracy:.2f}%")
 
-    # Plot Confusion Matrix
     cm = confusion_matrix(targets, predictions)
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Synthetic", "Real"])
     disp.plot(cmap=plt.cm.Blues)

@@ -61,6 +61,44 @@ class Residual_block(nn.Module):
 		out = self.mp(out)
 		return out
 
+class PathologicalFeatureExtractor(nn.Module):
+	def __init__(self, in_channels):
+		super(PathologicalFeatureExtractor, self).__init__()
+		self.conv = nn.Conv1d(in_channels, 10, kernel_size=5, stride=1, padding=2)
+		self.relu = nn.ReLU()
+
+	def compute_deltas(self, features):
+		delta = features[:, :, 1:] - features[:, :, :-1]
+		delta = F.pad(delta, (1, 0), mode='replicate')
+		delta2 = delta[:, :, 1:] - delta[:, :, :-1]
+		delta2 = F.pad(delta2, (1, 0), mode='replicate')
+		return delta, delta2
+
+	def forward(self, x):
+		x = self.relu(self.conv(x))  # [B, 10, T]
+		delta, delta2 = self.compute_deltas(x)
+		return torch.cat([x, delta, delta2], dim=1)  # [B, 30, T]
+
+class PathologyBranch(nn.Module):
+    def __init__(self, in_channels=30):
+        super(PathologyBranch, self).__init__()
+        self.conv1 = nn.Conv1d(in_channels, 32, kernel_size=3, stride=1, padding=1)
+        self.bn1 = nn.BatchNorm1d(32)
+        self.relu = nn.ReLU()
+        self.resblock1 = Residual_block([32, 64])
+        self.resblock2 = Residual_block([64, 64])
+        self.gru = nn.GRU(input_size=64, hidden_size=64, batch_first=True)
+        self.fc = nn.Linear(64, 128)
+
+    def forward(self, x):
+        x = self.relu(self.bn1(self.conv1(x)))
+        x = self.resblock1(x)
+        x = self.resblock2(x)
+        x = x.permute(0, 2, 1)  # (B, C, T) → (B, T, C)
+        _, h_n = self.gru(x)
+        out = self.fc(h_n[-1])
+        return out
+	
 class RawNet(nn.Module):
 	def __init__(self, d_args, device):
 		super(RawNet, self).__init__()
@@ -85,31 +123,35 @@ class RawNet(nn.Module):
 			hidden_size = d_args['gru_node'],
 			num_layers = d_args['nb_gru_layer'],
 			batch_first = True)
-		self.fc1_gru = nn.Linear(in_features = d_args['gru_node'],
+		self.audio_fc = nn.Linear(in_features = d_args['gru_node'],
 			out_features = d_args['nb_fc_node'])
-		self.fc2_gru = nn.Linear(in_features = d_args['nb_fc_node'],
-			out_features = d_args['nb_classes'],
-			bias = True)
 
-	def forward(self, x, y = 0, is_test=False):
-		x = self.first_conv(x)
+		self.pathology_extractor = PathologicalFeatureExtractor(d_args['in_channels'])
+		self.pathology_branch = PathologyBranch(in_channels=30)
+		self.final_fc = nn.Linear(in_features = d_args['nb_fc_node'] + 128,
+			out_features = d_args['nb_classes'])
+
+	def forward(self, audio, is_test=False):
+		x = self.first_conv(audio)
 		x = self.first_bn(x)
 		x = self.lrelu_keras(x)
-
 		x = self.block0(x)
 		x = self.block1(x)
-
 		x = self.bn_before_gru(x)
 		x = self.lrelu_keras(x)
-		x = x.permute(0, 2, 1)#(batch, filt, time) >> (batch, time, filt)
+		x = x.permute(0, 2, 1)
 		x, _ = self.gru(x)
-		x = x[:,-1,:]
-		code = self.fc1_gru(x)
-		if is_test: return code
+		audio_emb = self.audio_fc(x[:, -1, :])
 
-		code_norm = code.norm(p=2,dim=1, keepdim=True) / 10.
-		code = torch.div(code, code_norm)
-		out = self.fc2_gru(code)
+		path_feat = self.pathology_extractor(audio)
+		path_emb = self.pathology_branch(path_feat)
+		combined = torch.cat((audio_emb, path_emb), dim=1)
+
+		if is_test:
+			return combined
+
+		normed = combined / (combined.norm(p=2, dim=1, keepdim=True) + 1e-8) * 10
+		out = self.final_fc(normed)
 		return out
 		'''
 		#for future updates, bc_loss, h_loss

@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import torchaudio
+import torch
 
 DB_PATH = "DB/"
 SAVE_PATH = "preprocessed_data/"
@@ -26,21 +27,29 @@ for subfolder in ["synthetic voice", "real voice"]:
             if sample_rate != 16000:
                 resampler = torchaudio.transforms.Resample(orig_freq=sample_rate, new_freq=16000)
                 waveform = resampler(waveform)
-                sample_rate = 16000
 
-            # Convert to numpy array
+            # Convert to mono if stereo
+            if waveform.size(0) > 1:
+                waveform = torch.mean(waveform, dim=0, keepdim=True)
+
+            waveform = waveform[0]  # Flatten (1, T) to (T,)
+
+            # Normalize to [-1, 1]
+            waveform = waveform / (torch.max(torch.abs(waveform)) + 1e-9)
+
+            # Convert to numpy
             audio_np = waveform.numpy()
 
             # Process in fixed-length overlapping segments
-            num_segments = (audio_np.shape[1] - NB_TIME) // SEGMENT_STRIDE + 1
+            num_segments = (len(audio_np) - NB_TIME) // SEGMENT_STRIDE + 1
             segment_count = 0
 
             for i in range(num_segments):
                 start_idx = i * SEGMENT_STRIDE
                 end_idx = start_idx + NB_TIME
 
-                if end_idx <= audio_np.shape[1]:  # Ensure segment is full-length
-                    segment = audio_np[:, start_idx:end_idx]
+                if end_idx <= len(audio_np):
+                    segment = audio_np[start_idx:end_idx]  # 1D segment
 
                     # Save as .npy with segment numbering
                     base_name = os.path.splitext(file_name)[0]
