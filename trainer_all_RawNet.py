@@ -13,6 +13,7 @@ from RawNets.RawNet1.trainer_RawNet1 import train_rawnet1_with_loaders, test_raw
 from RawNets.RawNet2.model_RawNet2 import RawNet2
 from RawNets.RawNet2.trainer_RawNet2 import train_rawnet2_with_loaders, test_rawnet2, save_model_rawnet2
 
+# Import RawNet3 components
 from RawNets.RawNet3.model_RawNet3 import RawNet3
 from RawNets.RawNet3.trainer_RawNet3 import train_rawnet3_with_loaders, test_rawnet3, save_model_rawnet3
 
@@ -169,9 +170,9 @@ if __name__ == "__main__":
     # -----------------------------
     # Model config for RawNet3
     model_config3 = {
-        "nOut": 512,              # Output embedding size
+        "nOut": 512,
         "sinc_stride": 10,
-        "encoder_type": "ECA",    # or "ASP" if you prefer
+        "encoder_type": "ECA",
         "log_sinc": True,
         "norm_sinc": "mean_std",
         "out_bn": True
