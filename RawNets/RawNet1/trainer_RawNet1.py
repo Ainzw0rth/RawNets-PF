@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn as nn
 import matplotlib.pyplot as plt
@@ -105,3 +106,8 @@ def test_rawnet1(model, test_loader, device="cuda"):
     plt.show()
 
     return predictions, targets
+
+def save_model_rawnet1(model, path="pretrained_weights/rawnet1.pth"):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    torch.save(model.state_dict(), path)
+    print(f"Model RawNet1 saved to {path}")

@@ -237,64 +237,81 @@ class SincConv_fast(nn.Module):
                         padding=self.padding, dilation=self.dilation,
                          bias=None, groups=1) 
 
-class PathologyBranch(nn.Module):
-    def __init__(self, input_dim, output_dim):
-        super(PathologyBranch, self).__init__()
-        self.path_fc = nn.Linear(input_dim, output_dim)
+# ------------- Pathology Extraction -------------
+class PathologicalFeatureExtractor(nn.Module):
+    def __init__(self, in_channels):
+        super(PathologicalFeatureExtractor, self).__init__()
+        self.conv = nn.Conv1d(in_channels, 10, kernel_size=5, stride=1, padding=2)
+        self.relu = nn.ReLU()
 
-    def forward(self, pathology_input):
-        return self.path_fc(pathology_input)
+    def compute_deltas(self, features):
+        delta = features[:, :, 1:] - features[:, :, :-1]
+        delta = F.pad(delta, (1, 0), mode='replicate')
+        delta2 = delta[:, :, 1:] - delta[:, :, :-1]
+        delta2 = F.pad(delta2, (1, 0), mode='replicate')
+        return delta, delta2
+
+    def forward(self, x):
+        x = self.relu(self.conv(x))
+        delta, delta2 = self.compute_deltas(x)
+        return torch.cat([x, delta, delta2], dim=1)
+    
+class PathologyBranch(nn.Module):
+    def __init__(self, in_channels=30):
+        super(PathologyBranch, self).__init__()
+        self.conv1 = nn.Conv1d(in_channels, 32, kernel_size=3, stride=1, padding=1)
+        self.bn1 = nn.BatchNorm1d(32)
+        self.relu = nn.ReLU()
+        self.resblock1 = Residual_block_wFRM([32, 64])
+        self.resblock2 = Residual_block_wFRM([64, 64])
+        self.gru = nn.GRU(input_size=64, hidden_size=64, batch_first=True)
+        self.fc = nn.Linear(64, 128)
+
+    def forward(self, x):
+        x = self.relu(self.bn1(self.conv1(x)))
+        x = self.resblock1(x)
+        x = self.resblock2(x)
+        x = x.permute(0, 2, 1)
+        _, h_n = self.gru(x)
+        out = self.fc(h_n[-1])
+        return out
         
 class RawNet2(nn.Module):
-    def __init__(self, d_args, pathology_dim=None):
+    def __init__(self, d_args):
         super(RawNet2, self).__init__()
-        self.pathology_dim = pathology_dim
-
         self.ln = LayerNorm(d_args['nb_samp'])
-        self.first_conv = SincConv_fast(
-            in_channels=d_args['in_channels'],
-            out_channels=d_args['filts'][0],
-            kernel_size=d_args['first_conv']
-        )
-        self.first_bn = nn.BatchNorm1d(num_features=d_args['filts'][0])
+        self.first_conv = SincConv_fast(in_channels=d_args['in_channels'],
+                                        out_channels=d_args['filts'][0],
+                                        kernel_size=d_args['first_conv'])
+        self.first_bn = nn.BatchNorm1d(d_args['filts'][0])
         self.lrelu_keras = nn.LeakyReLU(negative_slope=0.3)
 
-        self.block0 = nn.Sequential(Residual_block_wFRM(nb_filts=d_args['filts'][1], first=True))
-        self.block1 = nn.Sequential(Residual_block_wFRM(nb_filts=d_args['filts'][1]))
-        self.block2 = nn.Sequential(Residual_block_wFRM(nb_filts=d_args['filts'][2]))
+        self.block0 = nn.Sequential(Residual_block_wFRM(d_args['filts'][1], first=True))
+        self.block1 = nn.Sequential(Residual_block_wFRM(d_args['filts'][1]))
+        self.block2 = nn.Sequential(Residual_block_wFRM(d_args['filts'][2]))
         d_args['filts'][2][0] = d_args['filts'][2][1]
-        self.block3 = nn.Sequential(Residual_block_wFRM(nb_filts=d_args['filts'][2]))
-        self.block4 = nn.Sequential(Residual_block_wFRM(nb_filts=d_args['filts'][2]))
-        self.block5 = nn.Sequential(Residual_block_wFRM(nb_filts=d_args['filts'][2]))
+        self.block3 = nn.Sequential(Residual_block_wFRM(d_args['filts'][2]))
+        self.block4 = nn.Sequential(Residual_block_wFRM(d_args['filts'][2]))
+        self.block5 = nn.Sequential(Residual_block_wFRM(d_args['filts'][2]))
 
         self.avgpool = nn.AdaptiveAvgPool1d(1)
-        self.bn_before_gru = nn.BatchNorm1d(num_features=d_args['filts'][2][-1])
+        self.bn_before_gru = nn.BatchNorm1d(d_args['filts'][2][-1])
+        self.gru = nn.GRU(input_size=d_args['filts'][2][-1],
+                          hidden_size=d_args['gru_node'],
+                          num_layers=d_args['nb_gru_layer'],
+                          batch_first=True)
+        self.fc1_gru = nn.Linear(d_args['gru_node'], d_args['nb_fc_node'])
 
-        self.gru = nn.GRU(
-            input_size=d_args['filts'][2][-1],
-            hidden_size=d_args['gru_node'],
-            num_layers=d_args['nb_gru_layer'],
-            batch_first=True
-        )
+        # New pathology branch
+        self.pathology_extractor = PathologicalFeatureExtractor(d_args['in_channels'])
+        self.pathology_branch = PathologyBranch()
+        self.combined_fc = nn.Linear(d_args['nb_fc_node'] + 128, d_args['nb_fc_node'])
 
-        self.fc1_gru = nn.Linear(
-            in_features=d_args['gru_node'],
-            out_features=d_args['nb_fc_node']
-        )
-
-        if self.pathology_dim is not None:
-            self.pathology_branch = PathologyBranch(pathology_dim, d_args['nb_fc_node'])
-            self.combined_fc = nn.Linear(2 * d_args['nb_fc_node'], d_args['nb_fc_node'])
-
-        self.fc2_gru = nn.Linear(
-            in_features=d_args['nb_fc_node'],
-            out_features=d_args['nb_classes'],
-            bias=True
-        )
-
+        self.fc2_gru = nn.Linear(d_args['nb_fc_node'], d_args['nb_classes'])
         self.sig = nn.Sigmoid()
 
-    def forward(self, x, pathology=None, is_test=False):
+    def forward(self, x, is_test=False):
+        x_orig = x.clone()
         x = self.ln(x)
         x = format_input_waveform(x)
 
@@ -315,17 +332,16 @@ class RawNet2(nn.Module):
 
         self.gru.flatten_parameters()
         x, _ = self.gru(x)
-        x = x[:, -1, :]
+        code = self.fc1_gru(x[:, -1, :])
 
-        code = self.fc1_gru(x)
+        # Pathology extraction from waveform
+        path_feat = self.pathology_extractor(x_orig)
+        path_emb = self.pathology_branch(path_feat)
+        combined = torch.cat((code, path_emb), dim=1)
+        code = self.combined_fc(combined)
 
         if is_test:
             return code
-
-        if self.pathology_dim is not None and pathology is not None:
-            pathology_features = self.pathology_branch(pathology)
-            combined = torch.cat((code, pathology_features), dim=1)
-            code = self.combined_fc(combined)
 
         code_norm = code.norm(p=2, dim=1, keepdim=True) / 10.
         code = torch.div(code, code_norm)

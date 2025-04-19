@@ -7,11 +7,14 @@ from torch.utils.data import Dataset, DataLoader, Subset
 
 # Import RawNet1 components
 from RawNets.RawNet1.model_RawNet1 import RawNet
-from RawNets.RawNet1.trainer_RawNet1 import train_rawnet1_with_loaders, test_rawnet1
+from RawNets.RawNet1.trainer_RawNet1 import train_rawnet1_with_loaders, test_rawnet1, save_model_rawnet1
 
 # Import RawNet2 components
 from RawNets.RawNet2.model_RawNet2 import RawNet2
-from RawNets.RawNet2.trainer_RawNet2 import train_rawnet2_with_loaders, test_rawnet2
+from RawNets.RawNet2.trainer_RawNet2 import train_rawnet2_with_loaders, test_rawnet2, save_model_rawnet2
+
+from RawNets.RawNet3.model_RawNet3 import RawNet3
+from RawNets.RawNet3.trainer_RawNet3 import train_rawnet3_with_loaders, test_rawnet3, save_model_rawnet3
 
 # -----------------------------
 # Reproducibility Setup
@@ -91,9 +94,9 @@ if __name__ == "__main__":
     train_dataset, val_dataset, test_dataset = stratified_split(full_dataset, splits=(0.7, 0.15, 0.15), seed=42)
 
     # DataLoaders
-    train_loader = DataLoader(train_dataset, batch_size=120, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=120, shuffle=False)
-    test_loader = DataLoader(test_dataset, batch_size=120, shuffle=False)
+    train_loader = DataLoader(train_dataset, batch_size=30, shuffle=True)
+    val_loader = DataLoader(val_dataset, batch_size=30, shuffle=False)
+    test_loader = DataLoader(test_dataset, batch_size=30, shuffle=False)
 
     # Initialize model
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -117,11 +120,15 @@ if __name__ == "__main__":
 
     # Train RawNet1
     print("\n=== Training RawNet1 ===")
-    train_rawnet1_with_loaders(model, train_loader, val_loader, device=device, epochs=40, lr=0.001)
+    train_rawnet1_with_loaders(model, train_loader, val_loader, device=device, epochs=20, lr=0.001)
 
     # Test RawNet1
     print("\n--- Testing RawNet1 ---")
     predictions, targets = test_rawnet1(model, test_loader, device=device)
+
+    # Save RawNet1 model
+    print("\n=== Saving RawNet1 Model ===")
+    save_model_rawnet1(model, "./RawNets/RawNet1/pretrained_weights/rawnet1_model.pth")
 
 
     # -----------------------------
@@ -137,16 +144,52 @@ if __name__ == "__main__":
         'nb_gru_layer': 1,
         'nb_fc_node': 1024,
         'nb_classes': 2,
-        'nb_samp': 16000,
-        'pathology_dim': 128
+        'nb_samp': 16000
     }
 
-    model2 = RawNet2(model_config2, pathology_dim=model_config2['pathology_dim']).to(device)
+    model2 = RawNet2(model_config2).to(device)
 
     # Train RawNet2
     print("\n=== Training RawNet2 ===")
-    train_rawnet2_with_loaders(model2, train_loader, val_loader, class_labels=["synthetic voice", "real voice"], device=device, epochs=40, lr=0.001)
+    train_rawnet2_with_loaders(model2, train_loader, val_loader, class_labels=["synthetic voice", "real voice"], device=device, epochs=20, lr=0.001)
 
     # Test RawNet2
     print("\n--- Testing RawNet2 ---")
     predictions2, targets2 = test_rawnet2(model2, test_loader, device=device)
+
+    # Save RawNet2 model
+    print("\n=== Saving RawNet2 Model ===")
+    save_model_rawnet2(model, "./RawNets/RawNet2/pretrained_weights/rawnet2_model.pth")
+
+
+    # -----------------------------
+    # RAWNET3
+    # -----------------------------
+    # Model config for RawNet3
+    model_config3 = {
+        "nOut": 512,              # Output embedding size
+        "sinc_stride": 10,
+        "encoder_type": "ECA",    # or "ASP" if you prefer
+        "log_sinc": True,
+        "norm_sinc": "mean_std",
+        "out_bn": True
+    }
+
+    model3 = RawNet3(**model_config3).to(device)
+
+    # Train RawNet3
+    print("\n=== Training RawNet3 ===")
+    train_rawnet3_with_loaders(model3, train_loader, val_loader,
+                               test_loader=test_loader,
+                               class_labels=["synthetic voice", "real voice"],
+                               device=device, epochs=20, lr=0.001)
+
+    # Test RawNet3
+    print("\n--- Testing RawNet3 ---")
+    predictions3, targets3 = test_rawnet3(model3, test_loader,
+                                          class_labels=["synthetic voice", "real voice"],
+                                          device=device)
+
+    # Save RawNet3 model
+    print("\n=== Saving RawNet3 Model ===")
+    save_model_rawnet3(model, "./RawNets/RawNet3/pretrained_weights/rawnet3_model.pth")
