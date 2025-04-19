@@ -1,17 +1,21 @@
 import os
+import time
 import torch
 import torch.nn as nn
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
-def train_rawnet2_with_loaders(model, train_loader, val_loader=None, test_loader=None, class_labels=None, device="cuda", epochs=40, lr=0.001):
+def train_rawnet2_with_loaders(model, train_loader, val_loader=None, device="cuda", epochs=40, lr=0.001):
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
     model.to(device)
     model.train()
 
+    total_start_time = time.time()
+
     for epoch in range(epochs):
+        start_time = time.time()
         running_loss = 0.0
         for inputs, labels in train_loader:
             inputs, labels = inputs.to(device), labels.to(device)
@@ -33,14 +37,17 @@ def train_rawnet2_with_loaders(model, train_loader, val_loader=None, test_loader
         epoch_loss = running_loss / len(train_loader.dataset)
         print(f"Epoch [{epoch+1}/{epochs}] - Train Loss: {epoch_loss:.4f}")
 
+        epoch_time = time.time() - start_time
+        print(f"              --> Time: {epoch_time:.2f} seconds")
+
         if val_loader:
             val_loss, val_acc = validate_rawnet2(model, val_loader, device)
             print(f"              --> Val Loss: {val_loss:.4f} | Val Acc: {val_acc:.2f}%")
 
     print("Training completed.")
 
-    if test_loader:
-        test_rawnet2(model, test_loader, class_labels, device)
+    total_time = time.time() - total_start_time
+    print(f"\nTotal training time for RawNet2: {total_time:.2f} seconds ({total_time / 60:.2f} minutes)")
 
 def validate_rawnet2(model, val_loader, device="cuda"):
     model.eval()
