@@ -122,7 +122,7 @@ if __name__ == "__main__":
     train_dataset, val_dataset, test_dataset = stratified_split(full_dataset, splits=(0.7, 0.15, 0.15), seed=seed)
 
     # Looping to do some variations on the models' parameters
-    batch_sizes = [8, 16, 32]
+    batch_sizes = [16, 32, 64]
     learning_rates = [0.001, 0.0005, 0.0001]
     epochs = 20
     patience = 5
