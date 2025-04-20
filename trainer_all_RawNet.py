@@ -98,6 +98,8 @@ if __name__ == "__main__":
     # Looping to do some variations on the models' parameters
     batch_sizes = [8, 16, 32]
     learning_rates = [0.001, 0.0005, 0.0001]
+    epochs = 20
+    patience = 5
 
     for batch_size in batch_sizes:
         # DataLoaders
@@ -109,6 +111,8 @@ if __name__ == "__main__":
 
         for lr_idx, learning_rate in enumerate(learning_rates):
             print(f"\n===== Training with Batch Size: {batch_size}, Learning Rate: {learning_rate} =====")
+            
+            parameter_format = f"ep_{epochs}-bs_{batch_size}-lr_{learning_rate}-pa_{patience}"
             # -----------------------------
             # RAWNET1
             # -----------------------------
@@ -129,7 +133,7 @@ if __name__ == "__main__":
             # Train RawNet1
             print("\n=== Training RawNet1 ===")
             train_rawnet1_with_loaders(model, train_loader, val_loader, 
-                                    device=device, epochs=20, lr=learning_rate)
+                                    device=device, epochs=epochs, lr=learning_rate, patience=patience)
 
             # Test RawNet1
             print("\n--- Testing RawNet1 ---")
@@ -137,7 +141,7 @@ if __name__ == "__main__":
 
             # Save RawNet1 model
             print("\n=== Saving RawNet1 Model ===")
-            save_model_rawnet1(model, f"./RawNets/RawNet1/pretrained_weights/rawnet1-bs_{batch_size}-lr_{learning_rate}.pth")
+            save_model_rawnet1(model, f"./RawNets/RawNet1/pretrained_weights/rawnet1-{parameter_format}.pth")
 
 
             # -----------------------------
@@ -161,7 +165,7 @@ if __name__ == "__main__":
             # Train RawNet2
             print("\n=== Training RawNet2 ===")
             train_rawnet2_with_loaders(model2, train_loader, val_loader, 
-                                    device=device, epochs=20, lr=learning_rate)
+                                    device=device, epochs=epochs, lr=learning_rate, patience=patience)
 
             # Test RawNet2
             print("\n--- Testing RawNet2 ---")
@@ -169,7 +173,7 @@ if __name__ == "__main__":
 
             # Save RawNet2 model
             print("\n=== Saving RawNet2 Model ===")
-            save_model_rawnet2(model, f"./RawNets/RawNet2/pretrained_weights/rawnet2-bs_{batch_size}-lr_{learning_rate}.pth")
+            save_model_rawnet2(model, f"./RawNets/RawNet2/pretrained_weights/rawnet2-{parameter_format}.pth")
 
 
             # -----------------------------
@@ -190,7 +194,7 @@ if __name__ == "__main__":
             # Train RawNet3
             print("\n=== Training RawNet3 ===")
             train_rawnet3_with_loaders(model3, train_loader, val_loader,
-                                    device=device, epochs=20, lr=learning_rate)
+                                    device=device, epochs=epochs, lr=learning_rate, patience=patience)
 
             # Test RawNet3
             print("\n--- Testing RawNet3 ---")
@@ -198,4 +202,4 @@ if __name__ == "__main__":
 
             # Save RawNet3 model
             print("\n=== Saving RawNet3 Model ===")
-            save_model_rawnet3(model, f"./RawNets/RawNet3/pretrained_weights/rawnet3-bs_{batch_size}-lr_{learning_rate}.pth")
+            save_model_rawnet3(model, f"./RawNets/RawNet3/pretrained_weights/rawnet3-{parameter_format}.pth")
