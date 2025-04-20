@@ -189,7 +189,7 @@ class SincConv_fast(nn.Module):
         # Hamming window
         #self.window_ = torch.hamming_window(self.kernel_size)
         n_lin=torch.linspace(0, (self.kernel_size/2)-1, steps=int((self.kernel_size/2))) # computing only half of the window
-        self.window_=0.54-0.46*torch.cos(2*math.pi*n_lin/self.kernel_size);
+        self.window_=0.54-0.46*torch.cos(2*math.pi*n_lin/self.kernel_size)
 
         # (1, kernel_size/2)
         n = (self.kernel_size - 1) / 2.0
@@ -237,7 +237,9 @@ class SincConv_fast(nn.Module):
                         padding=self.padding, dilation=self.dilation,
                          bias=None, groups=1) 
 
-# ------------- Pathology Extraction -------------
+# -------------------------
+# Pathology Extraction Modules
+# -------------------------
 class PathologicalFeatureExtractor(nn.Module):
     def __init__(self, in_channels):
         super(PathologicalFeatureExtractor, self).__init__()
@@ -334,7 +336,7 @@ class RawNet2(nn.Module):
         x, _ = self.gru(x)
         code = self.fc1_gru(x[:, -1, :])
 
-        # Pathology extraction from waveform
+        # Pathology integration        
         path_feat = self.pathology_extractor(x_orig)
         path_emb = self.pathology_branch(path_feat)
         combined = torch.cat((code, path_emb), dim=1)

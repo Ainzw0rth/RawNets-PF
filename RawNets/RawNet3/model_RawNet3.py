@@ -240,7 +240,7 @@ class RawNet3Model(nn.Module):
         # Pathology integration
         self.pathology_extractor = PathologicalFeatureExtractor(in_channels=1)
         self.pathology_branch = PathologyBranch()
-        self.final_fc = nn.Linear(nOut + 128, nOut)  # fusion of audio + pathology emb
+        self.final_fc = nn.Linear(nOut + 128, nOut)
 
         self.mp3 = nn.MaxPool1d(3)
 
@@ -304,7 +304,6 @@ class RawNet3Model(nn.Module):
 
         path_feat = self.pathology_extractor(x_orig)
         path_emb = self.pathology_branch(path_feat)
-
         combined = torch.cat((emb, path_emb), dim=1)
         out = self.final_fc(combined)
 

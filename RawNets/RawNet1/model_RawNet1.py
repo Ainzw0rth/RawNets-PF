@@ -2,10 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
-
-from torch.utils import data
 from collections import OrderedDict
-from torch.nn.parameter import Parameter
 
 
 class Residual_block(nn.Module):
@@ -61,6 +58,9 @@ class Residual_block(nn.Module):
 		out = self.mp(out)
 		return out
 
+# -------------------------
+# Pathology Extraction Modules
+# -------------------------
 class PathologicalFeatureExtractor(nn.Module):
 	def __init__(self, in_channels):
 		super(PathologicalFeatureExtractor, self).__init__()
@@ -125,7 +125,8 @@ class RawNet(nn.Module):
 			batch_first = True)
 		self.audio_fc = nn.Linear(in_features = d_args['gru_node'],
 			out_features = d_args['nb_fc_node'])
-
+        
+		# Pathology integration
 		self.pathology_extractor = PathologicalFeatureExtractor(d_args['in_channels'])
 		self.pathology_branch = PathologyBranch(in_channels=30)
 		self.final_fc = nn.Linear(in_features = d_args['nb_fc_node'] + 128,
