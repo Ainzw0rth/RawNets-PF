@@ -104,6 +104,8 @@ def stratified_split(dataset, splits=(0.7, 0.15, 0.15), seed=42):
 # Main Training Script
 # -----------------------------
 if __name__ == "__main__":
+    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+
     # Logger setup
     os.makedirs("logs", exist_ok=True)
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
@@ -122,7 +124,7 @@ if __name__ == "__main__":
     train_dataset, val_dataset, test_dataset = stratified_split(full_dataset, splits=(0.7, 0.15, 0.15), seed=seed)
 
     # Looping to do some variations on the models' parameters
-    batch_sizes = [16, 32, 64]
+    batch_sizes = [128]
     learning_rates = [0.001, 0.0005, 0.0001]
     epochs = 20
     patience = 5
@@ -170,6 +172,10 @@ if __name__ == "__main__":
                 print("\n=== Saving RawNet1 Model ===")
                 save_model_rawnet1(model, f"./RawNets/RawNet1/pretrained_weights/rawnet1-{parameter_format}.pth")
 
+                # Clear CUDA memory
+                torch.cuda.empty_cache()
+                torch.cuda.reset_peak_memory_stats()
+
 
                 # -----------------------------
                 # RAWNET2
@@ -200,7 +206,11 @@ if __name__ == "__main__":
 
                 # Save RawNet2 model
                 print("\n=== Saving RawNet2 Model ===")
-                save_model_rawnet2(model, f"./RawNets/RawNet2/pretrained_weights/rawnet2-{parameter_format}.pth")
+                save_model_rawnet2(model2, f"./RawNets/RawNet2/pretrained_weights/rawnet2-{parameter_format}.pth")
+
+                # Clear CUDA memory
+                torch.cuda.empty_cache()
+                torch.cuda.reset_peak_memory_stats()
 
 
                 # -----------------------------
@@ -229,7 +239,10 @@ if __name__ == "__main__":
 
                 # Save RawNet3 model
                 print("\n=== Saving RawNet3 Model ===")
-                save_model_rawnet3(model, f"./RawNets/RawNet3/pretrained_weights/rawnet3-{parameter_format}.pth")
-    
+                save_model_rawnet3(model3, f"./RawNets/RawNet3/pretrained_weights/rawnet3-{parameter_format}.pth")
+                
+                # Clear CUDA memory
+                torch.cuda.empty_cache()
+                torch.cuda.reset_peak_memory_stats()   
     finally:
         log_file.close()

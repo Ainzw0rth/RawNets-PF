@@ -217,7 +217,7 @@ class RawNet3Model(nn.Module):
             attn_input = 1536 * 3
         else:
             attn_input = 1536
-        print("self.encoder_type", self.encoder_type)
+        # print("self.encoder_type", self.encoder_type)
         if self.encoder_type == "ECA":
             attn_output = 1536
         elif self.encoder_type == "ASP":

@@ -2,6 +2,7 @@ import os
 import time
 import torch
 import torch.nn as nn
+from torch.amp import autocast, GradScaler
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
@@ -12,6 +13,7 @@ def train_rawnet3_with_loaders(model, train_loader, val_loader=None, device="cud
 
     model.to(device)
     model.train()
+    scaler = GradScaler(device=device)
 
     best_val_loss = float("inf")
     patience_counter = 0
@@ -22,12 +24,15 @@ def train_rawnet3_with_loaders(model, train_loader, val_loader=None, device="cud
         running_loss = 0.0
         for inputs, labels in train_loader:
             inputs, labels = inputs.to(device), labels.to(device)
-            outputs = model(inputs)
-            loss = criterion(outputs, labels)
+
+            with autocast(device_type=device):
+                outputs = model(inputs)
+                loss = criterion(outputs, labels)
 
             optimizer.zero_grad()
-            loss.backward()
-            optimizer.step()
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
 
             running_loss += loss.item() * inputs.size(0)
 
