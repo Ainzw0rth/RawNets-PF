@@ -1,7 +1,9 @@
 import os
+import sys
 import numpy as np
 import random
 import torch
+from datetime import datetime
 from collections import defaultdict
 from torch.utils.data import Dataset, DataLoader, Subset
 
@@ -16,6 +18,22 @@ from RawNets.RawNet2.trainer_RawNet2 import train_rawnet2_with_loaders, test_raw
 # Import RawNet3 components
 from RawNets.RawNet3.model_RawNet3 import RawNet3
 from RawNets.RawNet3.trainer_RawNet3 import train_rawnet3_with_loaders, test_rawnet3, save_model_rawnet3
+
+# -----------------------------
+# Logger Setup
+# -----------------------------
+class Logger:
+    def __init__(self, *files):
+        self.files = files
+
+    def write(self, message):
+        for f in self.files:
+            f.write(message)
+            f.flush()
+
+    def flush(self):
+        for f in self.files:
+            f.flush()
 
 # -----------------------------
 # Reproducibility Setup
@@ -86,6 +104,14 @@ def stratified_split(dataset, splits=(0.7, 0.15, 0.15), seed=42):
 # Main Training Script
 # -----------------------------
 if __name__ == "__main__":
+    # Logger setup
+    os.makedirs("logs", exist_ok=True)
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    log_filename = f"logs/train_log_{timestamp}.txt"
+    log_file = open(log_filename, "w")
+    sys.stdout = Logger(sys.stdout, log_file)
+    sys.stderr = Logger(sys.stderr, log_file)
+
     seed = 42
     set_seed(42)
 
@@ -135,9 +161,9 @@ if __name__ == "__main__":
             train_rawnet1_with_loaders(model, train_loader, val_loader, 
                                     device=device, epochs=epochs, lr=learning_rate, patience=patience)
 
-            # Test RawNet1
-            print("\n--- Testing RawNet1 ---")
-            predictions, targets = test_rawnet1(model, test_loader, device=device)
+            # # Test RawNet1
+            # print("\n--- Testing RawNet1 ---")
+            # predictions, targets = test_rawnet1(model, test_loader, device=device)
 
             # Save RawNet1 model
             print("\n=== Saving RawNet1 Model ===")
@@ -167,9 +193,9 @@ if __name__ == "__main__":
             train_rawnet2_with_loaders(model2, train_loader, val_loader, 
                                     device=device, epochs=epochs, lr=learning_rate, patience=patience)
 
-            # Test RawNet2
-            print("\n--- Testing RawNet2 ---")
-            predictions2, targets2 = test_rawnet2(model2, test_loader, device=device)
+            # # Test RawNet2
+            # print("\n--- Testing RawNet2 ---")
+            # predictions2, targets2 = test_rawnet2(model2, test_loader, device=device)
 
             # Save RawNet2 model
             print("\n=== Saving RawNet2 Model ===")
@@ -196,10 +222,12 @@ if __name__ == "__main__":
             train_rawnet3_with_loaders(model3, train_loader, val_loader,
                                     device=device, epochs=epochs, lr=learning_rate, patience=patience)
 
-            # Test RawNet3
-            print("\n--- Testing RawNet3 ---")
-            predictions3, targets3 = test_rawnet3(model3, test_loader, device=device)
+            # # Test RawNet3
+            # print("\n--- Testing RawNet3 ---")
+            # predictions3, targets3 = test_rawnet3(model3, test_loader, device=device)
 
             # Save RawNet3 model
             print("\n=== Saving RawNet3 Model ===")
             save_model_rawnet3(model, f"./RawNets/RawNet3/pretrained_weights/rawnet3-{parameter_format}.pth")
+
+    log_file.close()
