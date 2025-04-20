@@ -86,109 +86,116 @@ def stratified_split(dataset, splits=(0.7, 0.15, 0.15), seed=42):
 # Main Training Script
 # -----------------------------
 if __name__ == "__main__":
+    seed = 42
     set_seed(42)
 
     # Load full dataset
     full_dataset = SegmentedAudioDataset("preprocessed_data/")
 
     # Stratified dataset split
-    train_dataset, val_dataset, test_dataset = stratified_split(full_dataset, splits=(0.7, 0.15, 0.15), seed=42)
+    train_dataset, val_dataset, test_dataset = stratified_split(full_dataset, splits=(0.7, 0.15, 0.15), seed=seed)
 
-    # DataLoaders
-    train_loader = DataLoader(train_dataset, batch_size=30, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=30, shuffle=False)
-    test_loader = DataLoader(test_dataset, batch_size=30, shuffle=False)
+    # Looping to do some variations on the models' parameters
+    batch_sizes = [8, 16, 32]
+    learning_rates = [0.001, 0.0005, 0.0001]
 
-    # Initialize model
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    for batch_size in batch_sizes:
+        # DataLoaders
+        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+        val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+        test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
-    # -----------------------------
-    # RAWNET1
-    # -----------------------------
-    
-    # Model config
-    model_config = {
-        'in_channels': 1,
-        'first_conv': 3,
-        'filts': [128, [128, 128], [128, 256], [256, 256]],
-        'blocks': [2, 4],
-        'gru_node': 1024,
-        'nb_gru_layer': 1,
-        'nb_fc_node': 1024,
-        'nb_classes': 2
-    }
-    model = RawNet(model_config, device).to(device)
+        device = "cuda" if torch.cuda.is_available() else "cpu"
 
-    # Train RawNet1
-    print("\n=== Training RawNet1 ===")
-    train_rawnet1_with_loaders(model, train_loader, val_loader, 
-                               device=device, epochs=20, lr=0.001)
+        for lr_idx, learning_rate in enumerate(learning_rates):
+            print(f"\n===== Training with Batch Size: {batch_size}, Learning Rate: {learning_rate} =====")
+            # -----------------------------
+            # RAWNET1
+            # -----------------------------
+            
+            # Model config
+            model_config = {
+                'in_channels': 1,
+                'first_conv': 3,
+                'filts': [128, [128, 128], [128, 256], [256, 256]],
+                'blocks': [2, 4],
+                'gru_node': 1024,
+                'nb_gru_layer': 1,
+                'nb_fc_node': 1024,
+                'nb_classes': 2
+            }
+            model = RawNet(model_config, device).to(device)
 
-    # Test RawNet1
-    print("\n--- Testing RawNet1 ---")
-    predictions, targets = test_rawnet1(model, test_loader, device=device)
+            # Train RawNet1
+            print("\n=== Training RawNet1 ===")
+            train_rawnet1_with_loaders(model, train_loader, val_loader, 
+                                    device=device, epochs=20, lr=learning_rate)
 
-    # Save RawNet1 model
-    print("\n=== Saving RawNet1 Model ===")
-    save_model_rawnet1(model, "./RawNets/RawNet1/pretrained_weights/rawnet1_model.pth")
+            # Test RawNet1
+            print("\n--- Testing RawNet1 ---")
+            predictions, targets = test_rawnet1(model, test_loader, device=device)
 
-
-    # -----------------------------
-    # RAWNET2
-    # -----------------------------
-    # Model config for RawNet2
-    model_config2 = {
-        'in_channels': 1,
-        'first_conv': 3,
-        'filts': [128, [128, 128], [128, 256], [256, 256]],
-        'blocks': [2, 4],
-        'gru_node': 1024,
-        'nb_gru_layer': 1,
-        'nb_fc_node': 1024,
-        'nb_classes': 2,
-        'nb_samp': 16000
-    }
-
-    model2 = RawNet2(model_config2).to(device)
-
-    # Train RawNet2
-    print("\n=== Training RawNet2 ===")
-    train_rawnet2_with_loaders(model2, train_loader, val_loader, 
-                               device=device, epochs=20, lr=0.001)
-
-    # Test RawNet2
-    print("\n--- Testing RawNet2 ---")
-    predictions2, targets2 = test_rawnet2(model2, test_loader, device=device)
-
-    # Save RawNet2 model
-    print("\n=== Saving RawNet2 Model ===")
-    save_model_rawnet2(model, "./RawNets/RawNet2/pretrained_weights/rawnet2_model.pth")
+            # Save RawNet1 model
+            print("\n=== Saving RawNet1 Model ===")
+            save_model_rawnet1(model, f"./RawNets/RawNet1/pretrained_weights/rawnet1-bs_{batch_size}-lr_{learning_rate}.pth")
 
 
-    # -----------------------------
-    # RAWNET3
-    # -----------------------------
-    # Model config for RawNet3
-    model_config3 = {
-        "nOut": 512,
-        "sinc_stride": 10,
-        "encoder_type": "ECA",
-        "log_sinc": True,
-        "norm_sinc": "mean_std",
-        "out_bn": True
-    }
+            # -----------------------------
+            # RAWNET2
+            # -----------------------------
+            # Model config for RawNet2
+            model_config2 = {
+                'in_channels': 1,
+                'first_conv': 3,
+                'filts': [128, [128, 128], [128, 256], [256, 256]],
+                'blocks': [2, 4],
+                'gru_node': 1024,
+                'nb_gru_layer': 1,
+                'nb_fc_node': 1024,
+                'nb_classes': 2,
+                'nb_samp': 16000
+            }
 
-    model3 = RawNet3(**model_config3).to(device)
+            model2 = RawNet2(model_config2).to(device)
 
-    # Train RawNet3
-    print("\n=== Training RawNet3 ===")
-    train_rawnet3_with_loaders(model3, train_loader, val_loader,
-                               device=device, epochs=20, lr=0.001)
+            # Train RawNet2
+            print("\n=== Training RawNet2 ===")
+            train_rawnet2_with_loaders(model2, train_loader, val_loader, 
+                                    device=device, epochs=20, lr=learning_rate)
 
-    # Test RawNet3
-    print("\n--- Testing RawNet3 ---")
-    predictions3, targets3 = test_rawnet3(model3, test_loader, device=device)
+            # Test RawNet2
+            print("\n--- Testing RawNet2 ---")
+            predictions2, targets2 = test_rawnet2(model2, test_loader, device=device)
 
-    # Save RawNet3 model
-    print("\n=== Saving RawNet3 Model ===")
-    save_model_rawnet3(model, "./RawNets/RawNet3/pretrained_weights/rawnet3_model.pth")
+            # Save RawNet2 model
+            print("\n=== Saving RawNet2 Model ===")
+            save_model_rawnet2(model, f"./RawNets/RawNet2/pretrained_weights/rawnet2-bs_{batch_size}-lr_{learning_rate}.pth")
+
+
+            # -----------------------------
+            # RAWNET3
+            # -----------------------------
+            # Model config for RawNet3
+            model_config3 = {
+                "nOut": 512,
+                "sinc_stride": 10,
+                "encoder_type": "ECA",
+                "log_sinc": True,
+                "norm_sinc": "mean_std",
+                "out_bn": True
+            }
+
+            model3 = RawNet3(**model_config3).to(device)
+
+            # Train RawNet3
+            print("\n=== Training RawNet3 ===")
+            train_rawnet3_with_loaders(model3, train_loader, val_loader,
+                                    device=device, epochs=20, lr=learning_rate)
+
+            # Test RawNet3
+            print("\n--- Testing RawNet3 ---")
+            predictions3, targets3 = test_rawnet3(model3, test_loader, device=device)
+
+            # Save RawNet3 model
+            print("\n=== Saving RawNet3 Model ===")
+            save_model_rawnet3(model, f"./RawNets/RawNet3/pretrained_weights/rawnet3-bs_{batch_size}-lr_{learning_rate}.pth")

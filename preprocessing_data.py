@@ -5,7 +5,8 @@ import torch
 
 DB_PATH = "DB/"
 SAVE_PATH = "preprocessed_data/"
-NB_TIME = 16000 * 1  # 1 second (modify as needed)
+SECONDS = 1  # Number of seconds to process
+NB_TIME = 16000 * SECONDS 
 SEGMENT_STRIDE = NB_TIME // 2  # 50% overlap
 
 # Make sure the correct backend is used for decoding mp3

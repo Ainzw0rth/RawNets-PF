@@ -5,7 +5,7 @@ import torch.nn as nn
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
-def train_rawnet3_with_loaders(model, train_loader, val_loader=None, device="cuda", epochs=40, lr=0.001):
+def train_rawnet3_with_loaders(model, train_loader, val_loader=None, device="cuda", epochs=20, lr=0.001, patience=5):
     torch.autograd.set_detect_anomaly(True)
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
@@ -13,6 +13,8 @@ def train_rawnet3_with_loaders(model, train_loader, val_loader=None, device="cud
     model.to(device)
     model.train()
 
+    best_val_loss = float("inf")
+    patience_counter = 0
     total_start_time = time.time()
 
     for epoch in range(epochs):
@@ -20,8 +22,6 @@ def train_rawnet3_with_loaders(model, train_loader, val_loader=None, device="cud
         running_loss = 0.0
         for inputs, labels in train_loader:
             inputs, labels = inputs.to(device), labels.to(device)
-            outputs = model(inputs)  # RawNet3 expects (B, T)
-
             outputs = model(inputs)
             loss = criterion(outputs, labels)
 
@@ -40,6 +40,16 @@ def train_rawnet3_with_loaders(model, train_loader, val_loader=None, device="cud
         if val_loader:
             val_loss, val_acc = validate_rawnet3(model, val_loader, device)
             print(f"              --> Val Loss: {val_loss:.4f} | Val Acc: {val_acc:.2f}%")
+
+            if val_loss < best_val_loss:
+                best_val_loss = val_loss
+                patience_counter = 0
+            else:
+                patience_counter += 1
+                print(f"              --> Patience: {patience_counter}/{patience}")
+                if patience_counter >= patience:
+                    print("Early stopping triggered.")
+                    break
             
         torch.cuda.empty_cache()
 
