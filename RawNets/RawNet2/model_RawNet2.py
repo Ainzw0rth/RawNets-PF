@@ -241,8 +241,14 @@ class SincConv_fast(nn.Module):
 # Pathology Extraction Modules
 # -------------------------
 class PathologicalFeatureExtractor(nn.Module):
-    def __init__(self, in_channels):
+    def __init__(self, in_channels, downsample_kernel, downsample_stride):
         super(PathologicalFeatureExtractor, self).__init__()
+        self.pre_downsample = nn.Conv1d(
+            in_channels, in_channels,
+            kernel_size=downsample_kernel,
+            stride=downsample_stride,
+            padding=0
+        )
         self.conv = nn.Conv1d(in_channels, 10, kernel_size=5, stride=1, padding=2)
         self.relu = nn.ReLU()
 
@@ -254,9 +260,10 @@ class PathologicalFeatureExtractor(nn.Module):
         return delta, delta2
 
     def forward(self, x):
-        x = self.relu(self.conv(x))
+        x = self.pre_downsample(x)
+        x = self.relu(self.conv(x))  # [B, 10, T']
         delta, delta2 = self.compute_deltas(x)
-        return torch.cat([x, delta, delta2], dim=1)
+        return torch.cat([x, delta, delta2], dim=1)  # [B, 30, T']
     
 class PathologyBranch(nn.Module):
     def __init__(self, in_channels=30):
@@ -288,7 +295,15 @@ class RawNet2(nn.Module):
         self.first_bn = nn.BatchNorm1d(d_args['filts'][0])
         self.lrelu_keras = nn.LeakyReLU(negative_slope=0.3)
 
-        self.block0 = nn.Sequential(Residual_block_wFRM(d_args['filts'][1], first=True))
+        self.pathology_extractor = PathologicalFeatureExtractor(
+            in_channels=d_args['in_channels'],
+            downsample_kernel=d_args['first_conv'],
+            downsample_stride=d_args['first_conv']
+        )
+        
+        self.block0 = nn.Sequential(
+            Residual_block_wFRM([d_args['filts'][0] + 30, d_args['filts'][1][1]], first=True)
+        )        
         self.block1 = nn.Sequential(Residual_block_wFRM(d_args['filts'][1]))
         self.block2 = nn.Sequential(Residual_block_wFRM(d_args['filts'][2]))
         d_args['filts'][2][0] = d_args['filts'][2][1]
@@ -304,11 +319,6 @@ class RawNet2(nn.Module):
                           batch_first=True)
         self.fc1_gru = nn.Linear(d_args['gru_node'], d_args['nb_fc_node'])
 
-        # New pathology branch
-        self.pathology_extractor = PathologicalFeatureExtractor(d_args['in_channels'])
-        self.pathology_branch = PathologyBranch()
-        self.combined_fc = nn.Linear(d_args['nb_fc_node'] + 128, d_args['nb_fc_node'])
-
         self.fc2_gru = nn.Linear(d_args['nb_fc_node'], d_args['nb_classes'])
         self.sig = nn.Sigmoid()
 
@@ -320,6 +330,15 @@ class RawNet2(nn.Module):
         x = F.max_pool1d(torch.abs(self.first_conv(x)), 3)
         x = self.first_bn(x)
         x = self.lrelu_keras(x)
+
+        path_feat = self.pathology_extractor(format_input_waveform(x_orig))
+
+        if path_feat.shape[2] != x.shape[2]:
+            min_len = min(path_feat.shape[2], x.shape[2])
+            x = x[:, :, :min_len]
+            path_feat = path_feat[:, :, :min_len]
+
+        x = torch.cat([x, path_feat], dim=1)
 
         x = self.block0(x)
         x = self.block1(x)
@@ -335,12 +354,6 @@ class RawNet2(nn.Module):
         self.gru.flatten_parameters()
         x, _ = self.gru(x)
         code = self.fc1_gru(x[:, -1, :])
-
-        # Pathology integration        
-        path_feat = self.pathology_extractor(x_orig)
-        path_emb = self.pathology_branch(path_feat)
-        combined = torch.cat((code, path_emb), dim=1)
-        code = self.combined_fc(combined)
 
         if is_test:
             return code

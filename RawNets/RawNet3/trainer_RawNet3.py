@@ -25,7 +25,7 @@ def train_rawnet3_with_loaders(model, train_loader, val_loader=None, device="cud
         for inputs, labels in train_loader:
             inputs, labels = inputs.to(device), labels.to(device)
 
-            with autocast(device_type=device):
+            with autocast(enabled=True, dtype=torch.bfloat16 , cache_enabled=True, device_type=device):
                 outputs = model(inputs)
                 loss = criterion(outputs, labels)
 

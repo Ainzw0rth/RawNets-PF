@@ -149,8 +149,14 @@ class Bottle2neck(nn.Module):
 # Pathology Extraction Modules
 # -------------------------
 class PathologicalFeatureExtractor(nn.Module):
-    def __init__(self, in_channels):
+    def __init__(self, in_channels, downsample_kernel, downsample_stride):
         super(PathologicalFeatureExtractor, self).__init__()
+        self.pre_downsample = nn.Conv1d(
+            in_channels, in_channels,
+            kernel_size=downsample_kernel,
+            stride=downsample_stride,
+            padding=0
+        )
         self.conv = nn.Conv1d(in_channels, 10, kernel_size=5, stride=1, padding=2)
         self.relu = nn.ReLU()
 
@@ -162,9 +168,10 @@ class PathologicalFeatureExtractor(nn.Module):
         return delta, delta2
 
     def forward(self, x):
+        x = self.pre_downsample(x)
         x = self.relu(self.conv(x))
         delta, delta2 = self.compute_deltas(x)
-        return torch.cat([x, delta, delta2], dim=1)
+        return torch.cat([x, delta, delta2], dim=1)  # shape [B, 30, T']
 
 class PathologyBranch(nn.Module):
     def __init__(self, in_channels=30):
@@ -208,7 +215,13 @@ class RawNet3Model(nn.Module):
         self.relu = nn.ReLU()
         self.bn1 = nn.BatchNorm1d(C // 4)
 
-        self.layer1 = block(C // 4, C, kernel_size=3, dilation=2, scale=model_scale, pool=5)
+        self.pathology_extractor = PathologicalFeatureExtractor(
+            in_channels=1,
+            downsample_kernel=251,
+            downsample_stride=kwargs["sinc_stride"]
+        )
+
+        self.layer1 = block(C // 4 + 30, C, kernel_size=3, dilation=2, scale=model_scale, pool=5)
         self.layer2 = block(C, C, kernel_size=3, dilation=3, scale=model_scale, pool=3)
         self.layer3 = block(C, C, kernel_size=3, dilation=4, scale=model_scale)
         self.layer4 = nn.Conv1d(3 * C, 1536, kernel_size=1)
@@ -234,14 +247,8 @@ class RawNet3Model(nn.Module):
         )
 
         self.bn5 = nn.BatchNorm1d(3072)
-        self.embedding_fc = nn.Linear(3072, nOut)
+        self.fc6 = nn.Linear(3072, nOut)
         self.bn6 = nn.BatchNorm1d(nOut)
-
-        # Pathology integration
-        self.pathology_extractor = PathologicalFeatureExtractor(in_channels=1)
-        self.pathology_branch = PathologyBranch()
-        self.final_fc = nn.Linear(nOut + 128, nOut)
-
         self.mp3 = nn.MaxPool1d(3)
 
     def forward(self, x):
@@ -262,6 +269,13 @@ class RawNet3Model(nn.Module):
                 s = torch.std(x, dim=-1, keepdim=True)
                 s = torch.clamp(s, min=0.001)
                 x = (x - m) / s
+                path_feat = self.pathology_extractor(x_orig)
+
+        if path_feat.shape[2] != x.shape[2]:
+            min_len = min(path_feat.shape[2], x.shape[2])
+            x = x[:, :, :min_len]
+            path_feat = path_feat[:, :, :min_len]
+        x = torch.cat((x, path_feat), dim=1)
 
         if self.summed:
             x1 = self.layer1(x)
@@ -297,17 +311,12 @@ class RawNet3Model(nn.Module):
         x = torch.cat((mu, sg), 1)
         x = self.bn5(x)
 
-        emb = self.embedding_fc(x)  # (B, nOut)
+        x = self.fc6(x)  # (B, nOut)
 
         if self.out_bn:
-            emb = self.bn6(emb)
+            x = self.bn6(x)
 
-        path_feat = self.pathology_extractor(x_orig)
-        path_emb = self.pathology_branch(path_feat)
-        combined = torch.cat((emb, path_emb), dim=1)
-        out = self.final_fc(combined)
-
-        return out
+        return x
 
 
 def RawNet3(**kwargs):

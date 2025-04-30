@@ -62,8 +62,14 @@ class Residual_block(nn.Module):
 # Pathology Extraction Modules
 # -------------------------
 class PathologicalFeatureExtractor(nn.Module):
-	def __init__(self, in_channels):
+	def __init__(self, in_channels, downsample_kernel, downsample_stride):
 		super(PathologicalFeatureExtractor, self).__init__()
+		self.pre_downsample = nn.Conv1d(
+			in_channels, in_channels,
+			kernel_size=downsample_kernel,
+			stride=downsample_stride,
+			padding=0
+		)
 		self.conv = nn.Conv1d(in_channels, 10, kernel_size=5, stride=1, padding=2)
 		self.relu = nn.ReLU()
 
@@ -75,30 +81,11 @@ class PathologicalFeatureExtractor(nn.Module):
 		return delta, delta2
 
 	def forward(self, x):
-		x = self.relu(self.conv(x))  # [B, 10, T]
+		x = self.pre_downsample(x)
+		x = self.relu(self.conv(x))  # [B, 10, T']
 		delta, delta2 = self.compute_deltas(x)
-		return torch.cat([x, delta, delta2], dim=1)  # [B, 30, T]
+		return torch.cat([x, delta, delta2], dim=1)  # [B, 30, T']
 
-class PathologyBranch(nn.Module):
-    def __init__(self, in_channels=30):
-        super(PathologyBranch, self).__init__()
-        self.conv1 = nn.Conv1d(in_channels, 32, kernel_size=3, stride=1, padding=1)
-        self.bn1 = nn.BatchNorm1d(32)
-        self.relu = nn.ReLU()
-        self.resblock1 = Residual_block([32, 64])
-        self.resblock2 = Residual_block([64, 64])
-        self.gru = nn.GRU(input_size=64, hidden_size=64, batch_first=True)
-        self.fc = nn.Linear(64, 128)
-
-    def forward(self, x):
-        x = self.relu(self.bn1(self.conv1(x)))
-        x = self.resblock1(x)
-        x = self.resblock2(x)
-        x = x.permute(0, 2, 1)  # (B, C, T) → (B, T, C)
-        _, h_n = self.gru(x)
-        out = self.fc(h_n[-1])
-        return out
-	
 class RawNet(nn.Module):
 	def __init__(self, d_args, device):
 		super(RawNet, self).__init__()
@@ -112,8 +99,15 @@ class RawNet(nn.Module):
 		self.lrelu = nn.LeakyReLU()
 		self.lrelu_keras = nn.LeakyReLU(negative_slope = 0.3)
 
+		# Pathology feature extractor
+		self.pathology_extractor = PathologicalFeatureExtractor(
+			in_channels=d_args['in_channels'],
+			downsample_kernel=d_args['first_conv'],
+			downsample_stride=d_args['first_conv']
+		)
+
 		self.block0 = self._make_layer(nb_blocks = d_args['blocks'][0],
-			nb_filts = d_args['filts'][1],
+			nb_filts=[d_args['filts'][0] + 30, d_args['filts'][1][1]],
 			first = True)
 		self.block1 = self._make_layer(nb_blocks = d_args['blocks'][1],
 			nb_filts = d_args['filts'][2])
@@ -125,17 +119,21 @@ class RawNet(nn.Module):
 			batch_first = True)
 		self.audio_fc = nn.Linear(in_features = d_args['gru_node'],
 			out_features = d_args['nb_fc_node'])
-        
-		# Pathology integration
-		self.pathology_extractor = PathologicalFeatureExtractor(d_args['in_channels'])
-		self.pathology_branch = PathologyBranch(in_channels=30)
-		self.final_fc = nn.Linear(in_features = d_args['nb_fc_node'] + 128,
-			out_features = d_args['nb_classes'])
+		
+		self.final_fc = nn.Linear(in_features=d_args['nb_fc_node'],
+								  out_features=d_args['nb_classes'])
 
 	def forward(self, audio, is_test=False):
 		x = self.first_conv(audio)
 		x = self.first_bn(x)
 		x = self.lrelu_keras(x)
+
+		# Extract pathological features
+		path_feat = self.pathology_extractor(audio)  # Pathology extractor now expects 128 input channels!
+
+		# Concatenate along channel dimension
+		x = torch.cat([x, path_feat], dim=1)  # [B, 128 + 30, T']
+
 		x = self.block0(x)
 		x = self.block1(x)
 		x = self.bn_before_gru(x)
@@ -144,14 +142,10 @@ class RawNet(nn.Module):
 		x, _ = self.gru(x)
 		audio_emb = self.audio_fc(x[:, -1, :])
 
-		path_feat = self.pathology_extractor(audio)
-		path_emb = self.pathology_branch(path_feat)
-		combined = torch.cat((audio_emb, path_emb), dim=1)
-
 		if is_test:
-			return combined
+			return audio_emb
 
-		normed = combined / (combined.norm(p=2, dim=1, keepdim=True) + 1e-8) * 10
+		normed = audio_emb / (audio_emb.norm(p=2, dim=1, keepdim=True) + 1e-8) * 10
 		out = self.final_fc(normed)
 		return out
 		'''

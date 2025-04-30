@@ -30,7 +30,7 @@ def train_rawnet2_with_loaders(model, train_loader, val_loader=None, device="cud
             elif inputs.dim() == 3 and inputs.shape[1] != 1:
                 inputs = inputs.permute(0, 2, 1)
 
-            with autocast(device_type=device):
+            with autocast(enabled=True, dtype=torch.bfloat16 , cache_enabled=True, device_type=device):
                 outputs = model(inputs)
                 loss = criterion(outputs, labels)
 
