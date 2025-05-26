@@ -1,4 +1,5 @@
 __pycache__/
 
-DB/
+dataset/
 preprocessed_data/
+rawnet-pf/

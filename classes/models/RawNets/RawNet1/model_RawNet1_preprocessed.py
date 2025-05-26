@@ -3,7 +3,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 from collections import OrderedDict
-from Models.PathologicalFeature.PathologicalFeatureExtractor import PathologicalFeatureExtractor
 
 class Residual_block(nn.Module):
 	def __init__(self, nb_filts, first = False):
@@ -62,21 +61,18 @@ class RawNet(nn.Module):
 	def __init__(self, d_args, device):
 		super(RawNet, self).__init__()
 		#self.negative_k = d_args['negative_k']
-		self.first_conv = nn.Conv1d(in_channels = d_args['in_channels'],
-			out_channels = d_args['filts'][0],#128
-			kernel_size = d_args['first_conv'],#3
-			padding = 0,
-			stride = d_args['first_conv'])
+		self.first_conv = nn.Conv1d(in_channels=1,  # because we now have 1 channel
+									out_channels=d_args['filts'][0],
+									kernel_size=d_args['first_conv'],
+									padding=0,
+									stride=d_args['first_conv'])
 		self.first_bn = nn.BatchNorm1d(num_features = d_args['filts'][0])
 		self.lrelu = nn.LeakyReLU()
 		self.lrelu_keras = nn.LeakyReLU(negative_slope = 0.3)
 
-		# Pathology feature extractor
-		self.pathology_extractor = PathologicalFeatureExtractor()
-
-		self.block0 = self._make_layer(nb_blocks = d_args['blocks'][0],
-			nb_filts=[d_args['filts'][0] + 30, d_args['filts'][1][1]],
-			first = True)
+		self.block0 = self._make_layer(nb_blocks=d_args['blocks'][0],
+									nb_filts=[d_args['filts'][0], d_args['filts'][1][1]],
+									first=True)
 		self.block1 = self._make_layer(nb_blocks = d_args['blocks'][1],
 			nb_filts = d_args['filts'][2])
 
@@ -91,16 +87,11 @@ class RawNet(nn.Module):
 		self.final_fc = nn.Linear(in_features=d_args['nb_fc_node'],
 								  out_features=d_args['nb_classes'])
 
-	def forward(self, audio, is_test=False):
-		x = self.first_conv(audio)
+	def forward(self, features, is_test=False):
+		x = features.unsqueeze(1)  # [B, 1, 16030]
+		x = self.first_conv(x)
 		x = self.first_bn(x)
 		x = self.lrelu_keras(x)
-
-		# Extract pathological features
-		path_feat = self.pathology_extractor(audio)  # Pathology extractor now expects 128 input channels!
-
-		# Concatenate along channel dimension
-		x = torch.cat([x, path_feat], dim=1)  # [B, 128 + 30, T']
 
 		x = self.block0(x)
 		x = self.block1(x)

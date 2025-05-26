@@ -2,7 +2,7 @@ import os
 import time
 import torch
 import torch.nn as nn
-from torch.amp import autocast, GradScaler
+from torch.cuda.amp import autocast, GradScaler
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
@@ -25,12 +25,7 @@ def train_rawnet1_with_loaders(model, train_loader, val_loader=None, device="cud
         for inputs, labels in train_loader:
             inputs, labels = inputs.to(device), labels.to(device)
 
-            if inputs.dim() == 2:
-                inputs = inputs.unsqueeze(1)
-            elif inputs.dim() == 3 and inputs.shape[1] != 1:
-                inputs = inputs.permute(0, 2, 1)
-            
-            with autocast(enabled=True, dtype=torch.bfloat16 , cache_enabled=True, device_type=device):
+            with autocast(enabled=True, dtype=torch.bfloat16, cache_enabled=True, device_type=device):
                 outputs = model(inputs)
                 loss = criterion(outputs, labels)
 
@@ -43,9 +38,7 @@ def train_rawnet1_with_loaders(model, train_loader, val_loader=None, device="cud
 
         epoch_loss = running_loss / len(train_loader.dataset)
         print(f"Epoch [{epoch+1}/{epochs}] - Train Loss: {epoch_loss:.4f}")
-
-        epoch_time = time.time() - start_time
-        print(f"              --> Time: {epoch_time:.2f} seconds")
+        print(f"              --> Time: {time.time() - start_time:.2f} seconds")
 
         if val_loader:
             val_loss, val_acc = validate_rawnet1(model, val_loader, device)
@@ -60,11 +53,10 @@ def train_rawnet1_with_loaders(model, train_loader, val_loader=None, device="cud
                 if patience_counter >= patience:
                     print("Early stopping triggered.")
                     break
-            
+
         torch.cuda.empty_cache()
 
     print("Training completed.")
-
     total_time = time.time() - total_start_time
     print(f"\nTotal training time for RawNet1: {total_time:.2f} seconds ({total_time / 60:.2f} minutes)")
 
@@ -78,17 +70,10 @@ def validate_rawnet1(model, val_loader, device="cuda"):
     with torch.no_grad():
         for inputs, labels in val_loader:
             inputs, labels = inputs.to(device), labels.to(device)
-
-            if inputs.dim() == 2:
-                inputs = inputs.unsqueeze(1)
-            elif inputs.dim() == 3 and inputs.shape[1] != 1:
-                inputs = inputs.permute(0, 2, 1)
-
             outputs = model(inputs)
-
             loss = criterion(outputs, labels)
-            running_loss += loss.item() * inputs.size(0)
 
+            running_loss += loss.item() * inputs.size(0)
             _, predicted = torch.max(outputs, 1)
             correct += (predicted == labels).sum().item()
             total += labels.size(0)
@@ -108,12 +93,6 @@ def test_rawnet1(model, test_loader, device="cuda"):
     with torch.no_grad():
         for inputs, labels in test_loader:
             inputs, labels = inputs.to(device), labels.to(device)
-
-            if inputs.dim() == 2:
-                inputs = inputs.unsqueeze(1)
-            elif inputs.dim() == 3 and inputs.shape[1] != 1:
-                inputs = inputs.permute(0, 2, 1)
-
             outputs = model(inputs)
             _, predicted = torch.max(outputs, 1)
 

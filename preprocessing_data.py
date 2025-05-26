@@ -1,62 +1,65 @@
 import os
-import numpy as np
-import torchaudio
+import csv
 import torch
+import torchaudio
+from  classes.models.PathologicalFeature.PathologicalFeatureExtractor import PathologicalFeatureExtractor
 
-DB_PATH = "DB/"
-SAVE_PATH = "preprocessed_data/"
-SECONDS = 1  # Number of seconds to process
+DB_PATH = "dataset/"
+TSV_PATH = "preprocessed_data/features.tsv"
+SECONDS = 1                                     # Number of seconds to process
 NB_TIME = 16000 * SECONDS 
-SEGMENT_STRIDE = NB_TIME // 2  # 50% overlap
+SEGMENT_STRIDE = NB_TIME // 2                   # 50% overlap
 
 # Make sure the correct backend is used for decoding mp3
-torchaudio.set_audio_backend("sox_io")  # or "ffmpeg" if installed and preferred
+torchaudio.set_audio_backend("soundfile")
 
-os.makedirs(SAVE_PATH, exist_ok=True)
+extractor = PathologicalFeatureExtractor()
 
-for subfolder in ["synthetic voice", "real voice"]:
-    folder_path = os.path.join(DB_PATH, subfolder)
-    save_folder = os.path.join(SAVE_PATH, subfolder)
-    os.makedirs(save_folder, exist_ok=True)
+rows = []
 
-    for file_name in os.listdir(folder_path):
-        if file_name.endswith((".wav", ".mp3")):  # support both formats
-            file_path = os.path.join(folder_path, file_name)
-            waveform, sample_rate = torchaudio.load(file_path)
+for label in ["Spoof", "Bonafide"]:
+    label_path = os.path.join(DB_PATH, label)
+    for model_name in os.listdir(label_path):
+        model_path = os.path.join(label_path, model_name)
+        if not os.path.isdir(model_path):
+            continue
 
-            # Resample if not 16kHz
-            if sample_rate != 16000:
-                resampler = torchaudio.transforms.Resample(orig_freq=sample_rate, new_freq=16000)
-                waveform = resampler(waveform)
+        for file_name in os.listdir(model_path):
+            if not file_name.endswith(".wav"):
+                continue
 
-            # Convert to mono if stereo
-            if waveform.size(0) > 1:
-                waveform = torch.mean(waveform, dim=0, keepdim=True)
+            file_path = os.path.normpath(os.path.join(model_path, file_name))
 
-            waveform = waveform[0]  # Flatten (1, T) to (T,)
+            try:
+                waveform, sr = torchaudio.load(file_path)
+                if waveform.shape[0] > 1:
+                    waveform = waveform.mean(dim=0, keepdim=True)
+                waveform = waveform.squeeze(0)  # [T]
+                T = waveform.shape[0]
 
-            # Normalize to [-1, 1]
-            waveform = waveform / (torch.max(torch.abs(waveform)) + 1e-9)
+                # Extract patho features
+                patho_feat = extractor(file_path).float()  # [30]
 
-            # Convert to numpy
-            audio_np = waveform.numpy()
+                # Segment waveform + concat
+                segment_index = 0
+                for start in range(0, T - NB_TIME + 1, SEGMENT_STRIDE):
+                    segment = waveform[start:start + NB_TIME]
+                    combined = torch.cat([segment, patho_feat], dim=0)  # [16030]
 
-            # Process in fixed-length overlapping segments
-            num_segments = (len(audio_np) - NB_TIME) // SEGMENT_STRIDE + 1
-            segment_count = 0
+                    # Save as row: [feature_list_str, file_name]
+                    feature_list = combined.tolist()
+                    rows.append({
+                        "features": str(feature_list),  # stored as stringified list
+                        "path": file_name,
+                        "segment": segment_index
+                    })
 
-            for i in range(num_segments):
-                start_idx = i * SEGMENT_STRIDE
-                end_idx = start_idx + NB_TIME
+            except Exception as e:
+                print(f"[ERROR] {file_path}: {e}")
 
-                if end_idx <= len(audio_np):
-                    segment = audio_np[start_idx:end_idx]  # 1D segment
-
-                    # Save as .npy with segment numbering
-                    base_name = os.path.splitext(file_name)[0]
-                    segment_filename = f"{base_name}_{segment_count}.npy"
-                    np.save(os.path.join(save_folder, segment_filename), segment)
-
-                    segment_count += 1
-
-            print(f"Processed {file_name}: {segment_count} segments")
+# Save features
+os.makedirs(os.path.dirname(TSV_PATH), exist_ok=True)
+with open(TSV_PATH, mode='w', newline='') as tsvfile:
+    writer = csv.DictWriter(tsvfile, fieldnames=["features", "path", "segment"], delimiter='\t')
+    writer.writeheader()
+    writer.writerows(rows)

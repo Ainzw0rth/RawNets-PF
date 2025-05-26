@@ -6,18 +6,19 @@ import torch
 from datetime import datetime
 from collections import defaultdict
 from torch.utils.data import Dataset, DataLoader, Subset
+from classes.FeatureDataset.FeatureDataset import FeatureDataset
 
 # Import RawNet1 components
-from RawNets.RawNet1.model_RawNet1 import RawNet
-from RawNets.RawNet1.trainer_RawNet1 import train_rawnet1_with_loaders, test_rawnet1, save_model_rawnet1
+from classes.models.RawNets.RawNet1.model_RawNet1 import RawNet
+from classes.models.RawNets.RawNet1.trainer_RawNet1 import train_rawnet1_with_loaders, test_rawnet1, save_model_rawnet1
 
 # Import RawNet2 components
-from RawNets.RawNet2.model_RawNet2 import RawNet2
-from RawNets.RawNet2.trainer_RawNet2 import train_rawnet2_with_loaders, test_rawnet2, save_model_rawnet2
+from classes.models.RawNets.RawNet2.model_RawNet2 import RawNet2
+from classes.models.RawNets.RawNet2.trainer_RawNet2 import train_rawnet2_with_loaders, test_rawnet2, save_model_rawnet2
 
 # Import RawNet3 components
-from RawNets.RawNet3.model_RawNet3 import RawNet3
-from RawNets.RawNet3.trainer_RawNet3 import train_rawnet3_with_loaders, test_rawnet3, save_model_rawnet3
+from classes.models.RawNets.RawNet3.model_RawNet3 import RawNet3
+from classes.models.RawNets.RawNet3.trainer_RawNet3 import train_rawnet3_with_loaders, test_rawnet3, save_model_rawnet3
 
 # -----------------------------
 # Logger Setup
@@ -118,7 +119,7 @@ if __name__ == "__main__":
     set_seed(42)
 
     # Load full dataset
-    full_dataset = SegmentedAudioDataset("preprocessed_data/")
+    full_dataset = FeatureDataset(tsv_path="preprocessed_data/features.tsv")
 
     # Stratified dataset split
     train_dataset, val_dataset, test_dataset = stratified_split(full_dataset, splits=(0.7, 0.15, 0.15), seed=seed)
@@ -170,79 +171,79 @@ if __name__ == "__main__":
 
                 # Save RawNet1 model
                 print("\n=== Saving RawNet1 Model ===")
-                save_model_rawnet1(model, f"./RawNets/RawNet1/pretrained_weights/rawnet1-{parameter_format}.pth")
+                save_model_rawnet1(model, f"./models/RawNets/RawNet1/pretrained_weights/rawnet1-{parameter_format}.pth")
 
                 # Clear CUDA memory
                 torch.cuda.empty_cache()
                 torch.cuda.reset_peak_memory_stats()
 
 
-                # -----------------------------
-                # RAWNET2
-                # -----------------------------
-                # Model config for RawNet2
-                model_config2 = {
-                    'in_channels': 1,
-                    'first_conv': 3,
-                    'filts': [128, [128, 128], [128, 256], [256, 256]],
-                    'blocks': [2, 4],
-                    'gru_node': 1024,
-                    'nb_gru_layer': 1,
-                    'nb_fc_node': 1024,
-                    'nb_classes': 2,
-                    'nb_samp': 16000
-                }
+                # # -----------------------------
+                # # RAWNET2
+                # # -----------------------------
+                # # Model config for RawNet2
+                # model_config2 = {
+                #     'in_channels': 1,
+                #     'first_conv': 3,
+                #     'filts': [128, [128, 128], [128, 256], [256, 256]],
+                #     'blocks': [2, 4],
+                #     'gru_node': 1024,
+                #     'nb_gru_layer': 1,
+                #     'nb_fc_node': 1024,
+                #     'nb_classes': 2,
+                #     'nb_samp': 16000
+                # }
 
-                model2 = RawNet2(model_config2).to(device)
+                # model2 = RawNet2(model_config2).to(device)
 
-                # Train RawNet2
-                print("\n=== Training RawNet2 ===")
-                train_rawnet2_with_loaders(model2, train_loader, val_loader, 
-                                        device=device, epochs=epochs, lr=learning_rate, patience=patience)
+                # # Train RawNet2
+                # print("\n=== Training RawNet2 ===")
+                # train_rawnet2_with_loaders(model2, train_loader, val_loader, 
+                #                         device=device, epochs=epochs, lr=learning_rate, patience=patience)
 
-                # # Test RawNet2
-                # print("\n--- Testing RawNet2 ---")
-                # predictions2, targets2 = test_rawnet2(model2, test_loader, device=device)
+                # # # Test RawNet2
+                # # print("\n--- Testing RawNet2 ---")
+                # # predictions2, targets2 = test_rawnet2(model2, test_loader, device=device)
 
-                # Save RawNet2 model
-                print("\n=== Saving RawNet2 Model ===")
-                save_model_rawnet2(model2, f"./RawNets/RawNet2/pretrained_weights/rawnet2-{parameter_format}.pth")
+                # # Save RawNet2 model
+                # print("\n=== Saving RawNet2 Model ===")
+                # save_model_rawnet2(model2, f"./models/RawNets/RawNet2/pretrained_weights/rawnet2-{parameter_format}.pth")
 
-                # Clear CUDA memory
-                torch.cuda.empty_cache()
-                torch.cuda.reset_peak_memory_stats()
+                # # Clear CUDA memory
+                # torch.cuda.empty_cache()
+                # torch.cuda.reset_peak_memory_stats()
 
 
-                # -----------------------------
-                # RAWNET3
-                # -----------------------------
-                # Model config for RawNet3
-                model_config3 = {
-                    "nOut": 512,
-                    "sinc_stride": 10,
-                    "encoder_type": "ECA",
-                    "log_sinc": True,
-                    "norm_sinc": "mean_std",
-                    "out_bn": True
-                }
+                # # -----------------------------
+                # # RAWNET3
+                # # -----------------------------
+                # # Model config for RawNet3
+                # model_config3 = {
+                #     "nOut": 512,
+                #     "sinc_stride": 10,
+                #     "encoder_type": "ECA",
+                #     "log_sinc": True,
+                #     "norm_sinc": "mean_std",
+                #     "out_bn": True
+                # }
 
-                model3 = RawNet3(**model_config3).to(device)
+                # model3 = RawNet3(**model_config3).to(device)
 
-                # Train RawNet3
-                print("\n=== Training RawNet3 ===")
-                train_rawnet3_with_loaders(model3, train_loader, val_loader,
-                                        device=device, epochs=epochs, lr=learning_rate, patience=patience)
+                # # Train RawNet3
+                # print("\n=== Training RawNet3 ===")
+                # train_rawnet3_with_loaders(model3, train_loader, val_loader,
+                #                         device=device, epochs=epochs, lr=learning_rate, patience=patience)
 
-                # # Test RawNet3
-                # print("\n--- Testing RawNet3 ---")
-                # predictions3, targets3 = test_rawnet3(model3, test_loader, device=device)
+                # # # Test RawNet3
+                # # print("\n--- Testing RawNet3 ---")
+                # # predictions3, targets3 = test_rawnet3(model3, test_loader, device=device)
 
-                # Save RawNet3 model
-                print("\n=== Saving RawNet3 Model ===")
-                save_model_rawnet3(model3, f"./RawNets/RawNet3/pretrained_weights/rawnet3-{parameter_format}.pth")
+                # # Save RawNet3 model
+                # print("\n=== Saving RawNet3 Model ===")
+                # save_model_rawnet3(model3, f"./models/RawNets/RawNet3/pretrained_weights/rawnet3-{parameter_format}.pth")
                 
-                # Clear CUDA memory
-                torch.cuda.empty_cache()
-                torch.cuda.reset_peak_memory_stats()   
+                # # Clear CUDA memory
+                # torch.cuda.empty_cache()
+                # torch.cuda.reset_peak_memory_stats()   
     finally:
         log_file.close()
