@@ -119,7 +119,7 @@ if __name__ == "__main__":
     set_seed(42)
 
     # Load full dataset
-    full_dataset = FeatureDataset(tsv_path="preprocessed_data/features.tsv")
+    full_dataset = FeatureDataset(tsv_path="preprocessed_data/features.csv")
 
     # Stratified dataset split
     train_dataset, val_dataset, test_dataset = stratified_split(full_dataset, splits=(0.7, 0.15, 0.15), seed=seed)

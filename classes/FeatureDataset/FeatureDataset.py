@@ -4,13 +4,11 @@ import ast
 import torch
 from torch.utils.data import Dataset
 
-csv.field_size_limit(sys.maxsize)
-
 class FeatureDataset(Dataset):
     def __init__(self, tsv_path, label_map={"Bonafide": 1, "Spoof": 0}):
         self.samples = []
         with open(tsv_path, "r") as f:
-            reader = csv.DictReader(f, delimiter='\t')
+            reader = csv.DictReader(f, delimiter='\,')
             for row in reader:
                 features = torch.tensor(ast.literal_eval(row["features"]), dtype=torch.float32)
                 label_str = "Bonafide" if "bonafide" in row["path"].lower() else "Spoof"
