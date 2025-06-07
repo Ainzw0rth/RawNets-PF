@@ -13,7 +13,7 @@ def train_rawnet2_with_loaders(model, train_loader, val_loader=None, device="cud
 
     model.to(device)
     model.train()
-    scaler = GradScaler(device=device)
+    scaler = GradScaler()
 
     best_val_loss = float("inf")
     patience_counter = 0
@@ -25,7 +25,7 @@ def train_rawnet2_with_loaders(model, train_loader, val_loader=None, device="cud
         for inputs, labels in train_loader:
             inputs, labels = inputs.to(device), labels.to(device)
 
-            with autocast(enabled=True, dtype=torch.bfloat16, cache_enabled=True, device_type=device):
+            with autocast(enabled=False, dtype=torch.float16, cache_enabled=True):
                 outputs = model(inputs)
                 loss = criterion(outputs, labels)
 

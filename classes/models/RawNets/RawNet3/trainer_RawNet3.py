@@ -13,7 +13,7 @@ def train_rawnet3_with_loaders(model, train_loader, val_loader=None, device="cud
 
     model.to(device)
     model.train()
-    scaler = GradScaler(device=device)
+    scaler = GradScaler()
 
     best_val_loss = float("inf")
     patience_counter = 0
@@ -25,7 +25,7 @@ def train_rawnet3_with_loaders(model, train_loader, val_loader=None, device="cud
         for inputs, labels in train_loader:
             inputs, labels = inputs.to(device), labels.to(device)
 
-            with autocast(enabled=True, dtype=torch.bfloat16, cache_enabled=True, device_type=device):
+            with autocast(enabled=False, dtype=torch.float16, cache_enabled=True):
                 outputs = model(inputs)
                 loss = criterion(outputs, labels)
 
@@ -59,7 +59,7 @@ def train_rawnet3_with_loaders(model, train_loader, val_loader=None, device="cud
     print("Training completed.")
     total_time = time.time() - total_start_time
     print(f"\nTotal training time for RawNet3: {total_time:.2f} seconds ({total_time / 60:.2f} minutes)")
-
+  
 def validate_rawnet3(model, val_loader, device="cuda"):
     model.eval()
     criterion = nn.CrossEntropyLoss()
