@@ -1,14 +1,15 @@
 import os
 import sys
-import numpy as np
-import random
+import time
 import torch
 from datetime import datetime
-from collections import defaultdict
-from torch.utils.data import Dataset, DataLoader, Subset
+from torch.utils.data import DataLoader
 
-from classes.FeatureDataset.FeatureDataset import FeatureDataset
+# Import utils
 from utils.Logger import Logger
+from utils.Seed import set_seed
+from utils.Splitter import stratified_split
+from classes.FeatureDataset.CombinedFeatureDataset import CombinedFeatureDataset
 
 # Import RawNet1 components
 from classes.models.RawNets.RawNet1.model_RawNet1_preprocessed import RawNet
@@ -23,52 +24,15 @@ from classes.models.RawNets.RawNet3.model_RawNet3_preprocessed import RawNet3
 from classes.models.RawNets.RawNet3.trainer_RawNet3 import train_rawnet3_with_loaders, test_rawnet3, save_model_rawnet3
 
 # -----------------------------
-# Reproducibility Setup
-# -----------------------------
-def set_seed(seed=42):
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    if torch.cuda.is_available():
-        torch.cuda.manual_seed_all(seed)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
-
-# -----------------------------
-# Stratified Split Function
-# -----------------------------
-def stratified_split(dataset, splits=(0.7, 0.15, 0.15), seed=42):
-    class_indices = defaultdict(list)
-    for idx, (_, label) in enumerate(dataset):
-        class_indices[label].append(idx)
-
-    train_indices, val_indices, test_indices = [], [], []
-    random.seed(seed)
-
-    for label, indices in class_indices.items():
-        random.shuffle(indices)
-        total = len(indices)
-        n_train = int(splits[0] * total)
-        n_val = int(splits[1] * total)
-
-        train_indices += indices[:n_train]
-        val_indices += indices[n_train:n_train + n_val]
-        test_indices += indices[n_train + n_val:]
-
-    train_subset = Subset(dataset, train_indices)
-    val_subset = Subset(dataset, val_indices)
-    test_subset = Subset(dataset, test_indices)
-
-    return train_subset, val_subset, test_subset
-
-# -----------------------------
 # Main Training Script
 # -----------------------------
 if __name__ == "__main__":
+    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = ""
+
     # Logger setup
     os.makedirs("logs/train/", exist_ok=True)
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    log_filename = f"logs/train/train_log_{timestamp}.txt"
+    log_filename = f"logs/train/train_log_combined_{timestamp}.txt"
     log_file = open(log_filename, "w")
     sys.stdout = Logger(sys.stdout, log_file)
     sys.stderr = Logger(sys.stderr, log_file)
@@ -77,16 +41,19 @@ if __name__ == "__main__":
     set_seed(42)
 
     # Load full dataset
-    full_dataset = FeatureDataset("preprocessed_data")
+    full_dataset = CombinedFeatureDataset("preprocessed_data/combined")
 
     # Stratified dataset split
     train_dataset, val_dataset, test_dataset = stratified_split(full_dataset, splits=(0.7, 0.15, 0.15), seed=seed)
 
     # Looping to do some variations on the models' parameters
-    batch_sizes = [32]
-    learning_rates = [0.001, 0.0005, 0.0001]
-    epochs = 20
-    patience = 100
+    batch_sizes = [128]
+    learning_rates = [0.0001]
+    epochs = 100
+
+
+    start_time = time.time()
+    print("==================== TRAINING STARTED ====================\n")
 
     # Print dataset sizes
     print(f"Total samples: {len(full_dataset)}")
@@ -107,11 +74,12 @@ if __name__ == "__main__":
             print(f"Test batches: {len(test_loader)}")
 
             device = "cuda" if torch.cuda.is_available() else "cpu"
+            print(f"Using device: {device}")
 
             for lr_idx, learning_rate in enumerate(learning_rates):
                 print(f"\n===== Training with Batch Size: {batch_size}, Learning Rate: {learning_rate} =====")
                 
-                parameter_format = f"ep_{epochs}-bs_{batch_size}-lr_{learning_rate}-pa_{patience}"
+                parameter_format = f"ep_{epochs}-bs_{batch_size}-lr_{learning_rate}"
                 # -----------------------------
                 # RAWNET1
                 # -----------------------------
@@ -126,7 +94,7 @@ if __name__ == "__main__":
                     'nb_gru_layer': 1,
                     'nb_fc_node': 1024,
                     'nb_classes': 2,
-                    'input_length': 16030 
+                    'input_length': 16000 * 4 + 24
                 }
 
                 print(f"device: {device}")
@@ -135,7 +103,7 @@ if __name__ == "__main__":
                 # Train RawNet1
                 print("\n=== Training RawNet1 ===")
                 train_rawnet1_with_loaders(model, train_loader, val_loader, 
-                                        device=device, epochs=epochs, lr=learning_rate, patience=patience)
+                                        device=device, epochs=epochs, lr=learning_rate)
 
                 # # Test RawNet1
                 # print("\n--- Testing RawNet1 ---")
@@ -163,7 +131,7 @@ if __name__ == "__main__":
                     'nb_gru_layer': 1,
                     'nb_fc_node': 1024,
                     'nb_classes': 2,
-                    'nb_samp': 16000
+                    'nb_samp': 16000 * 4 + 24
                 }
 
                 model2 = RawNet2(model_config2).to(device)
@@ -171,7 +139,7 @@ if __name__ == "__main__":
                 # Train RawNet2
                 print("\n=== Training RawNet2 ===")
                 train_rawnet2_with_loaders(model2, train_loader, val_loader, 
-                                        device=device, epochs=epochs, lr=learning_rate, patience=patience)
+                                        device=device, epochs=epochs, lr=learning_rate)
 
                 # # Test RawNet2
                 # print("\n--- Testing RawNet2 ---")
@@ -204,7 +172,7 @@ if __name__ == "__main__":
                 # Train RawNet3
                 print("\n=== Training RawNet3 ===")
                 train_rawnet3_with_loaders(model3, train_loader, val_loader,
-                                        device=device, epochs=epochs, lr=learning_rate, patience=patience)
+                                        device=device, epochs=epochs, lr=learning_rate)
 
                 # # Test RawNet3
                 # print("\n--- Testing RawNet3 ---")
@@ -218,6 +186,13 @@ if __name__ == "__main__":
                 torch.cuda.empty_cache()
                 torch.cuda.reset_peak_memory_stats()   
     finally:
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+
+        print("\n==================== PREPROCESSING COMPLETED ====================\n")
+        print(f"Total time taken: {elapsed_time:.2f} seconds")
+
+        print("\n===============================================================")
         sys.stdout = sys.__stdout__
         sys.stderr = sys.__stderr__
         log_file.close()
