@@ -6,7 +6,9 @@ import torch
 from datetime import datetime
 from collections import defaultdict
 from torch.utils.data import Dataset, DataLoader, Subset
+
 from classes.FeatureDataset.FeatureDataset import FeatureDataset
+from utils.Logger import Logger
 
 # Import RawNet1 components
 from classes.models.RawNets.RawNet1.model_RawNet1_preprocessed import RawNet
@@ -19,22 +21,6 @@ from classes.models.RawNets.RawNet2.trainer_RawNet2 import train_rawnet2_with_lo
 # Import RawNet3 components
 from classes.models.RawNets.RawNet3.model_RawNet3_preprocessed import RawNet3
 from classes.models.RawNets.RawNet3.trainer_RawNet3 import train_rawnet3_with_loaders, test_rawnet3, save_model_rawnet3
-
-# -----------------------------
-# Logger Setup
-# -----------------------------
-class Logger:
-    def __init__(self, *files):
-        self.files = files
-
-    def write(self, message):
-        for f in self.files:
-            f.write(message)
-            f.flush()
-
-    def flush(self):
-        for f in self.files:
-            f.flush()
 
 # -----------------------------
 # Reproducibility Setup
@@ -80,9 +66,9 @@ def stratified_split(dataset, splits=(0.7, 0.15, 0.15), seed=42):
 # -----------------------------
 if __name__ == "__main__":
     # Logger setup
-    os.makedirs("logs", exist_ok=True)
+    os.makedirs("logs/train/", exist_ok=True)
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    log_filename = f"logs/train_log_{timestamp}.txt"
+    log_filename = f"logs/train/train_log_{timestamp}.txt"
     log_file = open(log_filename, "w")
     sys.stdout = Logger(sys.stdout, log_file)
     sys.stderr = Logger(sys.stderr, log_file)
