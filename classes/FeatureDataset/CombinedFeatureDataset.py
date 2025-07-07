@@ -14,7 +14,6 @@ class CombinedFeatureDataset(Dataset):
                 continue
 
             for root, _, files in os.walk(label_dir):
-                ctr = 0
                 for file in files:
                     if not file.endswith(".npy"):
                         continue  # skip non-npy files
@@ -22,7 +21,7 @@ class CombinedFeatureDataset(Dataset):
                     file_path = os.path.join(root, file)
                     try:
                         feature_data = np.load(file_path)
-                        
+
                         # Ensure feature_data is 1D
                         feature_data = feature_data.flatten()
 
