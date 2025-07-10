@@ -7,6 +7,7 @@ class CombinedFeatureDataset(Dataset):
     def __init__(self, root_dir, label_map={"Bonafide": 1, "Spoof": 0}):
         self.samples = []
         self.label_map = label_map
+        self.skipped_files = 0
 
         for label_name in os.listdir(root_dir):
             label_dir = os.path.join(root_dir, label_name)
@@ -22,6 +23,12 @@ class CombinedFeatureDataset(Dataset):
                     try:
                         feature_data = np.load(file_path)
 
+                        # Skip files with NaN or Inf
+                        if not np.isfinite(feature_data).all():
+                            print(f"Skipping file {file_path} due to NaN or Inf values")
+                            self.skipped_files += 1
+                            continue
+
                         # Ensure feature_data is 1D
                         feature_data = feature_data.flatten()
 
@@ -31,12 +38,15 @@ class CombinedFeatureDataset(Dataset):
                             feature_data = np.pad(feature_data, (0, pad_width), mode='constant')
                         else:
                             feature_data = feature_data[:16000 * 4 + 24]
+                        
                         features = torch.tensor(feature_data, dtype=torch.float32)
                         label = label_map["Bonafide" if "bonafide" in label_name.lower() else "Spoof"]
                         self.samples.append((features, label))
 
                     except Exception as e:
                         print(f"Skipping file {file_path} due to error: {e}")
+
+        print(f"Skipped {self.skipped_files} files due to NaNs/Infs.")
 
     def __len__(self):
         return len(self.samples)

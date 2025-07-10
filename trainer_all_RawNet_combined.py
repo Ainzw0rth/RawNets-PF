@@ -41,25 +41,28 @@ if __name__ == "__main__":
     set_seed(42)
 
     # Load full dataset
+    print("==================== LOADING DATASET ====================\n")
     full_dataset = CombinedFeatureDataset("preprocessed_data/combined")
+    print("\n==================== DATASET LOADED ====================\n")
 
     # Stratified dataset split
+    print("\n==================== SPLITTING DATASET ====================\n")
     train_dataset, val_dataset, test_dataset = stratified_split(full_dataset, splits=(0.7, 0.15, 0.15), seed=seed)
 
     # Looping to do some variations on the models' parameters
-    batch_sizes = [128]
+    batch_sizes = [32]
     learning_rates = [0.0001]
-    epochs = 100
-
-
-    start_time = time.time()
-    print("==================== TRAINING STARTED ====================\n")
+    epochs = 5
 
     # Print dataset sizes
     print(f"Total samples: {len(full_dataset)}")
     print(f"Train samples: {len(train_dataset)}")
     print(f"Validation samples: {len(val_dataset)}")
     print(f"Test samples: {len(test_dataset)}")
+    print("\n==================== DATASET SPLITTED ====================\n")
+
+    start_time = time.time()
+    print("\n==================== TRAINING STARTED ====================\n")
 
     try:
         for batch_size in batch_sizes:

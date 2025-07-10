@@ -1,0 +1,200 @@
+==================== LOADING DATASET ====================
+
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_25451782_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_25451782_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_25469726_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_25469777_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_25469777_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_25469777_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_25798939_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_25798939_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_25798939_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_26599777_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_26599777_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_26599781_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_26599781_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_26599781_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_26599781_3.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_27458025_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_27458025_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_27458025_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_28734774_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_28734774_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_28734774_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_28734774_3.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_28734774_4.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_28734774_5.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_28734858_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_28734971_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_28735041_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_28735132_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_28735132_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_31885919_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_31885919_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_31885919_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_31885919_3.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_31885919_4.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_31885919_5.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_31885919_6.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35278948_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35278948_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35278948_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35278973_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35278973_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35278973_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35627445_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35627445_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35627445_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35627445_3.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35627445_4.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35674022_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35674022_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35674022_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35674022_3.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35674022_4.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35674022_5.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35674022_6.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35744542_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35744542_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35863840_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35863840_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35863840_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35864119_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35864119_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35864268_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_35864268_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_36921902_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_36986630_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_36986630_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_36986630_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_36986630_3.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_36986633_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_36986633_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_38388531_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_38388531_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_38388531_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_38388531_3.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_38388531_4.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_38388531_5.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_38388531_6.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_38388531_7.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_38388577_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_38388577_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_38388577_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_38388577_3.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_38388577_4.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_40945000_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_40945000_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_40945000_10.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_40945000_2.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_40945000_3.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_40945000_4.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_40945000_5.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_40945000_6.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_40945000_7.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_40945000_8.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_40945000_9.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_41466473_0.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_41466473_1.npy due to NaN or Inf values
+Skipping file preprocessed_data/combined\Bonafide\CommonVoice\CommonVoice_ID_41466473_2.npy due to NaN or Inf values
+Skipped 97 files due to NaNs/Infs.
+
+==================== DATASET LOADED ====================
+
+
+==================== SPLITTING DATASET ====================
+
+Total samples: 65424
+Train samples: 45796
+Validation samples: 9813
+Test samples: 9815
+
+==================== DATASET SPLITTED ====================
+
+
+==================== TRAINING STARTED ====================
+
+
+=========== TRAIN LOADER ===========
+Train batches: 1432
+Validation batches: 307
+Test batches: 307
+Using device: cuda
+
+===== Training with Batch Size: 32, Learning Rate: 0.0001 =====
+device: cuda
+
+=== Training RawNet1 ===
+Epoch [1/5] - Train Loss: 0.0479
+              --> Time: 418.97 seconds
+              --> Val Loss: 0.0037 | Val Acc: 99.94%
+Epoch [2/5] - Train Loss: 0.0153
+              --> Time: 409.74 seconds
+              --> Val Loss: 0.0062 | Val Acc: 99.87%
+Epoch [3/5] - Train Loss: 0.0096
+              --> Time: 538.66 seconds
+              --> Val Loss: 0.0045 | Val Acc: 99.88%
+Epoch [4/5] - Train Loss: 0.0072
+              --> Time: 579.94 seconds
+              --> Val Loss: 0.0010 | Val Acc: 99.97%
+Epoch [5/5] - Train Loss: 0.0060
+              --> Time: 435.29 seconds
+              --> Val Loss: 0.0006 | Val Acc: 99.99%
+Training completed.
+
+Total training time for RawNet1: 2554.93 seconds (42.58 minutes)
+
+=== Saving RawNet1 Model ===
+Model RawNet1 saved to ./models/RawNets/RawNet1/pretrained_weights/rawnet1-ep_5-bs_32-lr_0.0001.pth
+
+=== Training RawNet2 ===
+Epoch [1/5] - Train Loss: 0.0435
+              --> Time: 5162.44 seconds
+              --> Val Loss: 0.1058 | Val Acc: 96.34%
+Epoch [2/5] - Train Loss: 0.0210
+              --> Time: 4530.80 seconds
+              --> Val Loss: 0.0130 | Val Acc: 99.56%
+Epoch [3/5] - Train Loss: 0.0109
+              --> Time: 4614.00 seconds
+              --> Val Loss: 0.0025 | Val Acc: 99.94%
+Epoch [4/5] - Train Loss: 0.0076
+              --> Time: 5271.45 seconds
+              --> Val Loss: 0.0063 | Val Acc: 99.81%
+Epoch [5/5] - Train Loss: 0.0079
+              --> Time: 6240.49 seconds
+              --> Val Loss: 0.0011 | Val Acc: 99.98%
+Training completed.
+
+Total training time for RawNet2: 26398.87 seconds (439.98 minutes)
+
+=== Saving RawNet2 Model ===
+Model RawNet2 saved to ./models/RawNets/RawNet2/pretrained_weights/rawnet2-ep_5-bs_32-lr_0.0001.pth
+
+=== Training RawNet3 ===
+Epoch [1/5] - Train Loss: 5.1153
+              --> Time: 31458.44 seconds
+              --> Val Loss: 5.9847 | Val Acc: 44.38%
+Epoch [2/5] - Train Loss: 4.6787
+              --> Time: 25381.09 seconds
+              --> Val Loss: 4.5006 | Val Acc: 96.08%
+Epoch [3/5] - Train Loss: 4.2633
+              --> Time: 24008.80 seconds
+              --> Val Loss: 4.1441 | Val Acc: 95.78%
+Epoch [4/5] - Train Loss: 3.8550
+              --> Time: 23447.17 seconds
+              --> Val Loss: 3.5863 | Val Acc: 99.19%
+Epoch [5/5] - Train Loss: 3.4490
+              --> Time: 23295.12 seconds
+              --> Val Loss: 3.6181 | Val Acc: 97.89%
+Training completed.
+
+Total training time for RawNet3: 140123.81 seconds (2335.40 minutes)
+
+=== Saving RawNet3 Model ===
+Model RawNet3 saved to ./models/RawNets/RawNet3/pretrained_weights/rawnet3-ep_5-bs_32-lr_0.0001.pth
+
+==================== PREPROCESSING COMPLETED ====================
+
+Total time taken: 166525.88 seconds
+
+===============================================================

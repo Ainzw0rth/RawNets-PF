@@ -4,7 +4,19 @@ import torch
 import torch.nn as nn
 from torch.cuda.amp import autocast, GradScaler
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import (
+    accuracy_score,
+    balanced_accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    fbeta_score,
+    roc_curve,
+    confusion_matrix,
+    log_loss, 
+    ConfusionMatrixDisplay
+)
+import numpy as np
 
 def train_rawnet1_with_loaders(model, train_loader, val_loader=None, device="cuda", epochs=100, lr=0.0001):
     torch.autograd.set_detect_anomaly(True)
