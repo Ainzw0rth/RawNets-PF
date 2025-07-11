@@ -59,6 +59,10 @@ class PathologicalFeatureExtractor():
                 shimmer_local, shimmer_apq3, shimmer_apq5, shimmer_apq11,
                 gne_mean
             ]
+            
+            # Replace NaN or Inf with 0.0
+            # This is important to ensure that the tensor does not contain invalid values
+            features = [0.0 if (np.isnan(f) or np.isinf(f)) else f for f in features]
 
             return torch.tensor(features, dtype=torch.float32)
 
