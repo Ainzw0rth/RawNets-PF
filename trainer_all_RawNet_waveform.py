@@ -9,7 +9,7 @@ from torch.utils.data import DataLoader
 from utils.Logger import Logger
 from utils.Seed import set_seed
 from utils.Splitter import stratified_split
-from classes.FeatureDataset.CombinedFeatureDataset import CombinedFeatureDataset
+from classes.FeatureDataset.WaveformFeatureDataset import WaveformFeatureDataset
 
 # Import RawNet1 components
 from classes.models.RawNets.RawNet1.model_RawNet1_preprocessed import RawNet
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     # Logger setup
     os.makedirs("logs/train/", exist_ok=True)
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    log_filename = f"logs/train/train_log_combined_{timestamp}.txt"
+    log_filename = f"logs/train/train_log_waveform_{timestamp}.txt"
     log_file = open(log_filename, "w")
     sys.stdout = Logger(sys.stdout, log_file)
     sys.stderr = Logger(sys.stderr, log_file)
@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
     # Load full dataset
     print("==================== LOADING DATASET ====================\n")
-    full_dataset = CombinedFeatureDataset("preprocessed_data/combined")
+    full_dataset = WaveformFeatureDataset("preprocessed_data/waveform")
     print("\n==================== DATASET LOADED ====================\n")
 
     # Stratified dataset split
@@ -97,7 +97,7 @@ if __name__ == "__main__":
                     'nb_gru_layer': 1,
                     'nb_fc_node': 1024,
                     'nb_classes': 2,
-                    'input_length': 16000 * 4 + 24
+                    'input_length': 16000
                 }
 
                 print(f"device: {device}")
@@ -114,7 +114,7 @@ if __name__ == "__main__":
 
                 # Save RawNet1 model
                 print("\n=== Saving RawNet1 Model ===")
-                save_model_rawnet1(model, f"./models/RawNets/RawNet1/pretrained_weights/rawnet1_combined-{parameter_format}.pth")
+                save_model_rawnet1(model, f"./models/RawNets/RawNet1/pretrained_weights/rawnet1_waveform-{parameter_format}.pth")
 
                 # Clear CUDA memory
                 torch.cuda.empty_cache()
@@ -134,7 +134,7 @@ if __name__ == "__main__":
                     'nb_gru_layer': 1,
                     'nb_fc_node': 1024,
                     'nb_classes': 2,
-                    'nb_samp': 16000 * 4 + 24
+                    'nb_samp': 16000
                 }
 
                 model2 = RawNet2(model_config2).to(device)
@@ -150,7 +150,7 @@ if __name__ == "__main__":
 
                 # Save RawNet2 model
                 print("\n=== Saving RawNet2 Model ===")
-                save_model_rawnet2(model2, f"./models/RawNets/RawNet2/pretrained_weights/rawnet2_combined-{parameter_format}.pth")
+                save_model_rawnet2(model2, f"./models/RawNets/RawNet2/pretrained_weights/rawnet2_waveform-{parameter_format}.pth")
 
                 # Clear CUDA memory
                 torch.cuda.empty_cache()
@@ -183,7 +183,7 @@ if __name__ == "__main__":
 
                 # Save RawNet3 model
                 print("\n=== Saving RawNet3 Model ===")
-                save_model_rawnet3(model3, f"./models/RawNets/RawNet3/pretrained_weights/rawnet3_combined-{parameter_format}.pth")
+                save_model_rawnet3(model3, f"./models/RawNets/RawNet3/pretrained_weights/rawnet3_waveform-{parameter_format}.pth")
                 
                 # Clear CUDA memory
                 torch.cuda.empty_cache()
