@@ -18,7 +18,7 @@ from metrics.CLLR import CLLR
 from metrics.DCF import actDCF, minDCF
 from metrics.EER import EER
 
-def train_rawnet2_with_loaders(model, train_loader, val_loader=None, device="cuda", epochs=100, lr=0.0001):
+def train_rawnet2_with_loaders(model, train_loader, val_loader=None, device="cuda", epochs=100, lr=0.0001, start_epoch=0, variation="combined"):
     torch.autograd.set_detect_anomaly(True)
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
@@ -29,7 +29,7 @@ def train_rawnet2_with_loaders(model, train_loader, val_loader=None, device="cud
 
     total_start_time = time.time()
 
-    for epoch in range(epochs):
+    for epoch in range(start_epoch, epochs):
         start_time = time.time()
         running_loss = 0.0
         for inputs, labels in train_loader:
@@ -59,6 +59,8 @@ def train_rawnet2_with_loaders(model, train_loader, val_loader=None, device="cud
             print(f"              --> CLLR: {metrics['cllr']:.4f}")
 
         torch.cuda.empty_cache()
+
+        save_model_rawnet2(model, optimizer, scaler, epoch, path=f"pretrained_weights/rawnet3_{variation}-ep_{epoch+1}-bs_{train_loader.batch_size}-lr_{lr}.pth")
 
     print("Training completed.")
     total_time = time.time() - total_start_time
@@ -151,7 +153,26 @@ def test_rawnet2(model, test_loader, device="cuda"):
 
     return predictions, targets, metrics
 
-def save_model_rawnet2(model, path="pretrained_weights/rawnet2.pth"):
+def save_model_rawnet2(model, optimizer, scaler, epoch, path="pretrained_weights/rawnet2.pth"):
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    torch.save(model.state_dict(), path)
+
+    torch.save({
+        "epoch": epoch,
+        "model_state_dict": model.state_dict(),
+        "optimizer_state_dict": optimizer.state_dict(),
+        "scaler_state_dict": scaler.state_dict()
+    }, path)
+
     print(f"Model RawNet2 saved to {path}")
+
+def load_model_rawnet2(model, optimizer=None, scaler=None, path=None, device="cuda"):
+    checkpoint = torch.load(path, map_location=device)
+    model.load_state_dict(checkpoint["model_state_dict"])
+
+    if optimizer:
+        optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+    if scaler:
+        scaler.load_state_dict(checkpoint["scaler_state_dict"])
+
+    print(f"Loaded model from {path} (epoch {checkpoint['epoch']})")
+    return checkpoint["epoch"]
