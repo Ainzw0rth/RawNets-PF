@@ -21,17 +21,14 @@ def actDCF(y_true, y_scores, C_miss=1, C_fa=1, pi_spoof=0.5):
     beta = (C_miss / C_fa) * ((1 - pi_spoof) / pi_spoof)
     tau = -np.log(beta)
     y_pred = (y_scores >= tau).astype(int)
-    return DCF(y_true, y_pred, C_miss, C_fa, pi_spoof), tau
+    return DCF(y_true, y_pred, C_miss, C_fa, pi_spoof)
 
 def minDCF(y_true, y_scores, C_miss=1, C_fa=1, pi_spoof=0.5):
     min_dcf = float("inf")
-    best_thresh = None
 
     for t in np.unique(y_scores):
         y_pred = (y_scores >= t).astype(int)
         dcf = DCF(y_true, y_pred, C_miss, C_fa, pi_spoof)
         if dcf < min_dcf:
             min_dcf = dcf
-            best_thresh = t
-
-    return min_dcf, best_thresh
+    return min_dcf
