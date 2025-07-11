@@ -1,0 +1,81 @@
+==================== LOADING DATASET ====================
+
+Skipped 0 files due to NaNs/Infs.
+
+==================== DATASET LOADED ====================
+
+
+==================== SPLITTING DATASET ====================
+
+Total samples: 65521
+Train samples: 45863
+Validation samples: 9827
+Test samples: 9831
+
+==================== DATASET SPLITTED ====================
+
+
+==================== TRAINING STARTED ====================
+
+
+=========== TRAIN LOADER ===========
+Train batches: 1434
+Validation batches: 308
+Test batches: 308
+Using device: cuda
+
+===== Training with Batch Size: 32, Learning Rate: 0.0001 =====
+device: cuda
+
+=== Training RawNet1 ===
+Epoch [1/5] - Train Loss: 0.0703
+              --> Time: 400.02 seconds
+              --> Val Loss: 0.0311 | Val Acc: 99.22%
+              --> Balanced Acc: 0.9931 | Precision: 0.9823
+              --> Recall: 0.9964 | F1: 0.9893 | F2: 0.9935
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0104
+              --> CLLR: 0.0399
+Model RawNet1 saved to pretrained_weights/rawnet3_waveform-ep_1-bs_32-lr_0.0001.pth
+Epoch [2/5] - Train Loss: 0.0244
+              --> Time: 405.32 seconds
+              --> Val Loss: 0.0073 | Val Acc: 99.81%
+              --> Balanced Acc: 0.9979 | Precision: 0.9975
+              --> Recall: 0.9972 | F1: 0.9973 | F2: 0.9973
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0032
+              --> CLLR: 0.0112
+Model RawNet1 saved to pretrained_weights/rawnet3_waveform-ep_2-bs_32-lr_0.0001.pth
+Epoch [3/5] - Train Loss: 0.0094
+              --> Time: 402.90 seconds
+              --> Val Loss: 0.0072 | Val Acc: 99.76%
+              --> Balanced Acc: 0.9980 | Precision: 0.9936
+              --> Recall: 0.9997 | F1: 0.9967 | F2: 0.9985
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0028
+              --> CLLR: 0.0087
+Model RawNet1 saved to pretrained_weights/rawnet3_waveform-ep_3-bs_32-lr_0.0001.pth
+Epoch [4/5] - Train Loss: 0.0068
+              --> Time: 401.58 seconds
+              --> Val Loss: 0.0059 | Val Acc: 99.89%
+              --> Balanced Acc: 0.9986 | Precision: 0.9992
+              --> Recall: 0.9978 | F1: 0.9985 | F2: 0.9980
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0017
+              --> CLLR: 0.0094
+Model RawNet1 saved to pretrained_weights/rawnet3_waveform-ep_4-bs_32-lr_0.0001.pth
+Epoch [5/5] - Train Loss: 0.0054
+              --> Time: 402.37 seconds
+              --> Val Loss: 0.0038 | Val Acc: 99.85%
+              --> Balanced Acc: 0.9988 | Precision: 0.9958
+              --> Recall: 1.0000 | F1: 0.9979 | F2: 0.9992
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0003
+              --> CLLR: 0.0043
+Model RawNet1 saved to pretrained_weights/rawnet3_waveform-ep_5-bs_32-lr_0.0001.pth
+Training completed.
+
+Total training time for RawNet1: 2148.01 seconds (35.80 minutes)
+
+=== Training RawNet2 ===
+
+==================== PREPROCESSING COMPLETED ====================
+
+Total time taken: 2252.34 seconds
+
+===============================================================

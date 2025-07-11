@@ -15,7 +15,7 @@ PREPROC_PATH = "preprocessed_data/"
 SECONDS = 4                                         # Length of each segment in seconds  
 NB_TIME = 16000 * SECONDS
 SEGMENT_LENGTH_MS = SECONDS * 1000                  # 4 seconds in milliseconds
-SEGMENT_STRIDE_AUDIO = SEGMENT_LENGTH_MS // 2       # 25% overlap (1 second overlap for 4 seconds)
+SEGMENT_STRIDE_AUDIO = SEGMENT_LENGTH_MS // 4       # 25% overlap (1 second overlap for 4 seconds)
 
 torchaudio.set_audio_backend("soundfile")
 
@@ -86,7 +86,7 @@ if __name__ == "__main__":
                         chunk_paths.append(chunk_path)
                         num_chunks += 1
 
-                    print(f"    >> {file_name}: {num_chunks} chunks generated \n        >> (duration: {duration_ms} ms, segment length: {SEGMENT_LENGTH_MS} ms, stride: {SEGMENT_STRIDE_AUDIO} ms)")
+                    print(f"    >> {file_name}: {num_chunks} chunks generated \n        >> (duration: {duration_ms} ms, segment length: {SEGMENT_LENGTH_MS} ms, stride: {SEGMENT_STRIDE_AUDIO} ms)\n")
 
                     total_segments = 0
                     for segment_idx, chunk_path in enumerate(chunk_paths):

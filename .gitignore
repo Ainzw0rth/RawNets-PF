@@ -3,3 +3,4 @@ __pycache__/
 dataset/
 preprocessed_data/
 rawnet-pf/
+temp_segments/
