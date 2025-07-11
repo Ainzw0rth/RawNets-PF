@@ -97,7 +97,7 @@ if __name__ == "__main__":
                     'nb_gru_layer': 1,
                     'nb_fc_node': 1024,
                     'nb_classes': 2,
-                    'input_length': 16000
+                    'input_length': 16000 * 4
                 }
 
                 print(f"device: {device}")
@@ -111,10 +111,6 @@ if __name__ == "__main__":
                 # # Test RawNet1
                 # print("\n--- Testing RawNet1 ---")
                 # predictions, targets = test_rawnet1(model, test_loader, device=device)
-
-                # Save RawNet1 model
-                print("\n=== Saving RawNet1 Model ===")
-                save_model_rawnet1(model, f"./models/RawNets/RawNet1/pretrained_weights/rawnet1_waveform-{parameter_format}.pth")
 
                 # Clear CUDA memory
                 torch.cuda.empty_cache()
@@ -134,7 +130,7 @@ if __name__ == "__main__":
                     'nb_gru_layer': 1,
                     'nb_fc_node': 1024,
                     'nb_classes': 2,
-                    'nb_samp': 16000
+                    'nb_samp': 16000 * 4
                 }
 
                 model2 = RawNet2(model_config2).to(device)
@@ -147,10 +143,6 @@ if __name__ == "__main__":
                 # # Test RawNet2
                 # print("\n--- Testing RawNet2 ---")
                 # predictions2, targets2 = test_rawnet2(model2, test_loader, device=device)
-
-                # Save RawNet2 model
-                print("\n=== Saving RawNet2 Model ===")
-                save_model_rawnet2(model2, f"./models/RawNets/RawNet2/pretrained_weights/rawnet2_waveform-{parameter_format}.pth")
 
                 # Clear CUDA memory
                 torch.cuda.empty_cache()
@@ -180,10 +172,6 @@ if __name__ == "__main__":
                 # # Test RawNet3
                 # print("\n--- Testing RawNet3 ---")
                 # predictions3, targets3 = test_rawnet3(model3, test_loader, device=device)
-
-                # Save RawNet3 model
-                print("\n=== Saving RawNet3 Model ===")
-                save_model_rawnet3(model3, f"./models/RawNets/RawNet3/pretrained_weights/rawnet3_waveform-{parameter_format}.pth")
                 
                 # Clear CUDA memory
                 torch.cuda.empty_cache()

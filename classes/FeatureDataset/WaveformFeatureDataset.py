@@ -32,12 +32,12 @@ class WaveformFeatureDataset(Dataset):
                         # Ensure feature_data is 1D
                         feature_data = feature_data.flatten()
 
-                        # Pad or truncate to length 16000
-                        if feature_data.shape[0] < 16000:
-                            pad_width = 16000 - feature_data.shape[0]
+                        # Pad or truncate to length 16000 * 4
+                        if feature_data.shape[0] < 16000 * 4:
+                            pad_width = 16000 * 4 - feature_data.shape[0]
                             feature_data = np.pad(feature_data, (0, pad_width), mode='constant')
                         else:
-                            feature_data = feature_data[:16000]
+                            feature_data = feature_data[:16000 * 4]
                         
                         features = torch.tensor(feature_data, dtype=torch.float32)
                         label = label_map["Bonafide" if "bonafide" in label_name.lower() else "Spoof"]
