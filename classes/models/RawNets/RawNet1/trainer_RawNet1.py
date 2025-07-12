@@ -60,7 +60,7 @@ def train_rawnet1_with_loaders(model, train_loader, val_loader=None, device="cud
 
         torch.cuda.empty_cache()
 
-        save_model_rawnet1(model, optimizer, scaler, epoch, path=f"pretrained_weights/rawnet3_{variation}-ep_{epoch+1}-bs_{train_loader.batch_size}-lr_{lr}.pth")
+        save_model_rawnet1(model, optimizer, scaler, epoch, path=f"pretrained_weights/RawNet1/{variation}/rawnet1_{variation}-ep_{epoch+1}-bs_{train_loader.batch_size}-lr_{lr}.pth")
 
     print("Training completed.")
     total_time = time.time() - total_start_time
@@ -152,7 +152,7 @@ def test_rawnet1(model, test_loader, device="cuda"):
 
     return predictions, targets, metrics
 
-def save_model_rawnet1(model, optimizer, scaler, epoch, path="pretrained_weights/rawnet2.pth"):
+def save_model_rawnet1(model, optimizer, scaler, epoch, path="pretrained_weights/rawnet1.pth"):
     os.makedirs(os.path.dirname(path), exist_ok=True)
 
     torch.save({
