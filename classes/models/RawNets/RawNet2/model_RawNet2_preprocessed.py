@@ -236,54 +236,6 @@ class SincConv_fast(nn.Module):
         return F.conv1d(waveforms, self.filters, stride=self.stride,
                         padding=self.padding, dilation=self.dilation,
                          bias=None, groups=1) 
-
-# -------------------------
-# Pathology Extraction Modules
-# -------------------------
-class PathologicalFeatureExtractor(nn.Module):
-    def __init__(self, in_channels, downsample_kernel, downsample_stride):
-        super(PathologicalFeatureExtractor, self).__init__()
-        self.pre_downsample = nn.Conv1d(
-            in_channels, in_channels,
-            kernel_size=downsample_kernel,
-            stride=downsample_stride,
-            padding=0
-        )
-        self.conv = nn.Conv1d(in_channels, 10, kernel_size=5, stride=1, padding=2)
-        self.relu = nn.ReLU()
-
-    def compute_deltas(self, features):
-        delta = features[:, :, 1:] - features[:, :, :-1]
-        delta = F.pad(delta, (1, 0), mode='replicate')
-        delta2 = delta[:, :, 1:] - delta[:, :, :-1]
-        delta2 = F.pad(delta2, (1, 0), mode='replicate')
-        return delta, delta2
-
-    def forward(self, x):
-        x = self.pre_downsample(x)
-        x = self.relu(self.conv(x))  # [B, 10, T']
-        delta, delta2 = self.compute_deltas(x)
-        return torch.cat([x, delta, delta2], dim=1)  # [B, 30, T']
-    
-class PathologyBranch(nn.Module):
-    def __init__(self, in_channels=30):
-        super(PathologyBranch, self).__init__()
-        self.conv1 = nn.Conv1d(in_channels, 32, kernel_size=3, stride=1, padding=1)
-        self.bn1 = nn.BatchNorm1d(32)
-        self.relu = nn.ReLU()
-        self.resblock1 = Residual_block_wFRM([32, 64])
-        self.resblock2 = Residual_block_wFRM([64, 64])
-        self.gru = nn.GRU(input_size=64, hidden_size=64, batch_first=True)
-        self.fc = nn.Linear(64, 128)
-
-    def forward(self, x):
-        x = self.relu(self.bn1(self.conv1(x)))
-        x = self.resblock1(x)
-        x = self.resblock2(x)
-        x = x.permute(0, 2, 1)
-        _, h_n = self.gru(x)
-        out = self.fc(h_n[-1])
-        return out
         
 class RawNet2(nn.Module):
     def __init__(self, d_args):
@@ -295,12 +247,6 @@ class RawNet2(nn.Module):
         self.first_bn = nn.BatchNorm1d(d_args['filts'][0])
         self.lrelu_keras = nn.LeakyReLU(negative_slope=0.3)
 
-        self.pathology_extractor = PathologicalFeatureExtractor(
-            in_channels=d_args['in_channels'],
-            downsample_kernel=d_args['first_conv'],
-            downsample_stride=d_args['first_conv']
-        )
-        
         self.block0 = nn.Sequential(
             Residual_block_wFRM([d_args['filts'][0] + 30, d_args['filts'][1][1]], first=True)
         )        
@@ -323,25 +269,18 @@ class RawNet2(nn.Module):
         self.sig = nn.Sigmoid()
 
     def forward(self, x, is_test=False):
-        x_orig = x.clone()
+        #follow sincNet recipe
+        nb_samp = x.shape[0]
+        len_seq = x.shape[1]
         x = self.ln(x)
-        x = format_input_waveform(x)
-
+        x=x.view(nb_samp,1,len_seq)
         x = F.max_pool1d(torch.abs(self.first_conv(x)), 3)
         x = self.first_bn(x)
         x = self.lrelu_keras(x)
-
-        path_feat = self.pathology_extractor(format_input_waveform(x_orig))
-
-        if path_feat.shape[2] != x.shape[2]:
-            min_len = min(path_feat.shape[2], x.shape[2])
-            x = x[:, :, :min_len]
-            path_feat = path_feat[:, :, :min_len]
-
-        x = torch.cat([x, path_feat], dim=1)
-
+        
         x = self.block0(x)
         x = self.block1(x)
+
         x = self.block2(x)
         x = self.block3(x)
         x = self.block4(x)
@@ -349,16 +288,14 @@ class RawNet2(nn.Module):
 
         x = self.bn_before_gru(x)
         x = self.lrelu_keras(x)
-        x = x.permute(0, 2, 1)
-
+        x = x.permute(0, 2, 1)  #(batch, filt, time) >> (batch, time, filt)
         self.gru.flatten_parameters()
         x, _ = self.gru(x)
-        code = self.fc1_gru(x[:, -1, :])
-
-        if is_test:
-            return code
-
-        code_norm = code.norm(p=2, dim=1, keepdim=True) / 10.
+        x = x[:,-1,:]
+        code = self.fc1_gru(x)
+        if is_test: return code
+        
+        code_norm = code.norm(p=2,dim=1, keepdim=True) / 10.
         code = torch.div(code, code_norm)
         out = self.fc2_gru(code)
         return out

@@ -88,7 +88,7 @@ class RawNet(nn.Module):
 								  out_features=d_args['nb_classes'])
 
 	def forward(self, features, is_test=False):
-		x = features.unsqueeze(1)  # [B, 1, 16030]
+		x = features.unsqueeze(1)  # [B, 1, T]
 		x = self.first_conv(x)
 		x = self.first_bn(x)
 		x = self.lrelu_keras(x)

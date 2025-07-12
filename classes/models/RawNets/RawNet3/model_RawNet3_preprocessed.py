@@ -145,53 +145,6 @@ class Bottle2neck(nn.Module):
 
         return out
 
-# -------------------------
-# Pathology Extraction Modules
-# -------------------------
-class PathologicalFeatureExtractor(nn.Module):
-    def __init__(self, in_channels, downsample_kernel, downsample_stride):
-        super(PathologicalFeatureExtractor, self).__init__()
-        self.pre_downsample = nn.Conv1d(
-            in_channels, in_channels,
-            kernel_size=downsample_kernel,
-            stride=downsample_stride,
-            padding=0
-        )
-        self.conv = nn.Conv1d(in_channels, 10, kernel_size=5, stride=1, padding=2)
-        self.relu = nn.ReLU()
-
-    def compute_deltas(self, features):
-        delta = features[:, :, 1:] - features[:, :, :-1]
-        delta = F.pad(delta, (1, 0), mode='replicate')
-        delta2 = delta[:, :, 1:] - delta[:, :, :-1]
-        delta2 = F.pad(delta2, (1, 0), mode='replicate')
-        return delta, delta2
-
-    def forward(self, x):
-        x = self.pre_downsample(x)
-        x = self.relu(self.conv(x))
-        delta, delta2 = self.compute_deltas(x)
-        return torch.cat([x, delta, delta2], dim=1)  # shape [B, 30, T']
-
-class PathologyBranch(nn.Module):
-    def __init__(self, in_channels=30):
-        super(PathologyBranch, self).__init__()
-        self.conv1 = nn.Conv1d(in_channels, 32, kernel_size=3, stride=1, padding=1)
-        self.bn1 = nn.BatchNorm1d(32)
-        self.relu = nn.ReLU()
-        self.resblock1 = Bottle2neck(32, 64, kernel_size=3, dilation=2, scale=4)
-        self.resblock2 = Bottle2neck(64, 64, kernel_size=3, dilation=2, scale=4)
-        self.gru = nn.GRU(input_size=64, hidden_size=64, batch_first=True)
-        self.fc = nn.Linear(64, 128)
-
-    def forward(self, x):
-        x = self.relu(self.bn1(self.conv1(x)))
-        x = self.resblock1(x)
-        x = self.resblock2(x)
-        x = x.permute(0, 2, 1)
-        _, h_n = self.gru(x)
-        return self.fc(h_n[-1])
-    
 # -----------------------------
 # RawNet3 with Pathology
 # -----------------------------
@@ -214,12 +167,6 @@ class RawNet3Model(nn.Module):
             ParamSincFB(C // 4, 251, stride=kwargs["sinc_stride"]))
         self.relu = nn.ReLU()
         self.bn1 = nn.BatchNorm1d(C // 4)
-
-        self.pathology_extractor = PathologicalFeatureExtractor(
-            in_channels=1,
-            downsample_kernel=251,
-            downsample_stride=kwargs["sinc_stride"]
-        )
 
         self.layer1 = block(C // 4 + 30, C, kernel_size=3, dilation=2, scale=model_scale, pool=5)
         self.layer2 = block(C, C, kernel_size=3, dilation=3, scale=model_scale, pool=3)
@@ -255,9 +202,8 @@ class RawNet3Model(nn.Module):
         """
         :param x: input mini-batch (bs, samp)
         """
-        x_orig = x.unsqueeze(1) if x.dim() == 2 else x
 
-        with torch.amp.autocast(device_type='cuda', enabled=False):
+        with torch.cuda.amp.autocast(enabled=False):
             x = self.preprocess(x)
             x = torch.abs(self.conv1(x))
             if self.log_sinc:
@@ -267,15 +213,8 @@ class RawNet3Model(nn.Module):
             elif self.norm_sinc == "mean_std":
                 m = torch.mean(x, dim=-1, keepdim=True)
                 s = torch.std(x, dim=-1, keepdim=True)
-                s = torch.clamp(s, min=0.001)
+                s[s < 0.001] = 0.001
                 x = (x - m) / s
-                path_feat = self.pathology_extractor(x_orig)
-
-        if path_feat.shape[2] != x.shape[2]:
-            min_len = min(path_feat.shape[2], x.shape[2])
-            x = x[:, :, :min_len]
-            path_feat = path_feat[:, :, :min_len]
-        x = torch.cat((x, path_feat), dim=1)
 
         if self.summed:
             x1 = self.layer1(x)
@@ -296,7 +235,11 @@ class RawNet3Model(nn.Module):
                 (
                     x,
                     torch.mean(x, dim=2, keepdim=True).repeat(1, 1, t),
-                    torch.sqrt(torch.var(x, dim=2, keepdim=True).clamp(min=1e-4, max=1e4)).repeat(1, 1, t),
+                    torch.sqrt(
+                        torch.var(x, dim=2, keepdim=True).clamp(
+                            min=1e-4, max=1e4
+                        )
+                    ).repeat(1, 1, t),
                 ),
                 dim=1,
             )
@@ -306,12 +249,15 @@ class RawNet3Model(nn.Module):
         w = self.attention(global_x)
 
         mu = torch.sum(x * w, dim=2)
-        sg = torch.sqrt((torch.sum((x ** 2) * w, dim=2) - mu ** 2).clamp(min=1e-4, max=1e4))
+        sg = torch.sqrt(
+            (torch.sum((x**2) * w, dim=2) - mu**2).clamp(min=1e-4, max=1e4)
+        )
 
         x = torch.cat((mu, sg), 1)
+
         x = self.bn5(x)
 
-        x = self.fc6(x)  # (B, nOut)
+        x = self.fc6(x)
 
         if self.out_bn:
             x = self.bn6(x)
