@@ -144,7 +144,7 @@ class Bottle2neck(nn.Module):
         out = self.afms(out)
 
         return out
-
+    
 # -----------------------------
 # RawNet3 with Pathology
 # -----------------------------
@@ -162,24 +162,14 @@ class RawNet3Model(nn.Module):
         self.summed = summed
 
         self.preprocess = nn.Sequential(
-            PreEmphasis(), nn.InstanceNorm1d(1, eps=1e-4, affine=True)
-        )
+            PreEmphasis(), nn.InstanceNorm1d(1, eps=1e-4, affine=True))
         self.conv1 = Encoder(
-            ParamSincFB(
-                C // 4,
-                251,
-                stride=kwargs["sinc_stride"],
-            )
-        )
+            ParamSincFB(C // 4, 251, stride=kwargs["sinc_stride"]))
         self.relu = nn.ReLU()
         self.bn1 = nn.BatchNorm1d(C // 4)
 
-        self.layer1 = block(
-            C // 4, C, kernel_size=3, dilation=2, scale=model_scale, pool=5
-        )
-        self.layer2 = block(
-            C, C, kernel_size=3, dilation=3, scale=model_scale, pool=3
-        )
+        self.layer1 = block(C // 4, C, kernel_size=3, dilation=2, scale=model_scale, pool=5)
+        self.layer2 = block(C, C, kernel_size=3, dilation=3, scale=model_scale, pool=3)
         self.layer3 = block(C, C, kernel_size=3, dilation=4, scale=model_scale)
         self.layer4 = nn.Conv1d(3 * C, 1536, kernel_size=1)
 
@@ -187,7 +177,7 @@ class RawNet3Model(nn.Module):
             attn_input = 1536 * 3
         else:
             attn_input = 1536
-        print("self.encoder_type", self.encoder_type)
+        # print("self.encoder_type", self.encoder_type)
         if self.encoder_type == "ECA":
             attn_output = 1536
         elif self.encoder_type == "ASP":
@@ -204,10 +194,8 @@ class RawNet3Model(nn.Module):
         )
 
         self.bn5 = nn.BatchNorm1d(3072)
-
         self.fc6 = nn.Linear(3072, nOut)
         self.bn6 = nn.BatchNorm1d(nOut)
-
         self.mp3 = nn.MaxPool1d(3)
 
     def forward(self, x):
@@ -215,7 +203,7 @@ class RawNet3Model(nn.Module):
         :param x: input mini-batch (bs, samp)
         """
 
-        with torch.cuda.amp.autocast(enabled=False):
+        with torch.amp.autocast(device_type='cuda', enabled=False):
             x = self.preprocess(x)
             x = torch.abs(self.conv1(x))
             if self.log_sinc:
@@ -225,7 +213,7 @@ class RawNet3Model(nn.Module):
             elif self.norm_sinc == "mean_std":
                 m = torch.mean(x, dim=-1, keepdim=True)
                 s = torch.std(x, dim=-1, keepdim=True)
-                s[s < 0.001] = 0.001
+                s = torch.clamp(s, min=0.001)
                 x = (x - m) / s
 
         if self.summed:
@@ -247,11 +235,7 @@ class RawNet3Model(nn.Module):
                 (
                     x,
                     torch.mean(x, dim=2, keepdim=True).repeat(1, 1, t),
-                    torch.sqrt(
-                        torch.var(x, dim=2, keepdim=True).clamp(
-                            min=1e-4, max=1e4
-                        )
-                    ).repeat(1, 1, t),
+                    torch.sqrt(torch.var(x, dim=2, keepdim=True).clamp(min=1e-4, max=1e4)).repeat(1, 1, t),
                 ),
                 dim=1,
             )
@@ -261,15 +245,12 @@ class RawNet3Model(nn.Module):
         w = self.attention(global_x)
 
         mu = torch.sum(x * w, dim=2)
-        sg = torch.sqrt(
-            (torch.sum((x**2) * w, dim=2) - mu**2).clamp(min=1e-4, max=1e4)
-        )
+        sg = torch.sqrt((torch.sum((x ** 2) * w, dim=2) - mu ** 2).clamp(min=1e-4, max=1e4))
 
         x = torch.cat((mu, sg), 1)
-
         x = self.bn5(x)
 
-        x = self.fc6(x)
+        x = self.fc6(x)  # (B, nOut)
 
         if self.out_bn:
             x = self.bn6(x)
