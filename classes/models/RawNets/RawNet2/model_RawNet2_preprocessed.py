@@ -240,32 +240,40 @@ class SincConv_fast(nn.Module):
 class RawNet2(nn.Module):
     def __init__(self, d_args):
         super(RawNet2, self).__init__()
+
         self.ln = LayerNorm(d_args['nb_samp'])
-        self.first_conv = SincConv_fast(in_channels=d_args['in_channels'],
-                                        out_channels=d_args['filts'][0],
-                                        kernel_size=d_args['first_conv'])
-        self.first_bn = nn.BatchNorm1d(d_args['filts'][0])
-        self.lrelu_keras = nn.LeakyReLU(negative_slope=0.3)
+        self.first_conv = SincConv_fast(in_channels = d_args['in_channels'],
+            out_channels = d_args['filts'][0],
+            kernel_size = d_args['first_conv']
+            )
 
-        self.block0 = nn.Sequential(
-            Residual_block_wFRM([d_args['filts'][0] + 30, d_args['filts'][1][1]], first=True)
-        )        
-        self.block1 = nn.Sequential(Residual_block_wFRM(d_args['filts'][1]))
-        self.block2 = nn.Sequential(Residual_block_wFRM(d_args['filts'][2]))
+        self.first_bn = nn.BatchNorm1d(num_features = d_args['filts'][0])
+        self.lrelu = nn.LeakyReLU()
+        self.lrelu_keras = nn.LeakyReLU(negative_slope = 0.3)
+        
+        self.block0 = nn.Sequential(Residual_block_wFRM(nb_filts = d_args['filts'][1], first = True))
+        self.block1 = nn.Sequential(Residual_block_wFRM(nb_filts = d_args['filts'][1]))
+ 
+        self.block2 = nn.Sequential(Residual_block_wFRM(nb_filts = d_args['filts'][2]))
         d_args['filts'][2][0] = d_args['filts'][2][1]
-        self.block3 = nn.Sequential(Residual_block_wFRM(d_args['filts'][2]))
-        self.block4 = nn.Sequential(Residual_block_wFRM(d_args['filts'][2]))
-        self.block5 = nn.Sequential(Residual_block_wFRM(d_args['filts'][2]))
-
+        self.block3 = nn.Sequential(Residual_block_wFRM(nb_filts = d_args['filts'][2]))
+        self.block4 = nn.Sequential(Residual_block_wFRM(nb_filts = d_args['filts'][2]))
+        self.block5 = nn.Sequential(Residual_block_wFRM(nb_filts = d_args['filts'][2]))
         self.avgpool = nn.AdaptiveAvgPool1d(1)
-        self.bn_before_gru = nn.BatchNorm1d(d_args['filts'][2][-1])
-        self.gru = nn.GRU(input_size=d_args['filts'][2][-1],
-                          hidden_size=d_args['gru_node'],
-                          num_layers=d_args['nb_gru_layer'],
-                          batch_first=True)
-        self.fc1_gru = nn.Linear(d_args['gru_node'], d_args['nb_fc_node'])
 
-        self.fc2_gru = nn.Linear(d_args['nb_fc_node'], d_args['nb_classes'])
+        self.bn_before_gru = nn.BatchNorm1d(num_features = d_args['filts'][2][-1])
+        self.gru = nn.GRU(input_size = d_args['filts'][2][-1],
+            hidden_size = d_args['gru_node'],
+            num_layers = d_args['nb_gru_layer'],
+            batch_first = True)
+
+        
+        self.fc1_gru = nn.Linear(in_features = d_args['gru_node'],
+            out_features = d_args['nb_fc_node'])
+        self.fc2_gru = nn.Linear(in_features = d_args['nb_fc_node'],
+            out_features = d_args['nb_classes'],
+            bias = True)
+        
         self.sig = nn.Sigmoid()
 
     def forward(self, x, is_test=False):

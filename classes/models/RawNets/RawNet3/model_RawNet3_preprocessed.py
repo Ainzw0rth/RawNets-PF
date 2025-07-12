@@ -162,14 +162,24 @@ class RawNet3Model(nn.Module):
         self.summed = summed
 
         self.preprocess = nn.Sequential(
-            PreEmphasis(), nn.InstanceNorm1d(1, eps=1e-4, affine=True))
+            PreEmphasis(), nn.InstanceNorm1d(1, eps=1e-4, affine=True)
+        )
         self.conv1 = Encoder(
-            ParamSincFB(C // 4, 251, stride=kwargs["sinc_stride"]))
+            ParamSincFB(
+                C // 4,
+                251,
+                stride=kwargs["sinc_stride"],
+            )
+        )
         self.relu = nn.ReLU()
         self.bn1 = nn.BatchNorm1d(C // 4)
 
-        self.layer1 = block(C // 4 + 30, C, kernel_size=3, dilation=2, scale=model_scale, pool=5)
-        self.layer2 = block(C, C, kernel_size=3, dilation=3, scale=model_scale, pool=3)
+        self.layer1 = block(
+            C // 4, C, kernel_size=3, dilation=2, scale=model_scale, pool=5
+        )
+        self.layer2 = block(
+            C, C, kernel_size=3, dilation=3, scale=model_scale, pool=3
+        )
         self.layer3 = block(C, C, kernel_size=3, dilation=4, scale=model_scale)
         self.layer4 = nn.Conv1d(3 * C, 1536, kernel_size=1)
 
@@ -177,7 +187,7 @@ class RawNet3Model(nn.Module):
             attn_input = 1536 * 3
         else:
             attn_input = 1536
-        # print("self.encoder_type", self.encoder_type)
+        print("self.encoder_type", self.encoder_type)
         if self.encoder_type == "ECA":
             attn_output = 1536
         elif self.encoder_type == "ASP":
@@ -194,8 +204,10 @@ class RawNet3Model(nn.Module):
         )
 
         self.bn5 = nn.BatchNorm1d(3072)
+
         self.fc6 = nn.Linear(3072, nOut)
         self.bn6 = nn.BatchNorm1d(nOut)
+
         self.mp3 = nn.MaxPool1d(3)
 
     def forward(self, x):
