@@ -154,7 +154,7 @@ if __name__ == "__main__":
                 # -----------------------------
                 # Model config for RawNet3
                 model_config3 = {
-                    "nOut": 512,
+                    "nOut": 2,
                     "sinc_stride": 10,
                     "encoder_type": "ECA",
                     "log_sinc": True,
