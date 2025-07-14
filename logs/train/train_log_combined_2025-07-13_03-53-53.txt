@@ -1,0 +1,38 @@
+==================== LOADING DATASET ====================
+
+Skipped 0 files due to NaNs/Infs.
+
+==================== DATASET LOADED ====================
+
+
+==================== SPLITTING DATASET ====================
+
+Total samples: 71118
+Train samples: 49782
+Validation samples: 10667
+Test samples: 10669
+
+==================== DATASET SPLITTED ====================
+
+
+==================== TRAINING STARTED ====================
+
+
+=========== TRAIN LOADER ===========
+Train batches: 1556
+Validation batches: 334
+Test batches: 334
+Using device: cuda
+
+===== Training with Batch Size: 32, Learning Rate: 0.0001 =====
+device: cuda
+
+=== Training RawNet1 ===
+Epoch [1/100] - Train Loss: 0.0018
+              --> Time: 557.80 seconds
+
+==================== PREPROCESSING COMPLETED ====================
+
+Total time taken: 588.68 seconds
+
+===============================================================

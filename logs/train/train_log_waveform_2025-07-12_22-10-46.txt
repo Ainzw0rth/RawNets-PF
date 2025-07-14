@@ -1,0 +1,44 @@
+/raid/m13521069/RawNets-PF/rawnet-pf/lib/python3.8/site-packages/torch/cuda/__init__.py:128: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 11060). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at ../c10/cuda/CUDAFunctions.cpp:108.)
+  return torch._C._cuda_getDeviceCount() > 0
+==================== LOADING DATASET ====================
+
+Skipped 0 files due to NaNs/Infs.
+
+==================== DATASET LOADED ====================
+
+
+==================== SPLITTING DATASET ====================
+
+Total samples: 71118
+Train samples: 49782
+Validation samples: 10667
+Test samples: 10669
+
+==================== DATASET SPLITTED ====================
+
+
+==================== TRAINING STARTED ====================
+
+
+=========== TRAIN LOADER ===========
+Train batches: 1556
+Validation batches: 334
+Test batches: 334
+Using device: cpu
+
+===== Training with Batch Size: 32, Learning Rate: 0.0001 =====
+device: cpu
+
+=== Training RawNet1 ===
+/raid/m13521069/RawNets-PF/classes/models/RawNets/RawNet1/trainer_RawNet1.py:28: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = GradScaler()
+/raid/m13521069/RawNets-PF/rawnet-pf/lib/python3.8/site-packages/torch/amp/grad_scaler.py:132: UserWarning: torch.cuda.amp.GradScaler is enabled, but CUDA is not available.  Disabling.
+  warnings.warn(
+/raid/m13521069/RawNets-PF/classes/models/RawNets/RawNet1/trainer_RawNet1.py:38: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with autocast(enabled=False, dtype=torch.float16, cache_enabled=True):
+
+==================== PREPROCESSING COMPLETED ====================
+
+Total time taken: 18.86 seconds
+
+===============================================================
