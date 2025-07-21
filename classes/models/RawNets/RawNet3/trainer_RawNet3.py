@@ -61,7 +61,7 @@ def train_rawnet3_with_loaders(model, train_loader, val_loader=None, device="cud
 
         torch.cuda.empty_cache()
 
-        save_model_rawnet3(model, optimizer, scaler, epoch, path=f"pretrained_weights/{variation}/RawNet3/rawnet3_{variation}-ep_{epoch+1}-bs_{train_loader.batch_size}-lr_{lr}.pth")
+        save_model_rawnet3(model, optimizer, scaler, epoch, path=f"pretrained_weights/RawNet3/rawnet3_{variation}-ep_{epoch+1}-bs_{train_loader.batch_size}-lr_{lr}.pth")
 
     print("Training completed.")
     total_time = time.time() - total_start_time
@@ -144,7 +144,12 @@ def test_rawnet3(model, test_loader, class_labels=None, device="cuda"):
         "cllr": CLLR(y_true, y_prob)
     }
 
-    print(f"Test Accuracy: {metrics['accuracy']:.2f}%")
+    print(f"              --> Val Acc: {metrics['accuracy']:.2f}%")
+    print(f"              --> Balanced Acc: {metrics['balanced_accuracy']:.4f} | Precision: {metrics['precision']:.4f}")
+    print(f"              --> Recall: {metrics['recall']:.4f} | F1: {metrics['f1']:.4f} | F2: {metrics['f2']:.4f}")
+    print(f"              --> EER: {metrics['eer']:.4f} | actDCF: {metrics['actDCF']:.4f} | minDCF: {metrics['minDCF']:.4f}")
+    print(f"              --> CLLR: {metrics['cllr']:.4f}")
+    
     cm = confusion_matrix(y_true, y_pred)
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Synthetic", "Real"])
     disp.plot(cmap=plt.cm.Blues)
