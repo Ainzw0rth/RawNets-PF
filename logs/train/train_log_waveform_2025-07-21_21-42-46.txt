@@ -27,3 +27,35 @@ Using device: cuda
 ===== Training with Batch Size: 32, Learning Rate: 0.0001 =====
 
 === Training RawNet3 ===
+Epoch [1/100] - Train Loss: 0.2026
+              --> Time: 3231.05 seconds
+              --> Val Loss: 0.1640 | Val Acc: 99.88%
+              --> Balanced Acc: 0.9984 | Precision: 0.9978
+              --> Recall: 0.9975 | F1: 0.9977 | F2: 0.9976
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0030
+              --> CLLR: 0.1743
+Model RawNet3 saved to pretrained_weights/waveform/RawNet3/rawnet3_waveform-ep_1-bs_32-lr_0.0001.pth
+Epoch [2/100] - Train Loss: 0.1336
+              --> Time: 3197.80 seconds
+              --> Val Loss: 0.1078 | Val Acc: 99.95%
+              --> Balanced Acc: 0.9997 | Precision: 0.9982
+              --> Recall: 1.0000 | F1: 0.9991 | F2: 0.9996
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0005
+              --> CLLR: 0.1159
+Model RawNet3 saved to pretrained_weights/waveform/RawNet3/rawnet3_waveform-ep_2-bs_32-lr_0.0001.pth
+Epoch [3/100] - Train Loss: 0.0961
+              --> Time: 3208.32 seconds
+              --> Val Loss: 0.0839 | Val Acc: 99.53%
+              --> Balanced Acc: 0.9917 | Precision: 0.9978
+              --> Recall: 0.9842 | F1: 0.9909 | F2: 0.9869
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0042
+              --> CLLR: 0.1042
+Model RawNet3 saved to pretrained_weights/waveform/RawNet3/rawnet3_waveform-ep_3-bs_32-lr_0.0001.pth
+Epoch [4/100] - Train Loss: 0.0719
+              --> Time: 3206.65 seconds
+              --> Val Loss: 0.0533 | Val Acc: 99.57%
+              --> Balanced Acc: 0.9918 | Precision: 0.9996
+              --> Recall: 0.9838 | F1: 0.9917 | F2: 0.9869
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0011
+              --> CLLR: 0.0752
+Model RawNet3 saved to pretrained_weights/waveform/RawNet3/rawnet3_waveform-ep_4-bs_32-lr_0.0001.pth
