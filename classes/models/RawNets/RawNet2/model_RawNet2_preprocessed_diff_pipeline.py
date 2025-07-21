@@ -258,33 +258,36 @@ class RawNet2(nn.Module):
         self.sig = nn.Sigmoid()
 
     def forward(self, x, is_test=False):
-        #follow sincNet recipe
-        nb_samp = x.shape[0]
-        len_seq = x.shape[1]
-        x = self.ln(x)
-        x=x.view(nb_samp,1,len_seq)
-        x = F.max_pool1d(torch.abs(self.first_conv(x)), 3)
-        x = self.first_bn(x)
-        x = self.lrelu_keras(x)
-        
-        x = self.block0(x)
-        x = self.block1(x)
+        # Split input: first 64000 waveform, last 24 patho features
+        x_waveform = x[:, :64000]  # (batch_size, 64000)
+        x_patho = x[:, 64000:]     # (batch_size, 24)
 
-        x = self.block2(x)
-        x = self.block3(x)
-        x = self.block4(x)
-        x = self.block5(x)
+        nb_samp = x_waveform.shape[0]
+        len_seq = x_waveform.shape[1]
+        x_waveform = self.ln(x_waveform)
+        x_waveform = x_waveform.view(nb_samp, 1, len_seq)
+        x_waveform = F.max_pool1d(torch.abs(self.first_conv(x_waveform)), 3)
+        x_waveform = self.first_bn(x_waveform)
+        x_waveform = self.lrelu_keras(x_waveform)
 
-        x = self.bn_before_gru(x)
-        x = self.lrelu_keras(x)
-        x = x.permute(0, 2, 1)  #(batch, filt, time) >> (batch, time, filt)
+        x_waveform = self.block0(x_waveform)
+        x_waveform = self.block1(x_waveform)
+        x_waveform = self.block2(x_waveform)
+        x_waveform = self.block3(x_waveform)
+        x_waveform = self.block4(x_waveform)
+        x_waveform = self.block5(x_waveform)
+
+        x_waveform = self.bn_before_gru(x_waveform)
+        x_waveform = self.lrelu_keras(x_waveform)
+        x_waveform = x_waveform.permute(0, 2, 1)  #(batch, filt, time) >> (batch, time, filt)
         self.gru.flatten_parameters()
-        x, _ = self.gru(x)
-        x = x[:,-1,:]
-        code = self.fc1_gru(x)
-        if is_test: return code
-        
-        code_norm = code.norm(p=2,dim=1, keepdim=True) / 10.
-        code = torch.div(code, code_norm)
-        out = self.fc2_gru(code)
+        x_waveform, _ = self.gru(x_waveform)
+        audio_emb = self.fc1_gru(x_waveform[:, -1, :])
+        if is_test:
+            return audio_emb
+
+        x_patho = x_patho.float()
+        combined = torch.cat((audio_emb, x_patho), dim=1)
+        normed = combined / (combined.norm(p=2, dim=1, keepdim=True) + 1e-8) * 10
+        out = self.fc2_gru(normed)
         return out

@@ -98,19 +98,21 @@ class RawNet(nn.Module):
 		x_waveform = self.first_bn(x_waveform)
 		x_waveform = self.lrelu_keras(x_waveform)
 
-		x = torch.cat((x_waveform, x_patho), dim=1)
-		x = self.block0(x)
-		x = self.block1(x)
-		x = self.bn_before_gru(x)
-		x = self.lrelu_keras(x)
-		x = x.permute(0, 2, 1)
-		x, _ = self.gru(x)
-		audio_emb = self.audio_fc(x[:, -1, :])
+		x_waveform = self.block0(x_waveform)
+		x_waveform = self.block1(x_waveform)
+		x_waveform = self.bn_before_gru(x_waveform)
+		x_waveform = self.lrelu_keras(x_waveform)
+		x_waveform = x_waveform.permute(0, 2, 1)
+		x_waveform, _ = self.gru(x_waveform)
+		audio_emb = self.audio_fc(x_waveform[:, -1, :])
 
 		if is_test:
 			return audio_emb
+		
+		x_patho = x_patho.float()
+		combined = torch.cat((audio_emb, x_patho), dim=1) 
 
-		normed = audio_emb / (audio_emb.norm(p=2, dim=1, keepdim=True) + 1e-8) * 10
+		normed = combined / (combined.norm(p=2, dim=1, keepdim=True) + 1e-8) * 10
 		out = self.final_fc(normed)
 		return out
 		'''

@@ -221,49 +221,51 @@ class RawNet3Model(nn.Module):
                 s = torch.std(x_waveform, dim=-1, keepdim=True)
                 s = torch.clamp(s, min=0.001)
                 x_waveform = (x_waveform - m) / s
-
-        x = torch.cat((x_waveform, x_patho), dim=1)
+        
         # Continue with main pipeline
         if self.summed:
-            x1 = self.layer1(x)
+            x1 = self.layer1(x_waveform)
             x2 = self.layer2(x1)
             x3 = self.layer3(self.mp3(x1) + x2)
         else:
-            x1 = self.layer1(x)
+            x1 = self.layer1(x_waveform)
             x2 = self.layer2(x1)
             x3 = self.layer3(x2)
 
-        x = self.layer4(torch.cat((self.mp3(x1), x2, x3), dim=1))
-        x = self.relu(x)
+        x_waveform = self.layer4(torch.cat((self.mp3(x1), x2, x3), dim=1))
+        x_waveform = self.relu(x_waveform)
 
-        t = x.size()[-1]
+        t = x_waveform.size()[-1]
 
         if self.context:
             global_x = torch.cat(
                 (
-                    x,
-                    torch.mean(x, dim=2, keepdim=True).repeat(1, 1, t),
-                    torch.sqrt(torch.var(x, dim=2, keepdim=True).clamp(min=1e-4, max=1e4)).repeat(1, 1, t),
+                    x_waveform,
+                    torch.mean(x_waveform, dim=2, keepdim=True).repeat(1, 1, t),
+                    torch.sqrt(torch.var(x_waveform, dim=2, keepdim=True).clamp(min=1e-4, max=1e4)).repeat(1, 1, t),
                 ),
                 dim=1,
             )
         else:
-            global_x = x
+            global_x = x_waveform
 
         w = self.attention(global_x)
 
-        mu = torch.sum(x * w, dim=2)
-        sg = torch.sqrt((torch.sum((x ** 2) * w, dim=2) - mu ** 2).clamp(min=1e-4, max=1e4))
+        mu = torch.sum(x_waveform * w, dim=2)
+        sg = torch.sqrt((torch.sum((x_waveform ** 2) * w, dim=2) - mu ** 2).clamp(min=1e-4, max=1e4))
 
-        x = torch.cat((mu, sg), 1)
-        x = self.bn5(x)
+        x_waveform = torch.cat((mu, sg), 1)
+        x_waveform = self.bn5(x_waveform)
 
-        x = self.fc6(x)  # (B, nOut)
+        # Concatenate with the last 24 attributes before final FC layer
+        x_cat = torch.cat((x_waveform, x_patho), dim=1)
+
+        x_cat = self.fc6(x_cat)  # (B, nOut)
 
         if self.out_bn:
-            x = self.bn6(x)
+            x_cat = self.bn6(x_cat)
 
-        return x
+        return x_cat
 
 
 def RawNet3(**kwargs):
