@@ -9,7 +9,7 @@ from torch.utils.data import DataLoader
 from utils.Logger import Logger
 from utils.Seed import set_seed
 from utils.Splitter import stratified_split
-from classes.FeatureDataset.CombinedFeatureDataset import CombinedFeatureDataset
+from classes.FeatureDataset.TestDataset import TestDataset
 from classes.FeatureDataset.ListDataset import ListDataset
 
 # Import RawNet1 components
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     # Process spoof datasets
     for spoof_dir in spoof_dirs:
         if os.path.exists(spoof_dir):
-            dataset = CombinedFeatureDataset(spoof_dir, label_map={"Spoof": 0, "Bonafide": 1})
+            dataset = TestDataset(spoof_dir, force_label=0)
             spoof_samples = [(features, 0) for features, _ in dataset.samples]
             spoof_dataset = ListDataset(spoof_samples)
             t, v, te = stratified_split(spoof_dataset, splits=(0.7, 0.15, 0.15), seed=seed)
@@ -80,7 +80,7 @@ if __name__ == "__main__":
     # Process bonafide datasets
     for bonafide_dir in bonafide_dirs:
         if os.path.exists(bonafide_dir):
-            dataset = CombinedFeatureDataset(bonafide_dir, label_map={"Spoof": 0, "Bonafide": 1})
+            dataset = TestDataset(bonafide_dir, force_label=1)
             bonafide_samples = [(features, 1) for features, _ in dataset.samples]
             bonafide_dataset = ListDataset(bonafide_samples)
             t, v, te = stratified_split(bonafide_dataset, splits=(0.7, 0.15, 0.15), seed=seed)
