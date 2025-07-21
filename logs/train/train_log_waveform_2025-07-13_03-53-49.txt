@@ -1638,3 +1638,49 @@ Training completed.
 Total training time for RawNet2: 74078.57 seconds (1234.64 minutes)
 
 === Training RawNet3 ===
+Epoch [1/100] - Train Loss: 0.2022
+              --> Time: 23907.08 seconds
+              --> Val Loss: 0.1521 | Val Acc: 99.93%
+              --> Balanced Acc: 0.9994 | Precision: 0.9978
+              --> Recall: 0.9996 | F1: 0.9987 | F2: 0.9993
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0004
+              --> CLLR: 0.1607
+Model RawNet3 saved to pretrained_weights/waveform/RawNet3/rawnet3_waveform-ep_1-bs_32-lr_0.0001.pth
+Epoch [2/100] - Train Loss: 0.1336
+              --> Time: 23624.73 seconds
+              --> Val Loss: 0.0939 | Val Acc: 99.78%
+              --> Balanced Acc: 0.9974 | Precision: 0.9953
+              --> Recall: 0.9964 | F1: 0.9959 | F2: 0.9962
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0042
+              --> CLLR: 0.1069
+Model RawNet3 saved to pretrained_weights/waveform/RawNet3/rawnet3_waveform-ep_2-bs_32-lr_0.0001.pth
+Epoch [3/100] - Train Loss: 0.0967
+              --> Time: 23731.76 seconds
+              --> Val Loss: 0.0708 | Val Acc: 99.97%
+              --> Balanced Acc: 0.9998 | Precision: 0.9989
+              --> Recall: 1.0000 | F1: 0.9995 | F2: 0.9998
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0787
+Model RawNet3 saved to pretrained_weights/waveform/RawNet3/rawnet3_waveform-ep_3-bs_32-lr_0.0001.pth
+Epoch [4/100] - Train Loss: 0.0708
+              --> Time: 24011.67 seconds
+              --> Val Loss: 0.0520 | Val Acc: 99.97%
+              --> Balanced Acc: 0.9997 | Precision: 0.9993
+              --> Recall: 0.9996 | F1: 0.9995 | F2: 0.9996
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0003
+              --> CLLR: 0.0586
+Model RawNet3 saved to pretrained_weights/waveform/RawNet3/rawnet3_waveform-ep_4-bs_32-lr_0.0001.pth
+Epoch [5/100] - Train Loss: 0.0538
+              --> Time: 24208.85 seconds
+              --> Val Loss: 0.0421 | Val Acc: 99.80%
+              --> Balanced Acc: 0.9977 | Precision: 0.9953
+              --> Recall: 0.9971 | F1: 0.9962 | F2: 0.9968
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0027
+              --> CLLR: 0.0490
+Model RawNet3 saved to pretrained_weights/waveform/RawNet3/rawnet3_waveform-ep_5-bs_32-lr_0.0001.pth
+
+==================== PREPROCESSING COMPLETED ====================
+
+Total time taken: 278546.79 seconds
+
+===============================================================

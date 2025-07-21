@@ -1,0 +1,52 @@
+==================== LOADING DATASET ====================
+
+Skipped 0 files due to NaNs/Infs.
+
+==================== DATASET LOADED ====================
+
+
+==================== SPLITTING DATASET ====================
+
+Total samples: 71118
+Train samples: 49782
+Validation samples: 10667
+Test samples: 10669
+
+==================== DATASET SPLITTED ====================
+
+
+==================== TRAINING STARTED ====================
+
+
+=========== TRAIN LOADER ===========
+Train batches: 1556
+Validation batches: 334
+Test batches: 334
+Using device: cuda
+
+===== Training with Batch Size: 32, Learning Rate: 0.0001 =====
+
+=== Training RawNet3 ===
+/raid/m13521069/RawNets-PF/rawnet-pf/lib/python3.8/site-packages/torch/autograd/__init__.py:173: UserWarning: Error detected in ConvolutionBackward0. Traceback of forward call that caused the error:
+  File "trainer_all_RawNet_waveform.py", line 170, in <module>
+    train_rawnet3_with_loaders(model3, train_loader, val_loader,
+  File "/raid/m13521069/RawNets-PF/classes/models/RawNets/RawNet3/trainer_RawNet3.py", line 40, in train_rawnet3_with_loaders
+    outputs = model(inputs)
+  File "/raid/m13521069/RawNets-PF/rawnet-pf/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/raid/m13521069/RawNets-PF/classes/models/RawNets/RawNet3/model_RawNet3_preprocessed.py", line 228, in forward
+    x = self.layer4(torch.cat((self.mp3(x1), x2, x3), dim=1))
+  File "/raid/m13521069/RawNets-PF/rawnet-pf/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1130, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/raid/m13521069/RawNets-PF/rawnet-pf/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 307, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/raid/m13521069/RawNets-PF/rawnet-pf/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 303, in _conv_forward
+    return F.conv1d(input, weight, bias, self.stride,
+ (Triggered internally at  ../torch/csrc/autograd/python_anomaly_mode.cpp:102.)
+  Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+
+==================== PREPROCESSING COMPLETED ====================
+
+Total time taken: 22.98 seconds
+
+===============================================================

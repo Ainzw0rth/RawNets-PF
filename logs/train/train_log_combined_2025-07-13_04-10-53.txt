@@ -1638,3 +1638,814 @@ Training completed.
 Total training time for RawNet2: 73729.78 seconds (1228.83 minutes)
 
 === Training RawNet3 ===
+Epoch [1/100] - Train Loss: 0.2025
+              --> Time: 23623.93 seconds
+              --> Val Loss: 0.1444 | Val Acc: 99.63%
+              --> Balanced Acc: 0.9970 | Precision: 0.9872
+              --> Recall: 0.9986 | F1: 0.9928 | F2: 0.9963
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0044
+              --> CLLR: 0.1539
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_1-bs_32-lr_0.0001.pth
+Epoch [2/100] - Train Loss: 0.1346
+              --> Time: 24038.71 seconds
+              --> Val Loss: 0.1135 | Val Acc: 99.32%
+              --> Balanced Acc: 0.9937 | Precision: 0.9791
+              --> Recall: 0.9950 | F1: 0.9870 | F2: 0.9918
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0113
+              --> CLLR: 0.1286
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_2-bs_32-lr_0.0001.pth
+Epoch [3/100] - Train Loss: 0.0978
+              --> Time: 24142.97 seconds
+              --> Val Loss: 0.1010 | Val Acc: 99.91%
+              --> Balanced Acc: 0.9990 | Precision: 0.9975
+              --> Recall: 0.9989 | F1: 0.9982 | F2: 0.9986
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0018
+              --> CLLR: 0.1116
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_3-bs_32-lr_0.0001.pth
+Epoch [4/100] - Train Loss: 0.0695
+              --> Time: 24092.29 seconds
+              --> Val Loss: 0.0498 | Val Acc: 99.97%
+              --> Balanced Acc: 0.9996 | Precision: 0.9996
+              --> Recall: 0.9993 | F1: 0.9995 | F2: 0.9994
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0004
+              --> CLLR: 0.0566
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_4-bs_32-lr_0.0001.pth
+Epoch [5/100] - Train Loss: 0.0532
+              --> Time: 21287.59 seconds
+              --> Val Loss: 0.0425 | Val Acc: 99.68%
+              --> Balanced Acc: 0.9962 | Precision: 0.9928
+              --> Recall: 0.9950 | F1: 0.9939 | F2: 0.9945
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0058
+              --> CLLR: 0.0519
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_5-bs_32-lr_0.0001.pth
+Epoch [6/100] - Train Loss: 0.0402
+              --> Time: 7936.11 seconds
+              --> Val Loss: 0.0390 | Val Acc: 99.57%
+              --> Balanced Acc: 0.9920 | Precision: 0.9993
+              --> Recall: 0.9842 | F1: 0.9917 | F2: 0.9872
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0025
+              --> CLLR: 0.0611
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_6-bs_32-lr_0.0001.pth
+Epoch [7/100] - Train Loss: 0.0298
+              --> Time: 3326.86 seconds
+              --> Val Loss: 0.0218 | Val Acc: 99.96%
+              --> Balanced Acc: 0.9993 | Precision: 1.0000
+              --> Recall: 0.9986 | F1: 0.9993 | F2: 0.9988
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0005
+              --> CLLR: 0.0265
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_7-bs_32-lr_0.0001.pth
+Epoch [8/100] - Train Loss: 0.0229
+              --> Time: 3323.18 seconds
+              --> Val Loss: 0.0172 | Val Acc: 99.86%
+              --> Balanced Acc: 0.9981 | Precision: 0.9975
+              --> Recall: 0.9971 | F1: 0.9973 | F2: 0.9972
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0016
+              --> CLLR: 0.0246
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_8-bs_32-lr_0.0001.pth
+Epoch [9/100] - Train Loss: 0.0187
+              --> Time: 3304.73 seconds
+              --> Val Loss: 0.0122 | Val Acc: 99.96%
+              --> Balanced Acc: 0.9996 | Precision: 0.9989
+              --> Recall: 0.9996 | F1: 0.9993 | F2: 0.9995
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0004
+              --> CLLR: 0.0144
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_9-bs_32-lr_0.0001.pth
+Epoch [10/100] - Train Loss: 0.0149
+              --> Time: 3329.22 seconds
+              --> Val Loss: 0.0142 | Val Acc: 99.91%
+              --> Balanced Acc: 0.9983 | Precision: 0.9996
+              --> Recall: 0.9968 | F1: 0.9982 | F2: 0.9973
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0005
+              --> CLLR: 0.0204
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_10-bs_32-lr_0.0001.pth
+Epoch [11/100] - Train Loss: 0.0116
+              --> Time: 3335.37 seconds
+              --> Val Loss: 0.0106 | Val Acc: 99.91%
+              --> Balanced Acc: 0.9986 | Precision: 0.9989
+              --> Recall: 0.9975 | F1: 0.9982 | F2: 0.9978
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0014
+              --> CLLR: 0.0135
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_11-bs_32-lr_0.0001.pth
+Epoch [12/100] - Train Loss: 0.0098
+              --> Time: 3328.24 seconds
+              --> Val Loss: 0.0052 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0064
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_12-bs_32-lr_0.0001.pth
+Epoch [13/100] - Train Loss: 0.0065
+              --> Time: 3319.34 seconds
+              --> Val Loss: 0.0044 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0053
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_13-bs_32-lr_0.0001.pth
+Epoch [14/100] - Train Loss: 0.0080
+              --> Time: 3323.01 seconds
+              --> Val Loss: 0.0036 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0042
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_14-bs_32-lr_0.0001.pth
+Epoch [15/100] - Train Loss: 0.0046
+              --> Time: 3329.77 seconds
+              --> Val Loss: 0.0030 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0034
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_15-bs_32-lr_0.0001.pth
+Epoch [16/100] - Train Loss: 0.0061
+              --> Time: 3317.42 seconds
+              --> Val Loss: 0.0025 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0030
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_16-bs_32-lr_0.0001.pth
+Epoch [17/100] - Train Loss: 0.0046
+              --> Time: 3325.50 seconds
+              --> Val Loss: 0.0020 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9998 | Precision: 1.0000
+              --> Recall: 0.9996 | F1: 0.9998 | F2: 0.9997
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0024
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_17-bs_32-lr_0.0001.pth
+Epoch [18/100] - Train Loss: 0.0034
+              --> Time: 3319.49 seconds
+              --> Val Loss: 0.0021 | Val Acc: 99.98%
+              --> Balanced Acc: 0.9996 | Precision: 1.0000
+              --> Recall: 0.9993 | F1: 0.9996 | F2: 0.9994
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0026
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_18-bs_32-lr_0.0001.pth
+Epoch [19/100] - Train Loss: 0.0033
+              --> Time: 3326.24 seconds
+              --> Val Loss: 0.0015 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0001
+              --> CLLR: 0.0021
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_19-bs_32-lr_0.0001.pth
+Epoch [20/100] - Train Loss: 0.0031
+              --> Time: 3429.74 seconds
+              --> Val Loss: 0.0015 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0001
+              --> CLLR: 0.0017
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_20-bs_32-lr_0.0001.pth
+Epoch [21/100] - Train Loss: 0.0042
+              --> Time: 3430.84 seconds
+              --> Val Loss: 0.0011 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0015
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_21-bs_32-lr_0.0001.pth
+Epoch [22/100] - Train Loss: 0.0022
+              --> Time: 3423.68 seconds
+              --> Val Loss: 0.0015 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0001
+              --> CLLR: 0.0016
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_22-bs_32-lr_0.0001.pth
+Epoch [23/100] - Train Loss: 0.0025
+              --> Time: 3429.68 seconds
+              --> Val Loss: 0.0012 | Val Acc: 99.98%
+              --> Balanced Acc: 0.9998 | Precision: 0.9996
+              --> Recall: 0.9996 | F1: 0.9996 | F2: 0.9996
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0001
+              --> CLLR: 0.0017
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_23-bs_32-lr_0.0001.pth
+Epoch [24/100] - Train Loss: 0.0019
+              --> Time: 3442.63 seconds
+              --> Val Loss: 0.0010 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0010
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_24-bs_32-lr_0.0001.pth
+Epoch [25/100] - Train Loss: 0.0026
+              --> Time: 3431.45 seconds
+              --> Val Loss: 0.0009 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0010
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_25-bs_32-lr_0.0001.pth
+Epoch [26/100] - Train Loss: 0.0027
+              --> Time: 3434.59 seconds
+              --> Val Loss: 0.0014 | Val Acc: 99.98%
+              --> Balanced Acc: 0.9999 | Precision: 0.9993
+              --> Recall: 1.0000 | F1: 0.9996 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0016
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_26-bs_32-lr_0.0001.pth
+Epoch [27/100] - Train Loss: 0.0011
+              --> Time: 3446.59 seconds
+              --> Val Loss: 0.0006 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0007
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_27-bs_32-lr_0.0001.pth
+Epoch [28/100] - Train Loss: 0.0021
+              --> Time: 3418.33 seconds
+              --> Val Loss: 0.0019 | Val Acc: 99.95%
+              --> Balanced Acc: 0.9996 | Precision: 0.9986
+              --> Recall: 0.9996 | F1: 0.9991 | F2: 0.9994
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0005
+              --> CLLR: 0.0023
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_28-bs_32-lr_0.0001.pth
+Epoch [29/100] - Train Loss: 0.0017
+              --> Time: 3415.53 seconds
+              --> Val Loss: 0.0005 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0006
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_29-bs_32-lr_0.0001.pth
+Epoch [30/100] - Train Loss: 0.0015
+              --> Time: 3407.61 seconds
+              --> Val Loss: 0.0005 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9998 | Precision: 1.0000
+              --> Recall: 0.9996 | F1: 0.9998 | F2: 0.9997
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0008
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_30-bs_32-lr_0.0001.pth
+Epoch [31/100] - Train Loss: 0.0008
+              --> Time: 3323.31 seconds
+              --> Val Loss: 0.0005 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0006
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_31-bs_32-lr_0.0001.pth
+Epoch [32/100] - Train Loss: 0.0007
+              --> Time: 3326.34 seconds
+              --> Val Loss: 0.0008 | Val Acc: 99.98%
+              --> Balanced Acc: 0.9996 | Precision: 1.0000
+              --> Recall: 0.9993 | F1: 0.9996 | F2: 0.9994
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0003
+              --> CLLR: 0.0018
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_32-bs_32-lr_0.0001.pth
+Epoch [33/100] - Train Loss: 0.0016
+              --> Time: 3313.75 seconds
+              --> Val Loss: 0.0004 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0005
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_33-bs_32-lr_0.0001.pth
+Epoch [34/100] - Train Loss: 0.0021
+              --> Time: 3304.55 seconds
+              --> Val Loss: 0.0003 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0004
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_34-bs_32-lr_0.0001.pth
+Epoch [35/100] - Train Loss: 0.0006
+              --> Time: 3318.64 seconds
+              --> Val Loss: 0.0003 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0003
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_35-bs_32-lr_0.0001.pth
+Epoch [36/100] - Train Loss: 0.0016
+              --> Time: 3319.31 seconds
+              --> Val Loss: 0.0005 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0006
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_36-bs_32-lr_0.0001.pth
+Epoch [37/100] - Train Loss: 0.0005
+              --> Time: 3312.04 seconds
+              --> Val Loss: 0.0002 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0003
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_37-bs_32-lr_0.0001.pth
+Epoch [38/100] - Train Loss: 0.0004
+              --> Time: 3328.35 seconds
+              --> Val Loss: 0.0003 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0003
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_38-bs_32-lr_0.0001.pth
+Epoch [39/100] - Train Loss: 0.0023
+              --> Time: 3333.47 seconds
+              --> Val Loss: 0.0004 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0005
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_39-bs_32-lr_0.0001.pth
+Epoch [40/100] - Train Loss: 0.0005
+              --> Time: 3321.61 seconds
+              --> Val Loss: 0.0002 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0002
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_40-bs_32-lr_0.0001.pth
+Epoch [41/100] - Train Loss: 0.0004
+              --> Time: 3307.29 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0002
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_41-bs_32-lr_0.0001.pth
+Epoch [42/100] - Train Loss: 0.0004
+              --> Time: 3324.87 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0002
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_42-bs_32-lr_0.0001.pth
+Epoch [43/100] - Train Loss: 0.0015
+              --> Time: 3319.92 seconds
+              --> Val Loss: 0.0002 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0002
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_43-bs_32-lr_0.0001.pth
+Epoch [44/100] - Train Loss: 0.0006
+              --> Time: 3307.33 seconds
+              --> Val Loss: 0.0003 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0004
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_44-bs_32-lr_0.0001.pth
+Epoch [45/100] - Train Loss: 0.0013
+              --> Time: 3316.77 seconds
+              --> Val Loss: 0.0002 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0004
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_45-bs_32-lr_0.0001.pth
+Epoch [46/100] - Train Loss: 0.0003
+              --> Time: 3327.48 seconds
+              --> Val Loss: 0.0002 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0002
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_46-bs_32-lr_0.0001.pth
+Epoch [47/100] - Train Loss: 0.0009
+              --> Time: 3319.59 seconds
+              --> Val Loss: 0.0002 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0003
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_47-bs_32-lr_0.0001.pth
+Epoch [48/100] - Train Loss: 0.0006
+              --> Time: 3316.85 seconds
+              --> Val Loss: 0.0009 | Val Acc: 99.98%
+              --> Balanced Acc: 0.9996 | Precision: 1.0000
+              --> Recall: 0.9993 | F1: 0.9996 | F2: 0.9994
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0001
+              --> CLLR: 0.0024
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_48-bs_32-lr_0.0001.pth
+Epoch [49/100] - Train Loss: 0.0009
+              --> Time: 3317.89 seconds
+              --> Val Loss: 0.0002 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9998 | Precision: 1.0000
+              --> Recall: 0.9996 | F1: 0.9998 | F2: 0.9997
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0004
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_49-bs_32-lr_0.0001.pth
+Epoch [50/100] - Train Loss: 0.0009
+              --> Time: 3327.21 seconds
+              --> Val Loss: 0.0002 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0002
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_50-bs_32-lr_0.0001.pth
+Epoch [51/100] - Train Loss: 0.0003
+              --> Time: 3324.02 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_51-bs_32-lr_0.0001.pth
+Epoch [52/100] - Train Loss: 0.0002
+              --> Time: 3319.38 seconds
+              --> Val Loss: 0.0003 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0003
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_52-bs_32-lr_0.0001.pth
+Epoch [53/100] - Train Loss: 0.0002
+              --> Time: 3312.04 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_53-bs_32-lr_0.0001.pth
+Epoch [54/100] - Train Loss: 0.0002
+              --> Time: 3331.90 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_54-bs_32-lr_0.0001.pth
+Epoch [55/100] - Train Loss: 0.0002
+              --> Time: 3320.30 seconds
+              --> Val Loss: 0.0001 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_55-bs_32-lr_0.0001.pth
+Epoch [56/100] - Train Loss: 0.0008
+              --> Time: 3329.00 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_56-bs_32-lr_0.0001.pth
+Epoch [57/100] - Train Loss: 0.0014
+              --> Time: 3340.19 seconds
+              --> Val Loss: 0.0002 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0003
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_57-bs_32-lr_0.0001.pth
+Epoch [58/100] - Train Loss: 0.0003
+              --> Time: 3347.24 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_58-bs_32-lr_0.0001.pth
+Epoch [59/100] - Train Loss: 0.0002
+              --> Time: 3359.47 seconds
+              --> Val Loss: 0.0000 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_59-bs_32-lr_0.0001.pth
+Epoch [60/100] - Train Loss: 0.0011
+              --> Time: 3377.87 seconds
+              --> Val Loss: 0.0002 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0003
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_60-bs_32-lr_0.0001.pth
+Epoch [61/100] - Train Loss: 0.0002
+              --> Time: 3319.28 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_61-bs_32-lr_0.0001.pth
+Epoch [62/100] - Train Loss: 0.0001
+              --> Time: 3311.49 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_62-bs_32-lr_0.0001.pth
+Epoch [63/100] - Train Loss: 0.0001
+              --> Time: 3341.38 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_63-bs_32-lr_0.0001.pth
+Epoch [64/100] - Train Loss: 0.0013
+              --> Time: 3325.26 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_64-bs_32-lr_0.0001.pth
+Epoch [65/100] - Train Loss: 0.0003
+              --> Time: 3329.07 seconds
+              --> Val Loss: 0.0008 | Val Acc: 99.98%
+              --> Balanced Acc: 0.9996 | Precision: 1.0000
+              --> Recall: 0.9993 | F1: 0.9996 | F2: 0.9994
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0004
+              --> CLLR: 0.0021
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_65-bs_32-lr_0.0001.pth
+Epoch [66/100] - Train Loss: 0.0008
+              --> Time: 3328.34 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_66-bs_32-lr_0.0001.pth
+Epoch [67/100] - Train Loss: 0.0001
+              --> Time: 3328.31 seconds
+              --> Val Loss: 0.0001 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_67-bs_32-lr_0.0001.pth
+Epoch [68/100] - Train Loss: 0.0001
+              --> Time: 3320.55 seconds
+              --> Val Loss: 0.0002 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0002
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_68-bs_32-lr_0.0001.pth
+Epoch [69/100] - Train Loss: 0.0021
+              --> Time: 3314.92 seconds
+              --> Val Loss: 0.0005 | Val Acc: 99.98%
+              --> Balanced Acc: 0.9999 | Precision: 0.9993
+              --> Recall: 1.0000 | F1: 0.9996 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0005
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_69-bs_32-lr_0.0001.pth
+Epoch [70/100] - Train Loss: 0.0015
+              --> Time: 3332.55 seconds
+              --> Val Loss: 0.0006 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0001
+              --> CLLR: 0.0007
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_70-bs_32-lr_0.0001.pth
+Epoch [71/100] - Train Loss: 0.0019
+              --> Time: 3330.16 seconds
+              --> Val Loss: 0.0044 | Val Acc: 99.87%
+              --> Balanced Acc: 0.9991 | Precision: 0.9950
+              --> Recall: 1.0000 | F1: 0.9975 | F2: 0.9990
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0043
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_71-bs_32-lr_0.0001.pth
+Epoch [72/100] - Train Loss: 0.0004
+              --> Time: 3324.77 seconds
+              --> Val Loss: 0.0003 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0003
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_72-bs_32-lr_0.0001.pth
+Epoch [73/100] - Train Loss: 0.0001
+              --> Time: 3313.90 seconds
+              --> Val Loss: 0.0004 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0004
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_73-bs_32-lr_0.0001.pth
+Epoch [74/100] - Train Loss: 0.0001
+              --> Time: 3322.36 seconds
+              --> Val Loss: 0.0003 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0003
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_74-bs_32-lr_0.0001.pth
+Epoch [75/100] - Train Loss: 0.0001
+              --> Time: 3318.12 seconds
+              --> Val Loss: 0.0002 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0002
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_75-bs_32-lr_0.0001.pth
+Epoch [76/100] - Train Loss: 0.0001
+              --> Time: 3331.06 seconds
+              --> Val Loss: 0.0001 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_76-bs_32-lr_0.0001.pth
+Epoch [77/100] - Train Loss: 0.0001
+              --> Time: 3320.58 seconds
+              --> Val Loss: 0.0003 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0003
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_77-bs_32-lr_0.0001.pth
+Epoch [78/100] - Train Loss: 0.0001
+              --> Time: 3325.35 seconds
+              --> Val Loss: 0.0000 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0000
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_78-bs_32-lr_0.0001.pth
+Epoch [79/100] - Train Loss: 0.0024
+              --> Time: 3327.76 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0003
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_79-bs_32-lr_0.0001.pth
+Epoch [80/100] - Train Loss: 0.0001
+              --> Time: 3317.43 seconds
+              --> Val Loss: 0.0000 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_80-bs_32-lr_0.0001.pth
+Epoch [81/100] - Train Loss: 0.0001
+              --> Time: 3308.05 seconds
+              --> Val Loss: 0.0000 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0000
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_81-bs_32-lr_0.0001.pth
+Epoch [82/100] - Train Loss: 0.0001
+              --> Time: 3301.95 seconds
+              --> Val Loss: 0.0002 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0002
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_82-bs_32-lr_0.0001.pth
+Epoch [83/100] - Train Loss: 0.0001
+              --> Time: 3302.20 seconds
+              --> Val Loss: 0.0001 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0002
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_83-bs_32-lr_0.0001.pth
+Epoch [84/100] - Train Loss: 0.0008
+              --> Time: 3312.68 seconds
+              --> Val Loss: 0.0003 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0004
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_84-bs_32-lr_0.0001.pth
+Epoch [85/100] - Train Loss: 0.0002
+              --> Time: 3300.38 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_85-bs_32-lr_0.0001.pth
+Epoch [86/100] - Train Loss: 0.0001
+              --> Time: 3310.00 seconds
+              --> Val Loss: 0.0003 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0003
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_86-bs_32-lr_0.0001.pth
+Epoch [87/100] - Train Loss: 0.0001
+              --> Time: 3326.49 seconds
+              --> Val Loss: 0.0006 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0005
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_87-bs_32-lr_0.0001.pth
+Epoch [88/100] - Train Loss: 0.0011
+              --> Time: 3313.95 seconds
+              --> Val Loss: 0.0005 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0001
+              --> CLLR: 0.0006
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_88-bs_32-lr_0.0001.pth
+Epoch [89/100] - Train Loss: 0.0015
+              --> Time: 3303.90 seconds
+              --> Val Loss: 0.0007 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0001
+              --> CLLR: 0.0007
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_89-bs_32-lr_0.0001.pth
+Epoch [90/100] - Train Loss: 0.0001
+              --> Time: 3305.47 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_90-bs_32-lr_0.0001.pth
+Epoch [91/100] - Train Loss: 0.0001
+              --> Time: 3294.22 seconds
+              --> Val Loss: 0.0001 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_91-bs_32-lr_0.0001.pth
+Epoch [92/100] - Train Loss: 0.0001
+              --> Time: 3308.40 seconds
+              --> Val Loss: 0.0002 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0002
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_92-bs_32-lr_0.0001.pth
+Epoch [93/100] - Train Loss: 0.0011
+              --> Time: 3299.78 seconds
+              --> Val Loss: 0.0003 | Val Acc: 99.99%
+              --> Balanced Acc: 0.9999 | Precision: 0.9996
+              --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0003
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_93-bs_32-lr_0.0001.pth
+Epoch [94/100] - Train Loss: 0.0002
+              --> Time: 3301.51 seconds
+              --> Val Loss: 0.0010 | Val Acc: 99.97%
+              --> Balanced Acc: 0.9998 | Precision: 0.9989
+              --> Recall: 1.0000 | F1: 0.9995 | F2: 0.9998
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0001
+              --> CLLR: 0.0010
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_94-bs_32-lr_0.0001.pth
+Epoch [95/100] - Train Loss: 0.0017
+              --> Time: 3311.75 seconds
+/raid/m13521069/RawNets-PF/metrics/CLLR.py:14: RuntimeWarning: divide by zero encountered in log2
+  c2 = -np.mean(np.log2(1 - spoof_prob))
+              --> Val Loss: 0.0107 | Val Acc: 99.96%
+              --> Balanced Acc: 0.9996 | Precision: 0.9989
+              --> Recall: 0.9996 | F1: 0.9993 | F2: 0.9995
+              --> EER: 0.0001 | actDCF: 1.0000 | minDCF: 0.0004
+              --> CLLR: inf
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_95-bs_32-lr_0.0001.pth
+Epoch [96/100] - Train Loss: 0.0002
+              --> Time: 3308.62 seconds
+              --> Val Loss: 0.0000 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0000
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_96-bs_32-lr_0.0001.pth
+Epoch [97/100] - Train Loss: 0.0019
+              --> Time: 3307.83 seconds
+              --> Val Loss: 0.0010 | Val Acc: 99.98%
+              --> Balanced Acc: 0.9999 | Precision: 0.9993
+              --> Recall: 1.0000 | F1: 0.9996 | F2: 0.9999
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0003
+              --> CLLR: 0.0010
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_97-bs_32-lr_0.0001.pth
+Epoch [98/100] - Train Loss: 0.0005
+              --> Time: 3313.67 seconds
+              --> Val Loss: 0.0000 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0000
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_98-bs_32-lr_0.0001.pth
+Epoch [99/100] - Train Loss: 0.0001
+              --> Time: 3315.15 seconds
+              --> Val Loss: 0.0000 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0000
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_99-bs_32-lr_0.0001.pth
+Epoch [100/100] - Train Loss: 0.0001
+              --> Time: 3302.50 seconds
+              --> Val Loss: 0.0001 | Val Acc: 100.00%
+              --> Balanced Acc: 1.0000 | Precision: 1.0000
+              --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0000
+              --> CLLR: 0.0001
+Model RawNet3 saved to pretrained_weights/combined/RawNet3/rawnet3_combined-ep_100-bs_32-lr_0.0001.pth
+Training completed.
+
+Total training time for RawNet3: 514841.36 seconds (8580.69 minutes)
+
+==================== PREPROCESSING COMPLETED ====================
+
+Total time taken: 646287.59 seconds
+
+===============================================================
