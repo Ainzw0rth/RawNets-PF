@@ -251,7 +251,7 @@ class RawNet2(nn.Module):
         
         self.fc1_gru = nn.Linear(in_features = d_args['gru_node'],
             out_features = d_args['nb_fc_node'])
-        self.fc2_gru = nn.Linear(in_features = d_args['nb_fc_node'],
+        self.fc2_gru = nn.Linear(in_features = d_args['nb_fc_node'] + 24,
             out_features = d_args['nb_classes'],
             bias = True)
         

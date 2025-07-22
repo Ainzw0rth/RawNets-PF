@@ -84,7 +84,7 @@ class RawNet(nn.Module):
 		self.audio_fc = nn.Linear(in_features = d_args['gru_node'],
 			out_features = d_args['nb_fc_node'])
 		
-		self.final_fc = nn.Linear(in_features=d_args['nb_fc_node'],
+		self.final_fc = nn.Linear(in_features=d_args['nb_fc_node'] + 24,
 								  out_features=d_args['nb_classes'])
 
 	def forward(self, features, is_test=False):
