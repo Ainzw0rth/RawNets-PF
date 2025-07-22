@@ -158,7 +158,7 @@ if __name__ == "__main__":
                 # Train RawNet1
                 print("\n=== Training RawNet1 ===")
                 train_rawnet1_with_loaders(model, train_loader, val_loader, 
-                                        device=device, epochs=epochs, lr=learning_rate, start_epoch=0, variation="combined")
+                                        device=device, epochs=epochs, lr=learning_rate, start_epoch=0, variation="diff_pipeline")
 
                 # # Test RawNet1
                 # print("\n--- Testing RawNet1 ---")
@@ -190,7 +190,7 @@ if __name__ == "__main__":
                 # Train RawNet2
                 print("\n=== Training RawNet2 ===")
                 train_rawnet2_with_loaders(model2, train_loader, val_loader, 
-                                        device=device, epochs=epochs, lr=learning_rate, start_epoch=0, variation="combined")
+                                        device=device, epochs=epochs, lr=learning_rate, start_epoch=0, variation="diff_pipeline")
 
                 # # Test RawNet2
                 # print("\n--- Testing RawNet2 ---")
@@ -219,7 +219,7 @@ if __name__ == "__main__":
                 # Train RawNet3
                 print("\n=== Training RawNet3 ===")
                 train_rawnet3_with_loaders(model3, train_loader, val_loader,
-                                        device=device, epochs=epochs, lr=learning_rate, start_epoch=0, variation="combined")
+                                        device=device, epochs=epochs, lr=learning_rate, start_epoch=0, variation="diff_pipeline")
 
                 # # Test RawNet3
                 # print("\n--- Testing RawNet3 ---")
