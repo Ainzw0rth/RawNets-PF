@@ -182,7 +182,7 @@ if __name__ == "__main__":
                     'nb_gru_layer': 1,
                     'nb_fc_node': 1024,
                     'nb_classes': 2,
-                    'nb_samp': 16000 * 4 + 24
+                    'nb_samp': 16000 * 4
                 }
 
                 model2 = RawNet2(model_config2).to(device)
