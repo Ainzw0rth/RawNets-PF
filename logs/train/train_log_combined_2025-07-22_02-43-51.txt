@@ -1,0 +1,35 @@
+==================== LOADING DATASET ====================
+
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Loaded 0 samples from spoof and bonafide directories.
+
+==================== DATASET LOADED ====================
+
+
+==================== DATASET SPLITTED ====================
+
+Total samples: 0
+Train samples: 0
+Validation samples: 0
+Test samples: 0
+
+==================== DATASET SPLITTED ====================
+
+
+==================== TRAINING STARTED ====================
+
+
+==================== PREPROCESSING COMPLETED ====================
+
+Total time taken: 0.00 seconds
+
+===============================================================

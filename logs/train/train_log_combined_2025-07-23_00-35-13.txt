@@ -1,0 +1,9 @@
+==================== LOADING DATASET ====================
+
+Skipped 0 files due to NaNs/Infs.
+Traceback (most recent call last):
+  File "test.py", line 70, in <module>
+    dataset = TestDataset(spoof_dir, force_label=0)
+  File "/raid/m13521069/RawNets-PF/classes/FeatureDataset/TestDataset.py", line 31, in __init__
+    features = torch.tensor(feature_data, dtype=torch.float32)
+KeyboardInterrupt

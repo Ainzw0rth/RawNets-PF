@@ -1,0 +1,54 @@
+==================== LOADING DATASET ====================
+
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Skipped 0 files due to NaNs/Infs.
+Loaded 71118 samples from spoof and bonafide directories.
+
+==================== DATASET LOADED ====================
+
+
+==================== DATASET SPLITTED ====================
+
+Total samples: 71118
+Train samples: 49780
+Validation samples: 10664
+Test samples: 10674
+
+==================== DATASET SPLITTED ====================
+
+
+==================== TRAINING STARTED ====================
+
+
+=========== TRAIN LOADER ===========
+Train batches: 1556
+Validation batches: 334
+Test batches: 334
+Using device: cuda
+
+===== Training with Batch Size: 32, Learning Rate: 0.0001 =====
+device: cuda
+
+=== Training RawNet1 ===
+Epoch [1/100] - Train Loss: 0.0759
+              --> Time: 307.24 seconds
+              --> Val Loss: 0.0069 | Val Acc: 99.82%
+              --> Balanced Acc: 0.9973 | Precision: 0.9978
+              --> Recall: 0.9953 | F1: 0.9966 | F2: 0.9958
+              --> EER: 0.0000 | actDCF: 1.0000 | minDCF: 0.0026
+              --> CLLR: 0.0149
+Model RawNet1 saved to pretrained_weights/RawNet1/rawnet1_combined-ep_1-bs_32-lr_0.0001.pth
+
+==================== PREPROCESSING COMPLETED ====================
+
+Total time taken: 442.84 seconds
+
+===============================================================
