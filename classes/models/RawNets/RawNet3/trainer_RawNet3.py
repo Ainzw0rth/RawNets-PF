@@ -61,7 +61,7 @@ def train_rawnet3_with_loaders(model, train_loader, val_loader=None, device="cud
 
         torch.cuda.empty_cache()
 
-        save_model_rawnet3(model, optimizer, scaler, epoch, path=f"pretrained_weights/RawNet3/rawnet3_{variation}-ep_{epoch+1}-bs_{train_loader.batch_size}-lr_{lr}.pth")
+        save_model_rawnet3(model, optimizer, scaler, epoch, path=f"pretrained_weights/{variation}/RawNet3/rawnet3_{variation}-ep_{epoch+1}-bs_{train_loader.batch_size}-lr_{lr}.pth")
 
     print("Training completed.")
     total_time = time.time() - total_start_time

@@ -10,6 +10,7 @@ from utils.Logger import Logger
 from utils.Seed import set_seed
 from utils.Splitter import stratified_split
 from classes.FeatureDataset.WaveformFeatureDataset import WaveformFeatureDataset
+from classes.FeatureDataset.ListDataset import ListDataset
 
 # Import RawNet1 components
 from classes.models.RawNets.RawNet1.model_RawNet1_preprocessed import RawNet
@@ -42,17 +43,59 @@ if __name__ == "__main__":
 
     # Load full dataset
     print("==================== LOADING DATASET ====================\n")
-    full_dataset = WaveformFeatureDataset("preprocessed_data/waveform")
+
+    spoof_dirs = [
+        "preprocessed_data/waveform/Spoof/Converted/FacebookMMS",
+        "preprocessed_data/waveform/Spoof/Converted/GoogleTTS",
+        "preprocessed_data/waveform/Spoof/Converted/VITS",
+        "preprocessed_data/waveform/Spoof/TTS/FacebookMMS",
+        "preprocessed_data/waveform/Spoof/TTS/GoogleTTS",
+        "preprocessed_data/waveform/Spoof/TTS/VITS"
+    ]
+    
+    bonafide_dirs = [
+        "preprocessed_data/waveform/Bonafide/CommonVoice",
+        "preprocessed_data/waveform/Bonafide/Prosa"
+    ]
+
+    # Split each dataset individually, then combine corresponding splits
+    train_samples = []
+    val_samples = []
+    test_samples = []
+
+    # Process spoof datasets
+    for spoof_dir in spoof_dirs:
+        if os.path.exists(spoof_dir):
+            dataset = WaveformFeatureDataset(spoof_dir, force_label=0)
+            spoof_samples = [(features, 0) for features, _ in dataset.samples]
+            spoof_dataset = ListDataset(spoof_samples)
+            t, v, te = stratified_split(spoof_dataset, splits=(0.7, 0.15, 0.15), seed=seed)
+            train_samples.extend([spoof_dataset[i] for i in range(len(t))])
+            val_samples.extend([spoof_dataset[i] for i in range(len(v))])
+            test_samples.extend([spoof_dataset[i] for i in range(len(te))])
+        else:
+            print(f"Warning: Directory not found: {spoof_dir}")
+
+    # Process bonafide datasets
+    for bonafide_dir in bonafide_dirs:
+        if os.path.exists(bonafide_dir):
+            dataset = WaveformFeatureDataset(bonafide_dir, force_label=1)
+            bonafide_samples = [(features, 1) for features, _ in dataset.samples]
+            bonafide_dataset = ListDataset(bonafide_samples)
+            t, v, te = stratified_split(bonafide_dataset, splits=(0.7, 0.15, 0.15), seed=seed)
+            train_samples.extend([bonafide_dataset[i] for i in range(len(t))])
+            val_samples.extend([bonafide_dataset[i] for i in range(len(v))])
+            test_samples.extend([bonafide_dataset[i] for i in range(len(te))])
+        else:
+            print(f"Warning: Directory not found: {bonafide_dir}")
+
+    train_dataset = ListDataset(train_samples)
+    val_dataset = ListDataset(val_samples)
+    test_dataset = ListDataset(test_samples)
+    full_dataset = ListDataset(train_samples + val_samples + test_samples)
+
+    print(f"Loaded {len(full_dataset)} samples from spoof and bonafide directories.")
     print("\n==================== DATASET LOADED ====================\n")
-
-    # Stratified dataset split
-    print("\n==================== SPLITTING DATASET ====================\n")
-    train_dataset, val_dataset, test_dataset = stratified_split(full_dataset, splits=(0.7, 0.15, 0.15), seed=seed)
-
-    # Looping to do some variations on the models' parameters
-    batch_sizes = [32]
-    learning_rates = [0.0001]
-    epochs = 100
 
     # Print dataset sizes
     print(f"Total samples: {len(full_dataset)}")
@@ -60,6 +103,11 @@ if __name__ == "__main__":
     print(f"Validation samples: {len(val_dataset)}")
     print(f"Test samples: {len(test_dataset)}")
     print("\n==================== DATASET SPLITTED ====================\n")
+
+    # Looping to do some variations on the models' parameters
+    batch_sizes = [32]
+    learning_rates = [0.0001]
+    epochs = 30
 
     start_time = time.time()
     print("\n==================== TRAINING STARTED ====================\n")

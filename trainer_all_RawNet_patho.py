@@ -52,7 +52,7 @@ if __name__ == "__main__":
     # Looping to do some variations on the models' parameters
     batch_sizes = [32]
     learning_rates = [0.0001]
-    epochs = 100
+    epochs = 30
 
     # Print dataset sizes
     print(f"Total samples: {len(full_dataset)}")

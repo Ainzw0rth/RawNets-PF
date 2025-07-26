@@ -9,7 +9,7 @@ from torch.utils.data import DataLoader
 from utils.Logger import Logger
 from utils.Seed import set_seed
 from utils.Splitter import stratified_split
-from classes.FeatureDataset.TestDataset import TestDataset
+from classes.FeatureDataset.CombinedFeatureDataset import CombinedFeatureDataset
 from classes.FeatureDataset.ListDataset import ListDataset
 
 # Import RawNet1 components
@@ -45,11 +45,9 @@ if __name__ == "__main__":
     print("==================== LOADING DATASET ====================\n")
 
     spoof_dirs = [
-        "preprocessed_data/combined/Spoof/Converted/ElevenMultilingualV2",
         "preprocessed_data/combined/Spoof/Converted/FacebookMMS",
         "preprocessed_data/combined/Spoof/Converted/GoogleTTS",
         "preprocessed_data/combined/Spoof/Converted/VITS",
-        "preprocessed_data/combined/Spoof/TTS/ElevenMultilingualV2",
         "preprocessed_data/combined/Spoof/TTS/FacebookMMS",
         "preprocessed_data/combined/Spoof/TTS/GoogleTTS",
         "preprocessed_data/combined/Spoof/TTS/VITS"
@@ -67,7 +65,7 @@ if __name__ == "__main__":
     # Process spoof datasets
     for spoof_dir in spoof_dirs:
         if os.path.exists(spoof_dir):
-            dataset = TestDataset(spoof_dir, force_label=0)
+            dataset = CombinedFeatureDataset(spoof_dir, force_label=0)
             spoof_samples = [(features, 0) for features, _ in dataset.samples]
             spoof_dataset = ListDataset(spoof_samples)
             t, v, te = stratified_split(spoof_dataset, splits=(0.7, 0.15, 0.15), seed=seed)
@@ -80,7 +78,7 @@ if __name__ == "__main__":
     # Process bonafide datasets
     for bonafide_dir in bonafide_dirs:
         if os.path.exists(bonafide_dir):
-            dataset = TestDataset(bonafide_dir, force_label=1)
+            dataset = CombinedFeatureDataset(bonafide_dir, force_label=1)
             bonafide_samples = [(features, 1) for features, _ in dataset.samples]
             bonafide_dataset = ListDataset(bonafide_samples)
             t, v, te = stratified_split(bonafide_dataset, splits=(0.7, 0.15, 0.15), seed=seed)
@@ -95,16 +93,9 @@ if __name__ == "__main__":
     test_dataset = ListDataset(test_samples)
     full_dataset = ListDataset(train_samples + val_samples + test_samples)
 
+
     print(f"Loaded {len(full_dataset)} samples from spoof and bonafide directories.")
     print("\n==================== DATASET LOADED ====================\n")
-
-    # Datasets already split and combined above
-    print("\n==================== DATASET SPLITTED ====================\n")
-
-    # Looping to do some variations on the models' parameters
-    batch_sizes = [32]
-    learning_rates = [0.0001]
-    epochs = 100
 
     # Print dataset sizes
     print(f"Total samples: {len(full_dataset)}")
@@ -112,6 +103,11 @@ if __name__ == "__main__":
     print(f"Validation samples: {len(val_dataset)}")
     print(f"Test samples: {len(test_dataset)}")
     print("\n==================== DATASET SPLITTED ====================\n")
+
+    # Looping to do some variations on the models' parameters
+    batch_sizes = [32]
+    learning_rates = [0.0001]
+    epochs = 30
 
     start_time = time.time()
     print("\n==================== TRAINING STARTED ====================\n")
@@ -148,8 +144,7 @@ if __name__ == "__main__":
                     'gru_node': 1024,
                     'nb_gru_layer': 1,
                     'nb_fc_node': 1024,
-                    'nb_classes': 2,
-                    'input_length': 16000 * 4 + 24
+                    'nb_classes': 2
                 }
 
                 print(f"device: {device}")
