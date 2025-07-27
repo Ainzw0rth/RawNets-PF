@@ -2,8 +2,6 @@ import numpy as np
 from sklearn.metrics import roc_curve
 
 def EER(y_true, y_scores):
-    print("Calculating EER from scores...")
-    
     # Compute ROC curve
     FAR, TPR, thresholds = roc_curve(y_true, y_scores)
     FRR = 1 - TPR  # FRR = 1 - TPR
