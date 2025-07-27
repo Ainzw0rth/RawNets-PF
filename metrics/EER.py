@@ -1,21 +1,15 @@
 import numpy as np
+from sklearn.metrics import roc_curve
 
-def EER(y_true, y_pred):
-    y_true = np.array(y_true)
-    y_pred = np.array(y_pred)
+def EER(y_true, y_scores):
+    print("Calculating EER from scores...")
+    
+    # Compute ROC curve
+    FAR, TPR, thresholds = roc_curve(y_true, y_scores)
+    FRR = 1 - TPR  # FRR = 1 - TPR
 
-    false_accepts = np.logical_and(y_pred == 1, y_true == 0).sum()
-    false_rejects = np.logical_and(y_pred == 0, y_true == 1).sum()
+    # Find threshold where FAR and FRR are closest
+    eer_threshold_idx = np.nanargmin(np.abs(FAR - FRR))
+    eer = (FAR[eer_threshold_idx] + FRR[eer_threshold_idx]) / 2
 
-    total_spoof = (y_true == 0).sum()
-    total_bonafide = (y_true == 1).sum()
-
-    # Avoid division by zero
-    if total_spoof == 0 or total_bonafide == 0:
-        raise ValueError("Both bonafide and spoofed samples are required.")
-
-    FAR = false_accepts / total_spoof
-    FRR = false_rejects / total_bonafide
-
-    eer = (FAR + FRR) / 2
     return eer
