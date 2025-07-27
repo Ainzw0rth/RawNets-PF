@@ -8,9 +8,9 @@ from utils.Logger import Logger
 from datetime import datetime
 from classes.models.PathologicalFeature.PathologicalFeatureExtractor import PathologicalFeatureExtractor
 
-DB_PATH = "dataset/"
+DB_PATH = "unseen_dataset/"
 TEMP_SEGMENT_PATH = "temp_segments/"
-PREPROC_PATH = "preprocessed_data/"
+PREPROC_PATH = "test_preprocessed_data/"
 SECONDS = 4                                         # Length of each segment in seconds  
 NB_TIME = 16000 * SECONDS
 SEGMENT_LENGTH_MS = SECONDS * 1000                  # 4 seconds in milliseconds

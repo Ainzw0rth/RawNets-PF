@@ -1,6 +1,8 @@
 __pycache__/
 
 dataset/
+unseen_dataset/
 preprocessed_data/
+test_preprocessed_data/
 rawnet-pf/
 temp_segments/
