@@ -180,3 +180,31 @@ def load_model_rawnet1(model, optimizer=None, scaler=None, path=None, device="cu
 
     print(f"Loaded model from {path} (epoch {checkpoint['epoch']})")
     return checkpoint["epoch"]
+
+## only returns the predictions
+def test_rawnet1_with_loaders(model, test_loader, device="cuda"):
+    model.eval()
+    predictions = []
+    targets = []
+    probs = []
+
+    with torch.no_grad():
+        for inputs, labels in test_loader:
+            inputs, labels = inputs.to(device), labels.to(device)
+            outputs = model(inputs)
+            prob = torch.softmax(outputs, dim=1)[:, 1]  # prob for class 1
+            _, predicted = torch.max(outputs, 1)
+
+            predictions.extend(predicted.cpu().numpy())
+            targets.extend(labels.cpu().numpy())
+            probs.extend(prob.cpu().numpy())
+
+    y_true = torch.tensor(targets).numpy()
+    y_pred = torch.tensor(predictions).numpy()
+    y_prob = torch.tensor(probs).numpy()
+
+    cm = confusion_matrix(y_true, y_pred, labels=[0, 1])
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Synthetic", "Real"])
+    disp.plot(cmap=plt.cm.Blues)
+    plt.title("Confusion Matrix")
+    plt.show()

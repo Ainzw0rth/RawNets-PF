@@ -1,0 +1,27 @@
+==================== PREPROCESSING STARTED ====================
+
+>> Processing file: unseen_dataset/Spoof\others\Arif- testing file.wav
+    >> Arif- testing file.wav: 53 chunks generated 
+        >> (duration: 54037 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\others\ayuni-testing file.wav
+    >> ayuni-testing file.wav: 26 chunks generated 
+        >> (duration: 27448 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\others\kiki - testing file.wav
+    >> kiki - testing file.wav: 59 chunks generated 
+        >> (duration: 60117 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\others\Tono-testing file.wav
+    >> Tono-testing file.wav: 37 chunks generated 
+        >> (duration: 38829 ms, segment length: 4000 ms, stride: 1000 ms)
+
+
+==================== PREPROCESSING COMPLETED ====================
+
+Total files processed: 4
+Total segments saved: 175
+Total errors: 0
+Total time taken: 245.17 seconds
+
+===============================================================

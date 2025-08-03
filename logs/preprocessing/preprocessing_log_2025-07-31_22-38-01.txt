@@ -1,0 +1,171 @@
+==================== PREPROCESSING STARTED ====================
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_01_female.wav
+    >> DupDub_NotInDataset_ID_01_female.wav: 3 chunks generated 
+        >> (duration: 4981 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_01_male.wav
+    >> DupDub_NotInDataset_ID_01_male.wav: 4 chunks generated 
+        >> (duration: 5399 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_02_female.wav
+    >> DupDub_NotInDataset_ID_02_female.wav: 4 chunks generated 
+        >> (duration: 5063 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_02_male.wav
+    >> DupDub_NotInDataset_ID_02_male.wav: 5 chunks generated 
+        >> (duration: 6142 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_03_female.wav
+    >> DupDub_NotInDataset_ID_03_female.wav: 3 chunks generated 
+        >> (duration: 4022 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_03_male.wav
+    >> DupDub_NotInDataset_ID_03_male.wav: 3 chunks generated 
+        >> (duration: 4330 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_04_female.wav
+    >> DupDub_NotInDataset_ID_04_female.wav: 3 chunks generated 
+        >> (duration: 4811 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_04_male.wav
+    >> DupDub_NotInDataset_ID_04_male.wav: 3 chunks generated 
+        >> (duration: 4841 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_05_female.wav
+    >> DupDub_NotInDataset_ID_05_female.wav: 3 chunks generated 
+        >> (duration: 4573 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_05_male.wav
+    >> DupDub_NotInDataset_ID_05_male.wav: 3 chunks generated 
+        >> (duration: 4795 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_06_female.wav
+    >> DupDub_NotInDataset_ID_06_female.wav: 3 chunks generated 
+        >> (duration: 4078 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_06_male.wav
+    >> DupDub_NotInDataset_ID_06_male.wav: 4 chunks generated 
+        >> (duration: 5073 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_07_female.wav
+    >> DupDub_NotInDataset_ID_07_female.wav: 2 chunks generated 
+        >> (duration: 3464 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_07_male.wav
+    >> DupDub_NotInDataset_ID_07_male.wav: 3 chunks generated 
+        >> (duration: 4098 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_08_female.wav
+    >> DupDub_NotInDataset_ID_08_female.wav: 3 chunks generated 
+        >> (duration: 4470 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_08_male.wav
+    >> DupDub_NotInDataset_ID_08_male.wav: 3 chunks generated 
+        >> (duration: 4795 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_09_female.wav
+    >> DupDub_NotInDataset_ID_09_female.wav: 3 chunks generated 
+        >> (duration: 4623 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_09_male.wav
+    >> DupDub_NotInDataset_ID_09_male.wav: 4 chunks generated 
+        >> (duration: 5073 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_10_female.wav
+    >> DupDub_NotInDataset_ID_10_female.wav: 3 chunks generated 
+        >> (duration: 4543 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_10_male.wav
+    >> DupDub_NotInDataset_ID_10_male.wav: 4 chunks generated 
+        >> (duration: 5166 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_11_female.wav
+    >> DupDub_NotInDataset_ID_11_female.wav: 2 chunks generated 
+        >> (duration: 3345 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_11_male.wav
+    >> DupDub_NotInDataset_ID_11_male.wav: 2 chunks generated 
+        >> (duration: 3169 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_12_female.wav
+    >> DupDub_NotInDataset_ID_12_female.wav: 1 chunks generated 
+        >> (duration: 2877 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_12_male.wav
+    >> DupDub_NotInDataset_ID_12_male.wav: 2 chunks generated 
+        >> (duration: 3309 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_13_female.wav
+    >> DupDub_NotInDataset_ID_13_female.wav: 2 chunks generated 
+        >> (duration: 3299 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_13_male.wav
+    >> DupDub_NotInDataset_ID_13_male.wav: 2 chunks generated 
+        >> (duration: 3866 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_14_female.wav
+    >> DupDub_NotInDataset_ID_14_female.wav: 2 chunks generated 
+        >> (duration: 3269 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_14_male.wav
+    >> DupDub_NotInDataset_ID_14_male.wav: 2 chunks generated 
+        >> (duration: 3541 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_15_female.wav
+    >> DupDub_NotInDataset_ID_15_female.wav: 3 chunks generated 
+        >> (duration: 4652 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_15_male.wav
+    >> DupDub_NotInDataset_ID_15_male.wav: 4 chunks generated 
+        >> (duration: 5027 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_16_female.wav
+    >> DupDub_NotInDataset_ID_16_female.wav: 2 chunks generated 
+        >> (duration: 3143 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_16_male.wav
+    >> DupDub_NotInDataset_ID_16_male.wav: 2 chunks generated 
+        >> (duration: 3680 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_17_female.wav
+    >> DupDub_NotInDataset_ID_17_female.wav: 2 chunks generated 
+        >> (duration: 3451 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_17_male.wav
+    >> DupDub_NotInDataset_ID_17_male.wav: 3 chunks generated 
+        >> (duration: 4284 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_18_female.wav
+    >> DupDub_NotInDataset_ID_18_female.wav: 2 chunks generated 
+        >> (duration: 3252 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_18_male.wav
+    >> DupDub_NotInDataset_ID_18_male.wav: 2 chunks generated 
+        >> (duration: 3262 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_19_female.wav
+    >> DupDub_NotInDataset_ID_19_female.wav: 2 chunks generated 
+        >> (duration: 3412 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_19_male.wav
+    >> DupDub_NotInDataset_ID_19_male.wav: 2 chunks generated 
+        >> (duration: 3866 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_20_female.wav
+    >> DupDub_NotInDataset_ID_20_female.wav: 3 chunks generated 
+        >> (duration: 4400 ms, segment length: 4000 ms, stride: 1000 ms)
+
+>> Processing file: unseen_dataset/Spoof\TTS\DupDub-NotInDataset\DupDub_NotInDataset_ID_20_male.wav
+    >> DupDub_NotInDataset_ID_20_male.wav: 3 chunks generated 
+        >> (duration: 4795 ms, segment length: 4000 ms, stride: 1000 ms)
+
+
+==================== PREPROCESSING COMPLETED ====================
+
+Total files processed: 40
+Total segments saved: 111
+Total errors: 0
+Total time taken: 148.29 seconds
+
+===============================================================
