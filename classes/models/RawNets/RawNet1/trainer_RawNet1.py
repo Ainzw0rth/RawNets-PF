@@ -208,3 +208,4 @@ def test_rawnet1_with_loaders(model, test_loader, device="cuda"):
     disp.plot(cmap=plt.cm.Blues)
     plt.title("Confusion Matrix")
     plt.show()
+    torch.cuda.empty_cache()
