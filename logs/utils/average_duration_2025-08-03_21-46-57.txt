@@ -1,0 +1,52 @@
+
+Average duration for dataset/Spoof/Converted/FacebookMMS: 
+       3.89 seconds 
+       over 3469 files.
+
+Average duration for dataset/Spoof/Converted/GoogleTTS: 
+       3.84 seconds 
+       over 3469 files.
+
+Average duration for dataset/Spoof/Converted/VITS: 
+       3.27 seconds 
+       over 3469 files.
+
+Average duration for dataset/Spoof/TTS/FacebookMMS: 
+       3.89 seconds 
+       over 7000 files.
+
+Average duration for dataset/Spoof/TTS/GoogleTTS: 
+       3.84 seconds 
+       over 7000 files.
+
+Average duration for dataset/Spoof/TTS/VITS: 
+       3.28 seconds 
+       over 7000 files.
+
+Average duration for dataset/Bonafide/CommonVoice: 
+       3.76 seconds 
+       over 5000 files.
+
+Average duration for dataset/Bonafide/Prosa: 
+       5.15 seconds 
+       over 2000 files.
+
+Average duration for unseen_dataset/Spoof/Converted/DupDub: 
+       4.04 seconds 
+       over 20 files.
+
+Average duration for unseen_dataset/Spoof/Converted/ElevenMultilingualV2: 
+       3.66 seconds 
+       over 349 files.
+
+Average duration for unseen_dataset/Spoof/TTS/DupDub: 
+       4.00 seconds 
+       over 40 files.
+
+Average duration for unseen_dataset/Spoof/TTS/ElevenMultilingualV2: 
+       3.68 seconds 
+       over 349 files.
+
+Average duration for unseen_dataset/Spoof/TTS/DupDub-NotInDataset: 
+       4.21 seconds 
+       over 40 files.
