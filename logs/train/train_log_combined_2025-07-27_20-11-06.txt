@@ -35,7 +35,6 @@ device: cuda
 === Training RawNet1 ===
 Epoch [1/30] - Train Loss: 0.0320
               --> Time: 406.72 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0060 | Val Acc: 99.91%
               --> Balanced Acc: 0.9994 | Precision: 0.9964
               --> Recall: 1.0000 | F1: 0.9982 | F2: 0.9993
@@ -44,7 +43,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_1-bs_32-lr_0.0001.pth
 Epoch [2/30] - Train Loss: 0.0086
               --> Time: 521.90 seconds
-Calculating EER from scores...
               --> Val Loss: 0.2272 | Val Acc: 94.76%
               --> Balanced Acc: 0.9643 | Precision: 0.8343
               --> Recall: 0.9996 | F1: 0.9095 | F2: 0.9615
@@ -53,7 +51,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_2-bs_32-lr_0.0001.pth
 Epoch [3/30] - Train Loss: 0.0050
               --> Time: 526.04 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0002 | Val Acc: 99.99%
               --> Balanced Acc: 0.9998 | Precision: 1.0000
               --> Recall: 0.9996 | F1: 0.9998 | F2: 0.9997
@@ -62,7 +59,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_3-bs_32-lr_0.0001.pth
 Epoch [4/30] - Train Loss: 0.0023
               --> Time: 531.08 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -71,7 +67,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_4-bs_32-lr_0.0001.pth
 Epoch [5/30] - Train Loss: 0.0043
               --> Time: 529.99 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0001 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -80,7 +75,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_5-bs_32-lr_0.0001.pth
 Epoch [6/30] - Train Loss: 0.0028
               --> Time: 525.48 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -89,7 +83,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_6-bs_32-lr_0.0001.pth
 Epoch [7/30] - Train Loss: 0.0009
               --> Time: 535.57 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -98,7 +91,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_7-bs_32-lr_0.0001.pth
 Epoch [8/30] - Train Loss: 0.0019
               --> Time: 523.46 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -107,7 +99,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_8-bs_32-lr_0.0001.pth
 Epoch [9/30] - Train Loss: 0.0013
               --> Time: 529.40 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0003 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -116,7 +107,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_9-bs_32-lr_0.0001.pth
 Epoch [10/30] - Train Loss: 0.0016
               --> Time: 533.37 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -125,7 +115,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_10-bs_32-lr_0.0001.pth
 Epoch [11/30] - Train Loss: 0.0008
               --> Time: 533.69 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0001 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -134,7 +123,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_11-bs_32-lr_0.0001.pth
 Epoch [12/30] - Train Loss: 0.0010
               --> Time: 532.81 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -143,7 +131,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_12-bs_32-lr_0.0001.pth
 Epoch [13/30] - Train Loss: 0.0013
               --> Time: 531.28 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0002 | Val Acc: 99.99%
               --> Balanced Acc: 0.9999 | Precision: 0.9996
               --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
@@ -152,7 +139,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_13-bs_32-lr_0.0001.pth
 Epoch [14/30] - Train Loss: 0.0004
               --> Time: 532.45 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -161,7 +147,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_14-bs_32-lr_0.0001.pth
 Epoch [15/30] - Train Loss: 0.0008
               --> Time: 529.49 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -170,7 +155,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_15-bs_32-lr_0.0001.pth
 Epoch [16/30] - Train Loss: 0.0005
               --> Time: 521.48 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -179,7 +163,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_16-bs_32-lr_0.0001.pth
 Epoch [17/30] - Train Loss: 0.0007
               --> Time: 530.38 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0044 | Val Acc: 99.86%
               --> Balanced Acc: 0.9973 | Precision: 1.0000
               --> Recall: 0.9946 | F1: 0.9973 | F2: 0.9957
@@ -188,7 +171,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_17-bs_32-lr_0.0001.pth
 Epoch [18/30] - Train Loss: 0.0023
               --> Time: 525.67 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -197,7 +179,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_18-bs_32-lr_0.0001.pth
 Epoch [19/30] - Train Loss: 0.0006
               --> Time: 527.17 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -206,7 +187,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_19-bs_32-lr_0.0001.pth
 Epoch [20/30] - Train Loss: 0.0005
               --> Time: 528.94 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -215,7 +195,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_20-bs_32-lr_0.0001.pth
 Epoch [21/30] - Train Loss: 0.0005
               --> Time: 527.47 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -224,7 +203,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_21-bs_32-lr_0.0001.pth
 Epoch [22/30] - Train Loss: 0.0006
               --> Time: 528.38 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -233,7 +211,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_22-bs_32-lr_0.0001.pth
 Epoch [23/30] - Train Loss: 0.0007
               --> Time: 532.35 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -242,7 +219,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_23-bs_32-lr_0.0001.pth
 Epoch [24/30] - Train Loss: 0.0002
               --> Time: 525.58 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0001 | Val Acc: 99.99%
               --> Balanced Acc: 0.9999 | Precision: 0.9996
               --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
@@ -251,7 +227,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_24-bs_32-lr_0.0001.pth
 Epoch [25/30] - Train Loss: 0.0011
               --> Time: 526.83 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -260,7 +235,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_25-bs_32-lr_0.0001.pth
 Epoch [26/30] - Train Loss: 0.0003
               --> Time: 533.80 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0001 | Val Acc: 99.99%
               --> Balanced Acc: 0.9998 | Precision: 1.0000
               --> Recall: 0.9996 | F1: 0.9998 | F2: 0.9997
@@ -269,7 +243,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_26-bs_32-lr_0.0001.pth
 Epoch [27/30] - Train Loss: 0.0008
               --> Time: 530.92 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0001 | Val Acc: 99.99%
               --> Balanced Acc: 0.9998 | Precision: 1.0000
               --> Recall: 0.9996 | F1: 0.9998 | F2: 0.9997
@@ -278,7 +251,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_27-bs_32-lr_0.0001.pth
 Epoch [28/30] - Train Loss: 0.0004
               --> Time: 527.99 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0008 | Val Acc: 99.98%
               --> Balanced Acc: 0.9996 | Precision: 1.0000
               --> Recall: 0.9993 | F1: 0.9996 | F2: 0.9994
@@ -287,7 +259,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_28-bs_32-lr_0.0001.pth
 Epoch [29/30] - Train Loss: 0.0007
               --> Time: 535.52 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0002 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -296,7 +267,6 @@ Calculating EER from scores...
 Model RawNet1 saved to pretrained_weights/diff_pipeline/RawNet1/rawnet1_diff_pipeline-ep_29-bs_32-lr_0.0001.pth
 Epoch [30/30] - Train Loss: 0.0002
               --> Time: 517.29 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -310,7 +280,6 @@ Total training time for RawNet1: 16468.53 seconds (274.48 minutes)
 === Training RawNet2 ===
 Epoch [1/30] - Train Loss: 0.0352
               --> Time: 709.73 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0052 | Val Acc: 99.83%
               --> Balanced Acc: 0.9975 | Precision: 0.9978
               --> Recall: 0.9957 | F1: 0.9968 | F2: 0.9961
@@ -319,7 +288,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_1-bs_32-lr_0.0001.pth
 Epoch [2/30] - Train Loss: 0.0141
               --> Time: 710.45 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0047 | Val Acc: 99.79%
               --> Balanced Acc: 0.9964 | Precision: 0.9989
               --> Recall: 0.9932 | F1: 0.9960 | F2: 0.9943
@@ -328,7 +296,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_2-bs_32-lr_0.0001.pth
 Epoch [3/30] - Train Loss: 0.0092
               --> Time: 704.59 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0012 | Val Acc: 99.98%
               --> Balanced Acc: 0.9996 | Precision: 1.0000
               --> Recall: 0.9993 | F1: 0.9996 | F2: 0.9994
@@ -337,7 +304,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_3-bs_32-lr_0.0001.pth
 Epoch [4/30] - Train Loss: 0.0070
               --> Time: 704.65 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0002 | Val Acc: 99.99%
               --> Balanced Acc: 0.9998 | Precision: 1.0000
               --> Recall: 0.9996 | F1: 0.9998 | F2: 0.9997
@@ -346,7 +312,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_4-bs_32-lr_0.0001.pth
 Epoch [5/30] - Train Loss: 0.0062
               --> Time: 703.16 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0052 | Val Acc: 99.83%
               --> Balanced Acc: 0.9988 | Precision: 0.9936
               --> Recall: 1.0000 | F1: 0.9968 | F2: 0.9987
@@ -355,7 +320,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_5-bs_32-lr_0.0001.pth
 Epoch [6/30] - Train Loss: 0.0060
               --> Time: 701.66 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0006 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -364,7 +328,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_6-bs_32-lr_0.0001.pth
 Epoch [7/30] - Train Loss: 0.0041
               --> Time: 705.13 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0005 | Val Acc: 99.99%
               --> Balanced Acc: 0.9999 | Precision: 0.9996
               --> Recall: 1.0000 | F1: 0.9998 | F2: 0.9999
@@ -373,7 +336,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_7-bs_32-lr_0.0001.pth
 Epoch [8/30] - Train Loss: 0.0030
               --> Time: 704.79 seconds
-Calculating EER from scores...
               --> Val Loss: 0.1502 | Val Acc: 95.50%
               --> Balanced Acc: 0.9694 | Precision: 0.8541
               --> Recall: 1.0000 | F1: 0.9213 | F2: 0.9670
@@ -382,7 +344,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_8-bs_32-lr_0.0001.pth
 Epoch [9/30] - Train Loss: 0.0025
               --> Time: 707.81 seconds
-Calculating EER from scores...
               --> Val Loss: 0.3288 | Val Acc: 92.50%
               --> Balanced Acc: 0.9491 | Precision: 0.7785
               --> Recall: 1.0000 | F1: 0.8755 | F2: 0.9462
@@ -391,7 +352,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_9-bs_32-lr_0.0001.pth
 Epoch [10/30] - Train Loss: 0.0025
               --> Time: 704.95 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -400,7 +360,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_10-bs_32-lr_0.0001.pth
 Epoch [11/30] - Train Loss: 0.0023
               --> Time: 706.78 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0002 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -409,7 +368,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_11-bs_32-lr_0.0001.pth
 Epoch [12/30] - Train Loss: 0.0016
               --> Time: 708.46 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0010 | Val Acc: 99.96%
               --> Balanced Acc: 0.9993 | Precision: 1.0000
               --> Recall: 0.9986 | F1: 0.9993 | F2: 0.9988
@@ -418,7 +376,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_12-bs_32-lr_0.0001.pth
 Epoch [13/30] - Train Loss: 0.0015
               --> Time: 712.66 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0002 | Val Acc: 99.99%
               --> Balanced Acc: 0.9998 | Precision: 1.0000
               --> Recall: 0.9996 | F1: 0.9998 | F2: 0.9997
@@ -427,7 +384,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_13-bs_32-lr_0.0001.pth
 Epoch [14/30] - Train Loss: 0.0008
               --> Time: 701.68 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -436,7 +392,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_14-bs_32-lr_0.0001.pth
 Epoch [15/30] - Train Loss: 0.0014
               --> Time: 706.32 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0002 | Val Acc: 99.99%
               --> Balanced Acc: 0.9998 | Precision: 1.0000
               --> Recall: 0.9996 | F1: 0.9998 | F2: 0.9997
@@ -445,7 +400,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_15-bs_32-lr_0.0001.pth
 Epoch [16/30] - Train Loss: 0.0014
               --> Time: 712.23 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0001 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -454,7 +408,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_16-bs_32-lr_0.0001.pth
 Epoch [17/30] - Train Loss: 0.0000
               --> Time: 707.39 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -463,7 +416,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_17-bs_32-lr_0.0001.pth
 Epoch [18/30] - Train Loss: 0.0014
               --> Time: 705.38 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0154 | Val Acc: 99.37%
               --> Balanced Acc: 0.9958 | Precision: 0.9768
               --> Recall: 1.0000 | F1: 0.9883 | F2: 0.9953
@@ -472,7 +424,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_18-bs_32-lr_0.0001.pth
 Epoch [19/30] - Train Loss: 0.0009
               --> Time: 707.37 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -481,7 +432,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_19-bs_32-lr_0.0001.pth
 Epoch [20/30] - Train Loss: 0.0013
               --> Time: 707.40 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0003 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -490,7 +440,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_20-bs_32-lr_0.0001.pth
 Epoch [21/30] - Train Loss: 0.0011
               --> Time: 706.41 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0003 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -499,7 +448,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_21-bs_32-lr_0.0001.pth
 Epoch [22/30] - Train Loss: 0.0009
               --> Time: 709.43 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -508,7 +456,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_22-bs_32-lr_0.0001.pth
 Epoch [23/30] - Train Loss: 0.0009
               --> Time: 705.39 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0003 | Val Acc: 99.99%
               --> Balanced Acc: 0.9998 | Precision: 1.0000
               --> Recall: 0.9996 | F1: 0.9998 | F2: 0.9997
@@ -517,7 +464,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_23-bs_32-lr_0.0001.pth
 Epoch [24/30] - Train Loss: 0.0010
               --> Time: 706.69 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -526,7 +472,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_24-bs_32-lr_0.0001.pth
 Epoch [25/30] - Train Loss: 0.0001
               --> Time: 706.59 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -535,7 +480,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_25-bs_32-lr_0.0001.pth
 Epoch [26/30] - Train Loss: 0.0003
               --> Time: 707.87 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0008 | Val Acc: 99.97%
               --> Balanced Acc: 0.9996 | Precision: 0.9996
               --> Recall: 0.9993 | F1: 0.9995 | F2: 0.9994
@@ -544,7 +488,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_26-bs_32-lr_0.0001.pth
 Epoch [27/30] - Train Loss: 0.0007
               --> Time: 706.91 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -553,7 +496,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_27-bs_32-lr_0.0001.pth
 Epoch [28/30] - Train Loss: 0.0006
               --> Time: 710.39 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0001 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -562,7 +504,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_28-bs_32-lr_0.0001.pth
 Epoch [29/30] - Train Loss: 0.0000
               --> Time: 707.23 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -571,7 +512,6 @@ Calculating EER from scores...
 Model RawNet2 saved to pretrained_weights/diff_pipeline/RawNet2/rawnet2_diff_pipeline-ep_29-bs_32-lr_0.0001.pth
 Epoch [30/30] - Train Loss: 0.0004
               --> Time: 599.62 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0000 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -585,7 +525,6 @@ Total training time for RawNet2: 21908.57 seconds (365.14 minutes)
 === Training RawNet3 ===
 Epoch [1/30] - Train Loss: 0.1973
               --> Time: 3552.29 seconds
-Calculating EER from scores...
               --> Val Loss: 0.1435 | Val Acc: 99.71%
               --> Balanced Acc: 0.9947 | Precision: 0.9993
               --> Recall: 0.9896 | F1: 0.9944 | F2: 0.9915
@@ -594,7 +533,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_1-bs_32-lr_0.0001.pth
 Epoch [2/30] - Train Loss: 0.1341
               --> Time: 3544.96 seconds
-Calculating EER from scores...
               --> Val Loss: 0.1065 | Val Acc: 99.75%
               --> Balanced Acc: 0.9977 | Precision: 0.9925
               --> Recall: 0.9982 | F1: 0.9953 | F2: 0.9971
@@ -603,7 +541,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_2-bs_32-lr_0.0001.pth
 Epoch [3/30] - Train Loss: 0.0955
               --> Time: 3512.74 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0797 | Val Acc: 99.69%
               --> Balanced Acc: 0.9942 | Precision: 0.9996
               --> Recall: 0.9885 | F1: 0.9940 | F2: 0.9907
@@ -612,7 +549,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_3-bs_32-lr_0.0001.pth
 Epoch [4/30] - Train Loss: 0.0719
               --> Time: 3289.33 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0659 | Val Acc: 99.62%
               --> Balanced Acc: 0.9950 | Precision: 0.9932
               --> Recall: 0.9924 | F1: 0.9928 | F2: 0.9926
@@ -621,7 +557,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_4-bs_32-lr_0.0001.pth
 Epoch [5/30] - Train Loss: 0.0534
               --> Time: 3508.23 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0556 | Val Acc: 99.88%
               --> Balanced Acc: 0.9979 | Precision: 0.9993
               --> Recall: 0.9960 | F1: 0.9977 | F2: 0.9967
@@ -630,7 +565,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_5-bs_32-lr_0.0001.pth
 Epoch [6/30] - Train Loss: 0.0405
               --> Time: 3448.49 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0258 | Val Acc: 99.98%
               --> Balanced Acc: 0.9996 | Precision: 1.0000
               --> Recall: 0.9993 | F1: 0.9996 | F2: 0.9994
@@ -639,7 +573,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_6-bs_32-lr_0.0001.pth
 Epoch [7/30] - Train Loss: 0.0314
               --> Time: 3495.48 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0256 | Val Acc: 99.88%
               --> Balanced Acc: 0.9989 | Precision: 0.9961
               --> Recall: 0.9993 | F1: 0.9977 | F2: 0.9986
@@ -648,7 +581,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_7-bs_32-lr_0.0001.pth
 Epoch [8/30] - Train Loss: 0.0246
               --> Time: 3498.47 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0142 | Val Acc: 99.99%
               --> Balanced Acc: 0.9998 | Precision: 1.0000
               --> Recall: 0.9996 | F1: 0.9998 | F2: 0.9997
@@ -657,7 +589,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_8-bs_32-lr_0.0001.pth
 Epoch [9/30] - Train Loss: 0.0191
               --> Time: 3528.73 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0118 | Val Acc: 99.92%
               --> Balanced Acc: 0.9993 | Precision: 0.9978
               --> Recall: 0.9993 | F1: 0.9986 | F2: 0.9990
@@ -666,7 +597,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_9-bs_32-lr_0.0001.pth
 Epoch [10/30] - Train Loss: 0.0159
               --> Time: 3519.22 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0102 | Val Acc: 99.98%
               --> Balanced Acc: 0.9996 | Precision: 1.0000
               --> Recall: 0.9993 | F1: 0.9996 | F2: 0.9994
@@ -675,7 +605,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_10-bs_32-lr_0.0001.pth
 Epoch [11/30] - Train Loss: 0.0139
               --> Time: 3533.36 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0089 | Val Acc: 99.97%
               --> Balanced Acc: 0.9995 | Precision: 1.0000
               --> Recall: 0.9989 | F1: 0.9995 | F2: 0.9991
@@ -684,7 +613,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_11-bs_32-lr_0.0001.pth
 Epoch [12/30] - Train Loss: 0.0099
               --> Time: 3477.41 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0060 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -693,7 +621,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_12-bs_32-lr_0.0001.pth
 Epoch [13/30] - Train Loss: 0.0093
               --> Time: 3370.59 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0075 | Val Acc: 99.94%
               --> Balanced Acc: 0.9989 | Precision: 1.0000
               --> Recall: 0.9978 | F1: 0.9989 | F2: 0.9983
@@ -702,7 +629,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_13-bs_32-lr_0.0001.pth
 Epoch [14/30] - Train Loss: 0.0084
               --> Time: 3469.73 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0101 | Val Acc: 99.84%
               --> Balanced Acc: 0.9981 | Precision: 0.9964
               --> Recall: 0.9975 | F1: 0.9969 | F2: 0.9973
@@ -711,7 +637,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_14-bs_32-lr_0.0001.pth
 Epoch [15/30] - Train Loss: 0.0062
               --> Time: 3432.18 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0040 | Val Acc: 99.95%
               --> Balanced Acc: 0.9996 | Precision: 0.9986
               --> Recall: 0.9996 | F1: 0.9991 | F2: 0.9994
@@ -720,7 +645,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_15-bs_32-lr_0.0001.pth
 Epoch [16/30] - Train Loss: 0.0051
               --> Time: 3443.71 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0037 | Val Acc: 99.98%
               --> Balanced Acc: 0.9996 | Precision: 1.0000
               --> Recall: 0.9993 | F1: 0.9996 | F2: 0.9994
@@ -729,7 +653,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_16-bs_32-lr_0.0001.pth
 Epoch [17/30] - Train Loss: 0.0063
               --> Time: 3448.52 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0052 | Val Acc: 99.98%
               --> Balanced Acc: 0.9996 | Precision: 1.0000
               --> Recall: 0.9993 | F1: 0.9996 | F2: 0.9994
@@ -738,7 +661,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_17-bs_32-lr_0.0001.pth
 Epoch [18/30] - Train Loss: 0.0039
               --> Time: 3466.88 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0022 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -747,7 +669,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_18-bs_32-lr_0.0001.pth
 Epoch [19/30] - Train Loss: 0.0028
               --> Time: 3446.92 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0017 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -756,7 +677,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_19-bs_32-lr_0.0001.pth
 Epoch [20/30] - Train Loss: 0.0049
               --> Time: 3454.80 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0022 | Val Acc: 99.97%
               --> Balanced Acc: 0.9995 | Precision: 1.0000
               --> Recall: 0.9989 | F1: 0.9995 | F2: 0.9991
@@ -765,7 +685,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_20-bs_32-lr_0.0001.pth
 Epoch [21/30] - Train Loss: 0.0035
               --> Time: 3440.88 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0019 | Val Acc: 99.98%
               --> Balanced Acc: 0.9996 | Precision: 1.0000
               --> Recall: 0.9993 | F1: 0.9996 | F2: 0.9994
@@ -774,7 +693,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_21-bs_32-lr_0.0001.pth
 Epoch [22/30] - Train Loss: 0.0031
               --> Time: 3300.83 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0011 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -783,7 +701,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_22-bs_32-lr_0.0001.pth
 Epoch [23/30] - Train Loss: 0.0025
               --> Time: 3358.59 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0017 | Val Acc: 99.97%
               --> Balanced Acc: 0.9995 | Precision: 1.0000
               --> Recall: 0.9989 | F1: 0.9995 | F2: 0.9991
@@ -792,7 +709,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_23-bs_32-lr_0.0001.pth
 Epoch [24/30] - Train Loss: 0.0026
               --> Time: 3421.94 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0231 | Val Acc: 99.21%
               --> Balanced Acc: 0.9940 | Precision: 0.9730
               --> Recall: 0.9978 | F1: 0.9853 | F2: 0.9928
@@ -801,7 +717,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_24-bs_32-lr_0.0001.pth
 Epoch [25/30] - Train Loss: 0.0021
               --> Time: 3439.91 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0013 | Val Acc: 99.97%
               --> Balanced Acc: 0.9995 | Precision: 1.0000
               --> Recall: 0.9989 | F1: 0.9995 | F2: 0.9991
@@ -810,7 +725,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_25-bs_32-lr_0.0001.pth
 Epoch [26/30] - Train Loss: 0.0027
               --> Time: 3415.16 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0027 | Val Acc: 99.95%
               --> Balanced Acc: 0.9997 | Precision: 0.9982
               --> Recall: 1.0000 | F1: 0.9991 | F2: 0.9996
@@ -819,7 +733,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_26-bs_32-lr_0.0001.pth
 Epoch [27/30] - Train Loss: 0.0017
               --> Time: 3399.35 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0007 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -828,7 +741,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_27-bs_32-lr_0.0001.pth
 Epoch [28/30] - Train Loss: 0.0019
               --> Time: 3411.18 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0005 | Val Acc: 99.99%
               --> Balanced Acc: 0.9998 | Precision: 1.0000
               --> Recall: 0.9996 | F1: 0.9998 | F2: 0.9997
@@ -837,7 +749,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_28-bs_32-lr_0.0001.pth
 Epoch [29/30] - Train Loss: 0.0031
               --> Time: 3414.17 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0006 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
@@ -846,7 +757,6 @@ Calculating EER from scores...
 Model RawNet3 saved to pretrained_weights/diff_pipeline/RawNet3/rawnet3_diff_pipeline-ep_29-bs_32-lr_0.0001.pth
 Epoch [30/30] - Train Loss: 0.0013
               --> Time: 3404.17 seconds
-Calculating EER from scores...
               --> Val Loss: 0.0008 | Val Acc: 100.00%
               --> Balanced Acc: 1.0000 | Precision: 1.0000
               --> Recall: 1.0000 | F1: 1.0000 | F2: 1.0000
