@@ -1,9 +1,11 @@
 import numpy as np
+from scipy.special import expit
 
-def CLLR(y_true, y_prob, eps=1e-10):
+def CLLR(y_true, y_scores, eps=1e-10):
     y_true = np.array(y_true)
-    y_prob = np.array(y_prob)
+    y_scores = np.array(y_scores)
 
+    y_prob = expit(y_scores)
     # Clip probabilities to avoid log(0)
     y_prob = np.clip(y_prob, eps, 1 - eps)
 
