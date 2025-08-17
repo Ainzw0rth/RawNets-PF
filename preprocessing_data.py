@@ -127,14 +127,11 @@ if __name__ == "__main__":
                     total_files += 1
                     total_segments_overall += total_segments
 
-                    # Remove temporary chunk files and directory after processing
                     for chunk_path in chunk_paths:
                         if os.path.exists(chunk_path):
                             os.remove(chunk_path)
                     if os.path.exists(out_dir) and len(os.listdir(out_dir)) == 0:
                         os.rmdir(out_dir)
-
-                    # print(f"    -> {total_segments} segments saved from {file_path}")
 
                 except Exception as e:
                     print(f"Error processing {file_path}: {e}")
