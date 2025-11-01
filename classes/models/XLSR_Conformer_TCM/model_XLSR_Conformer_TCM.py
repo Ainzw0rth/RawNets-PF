@@ -334,6 +334,14 @@ class SSLModel(nn.Module):  # W2V
         self.model = model
         self.device = device
         self.out_dim = 1024
+        
+        # Detect which model type we're using (fairseq vs transformers)
+        self.is_hf_model = hasattr(model, 'config') and hasattr(model.config, 'model_type')
+        if self.is_hf_model:
+            print("Detected Hugging Face Transformers model")
+        else:
+            print("Detected fairseq model")
+        
         return
 
     def extract_feat(self, input_data):
@@ -348,9 +356,17 @@ class SSLModel(nn.Module):  # W2V
             input_tmp = input_data[:, :, 0]
         else:
             input_tmp = input_data
-                
+        
         # [batch, length, dim]
-        emb = self.model(input_tmp, mask=False, features_only=True)['x']
+        # Handle different model types
+        if self.is_hf_model:
+            # Hugging Face Transformers API
+            outputs = self.model(input_tmp, output_hidden_states=True)
+            emb = outputs.last_hidden_state
+        else:
+            # fairseq API
+            emb = self.model(input_tmp, mask=False, features_only=True)['x']
+        
         return emb
 
 # -------------------------
