@@ -262,7 +262,20 @@ class SSLModel(nn.Module):  # W2V
     def __init__(self, device, cp_path='xlsr2_300m.pt'):
         super(SSLModel, self).__init__()
         # Change the pre-trained XLSR model path.
-        model, cfg, task = fairseq.checkpoint_utils.load_model_ensemble_and_task([cp_path])
+        try:
+            # Try loading with task inference
+            model, cfg, task = fairseq.checkpoint_utils.load_model_ensemble_and_task([cp_path])
+        except (AttributeError, KeyError, TypeError) as e:
+            print(f"Warning: Standard loading failed ({e}), trying alternative method...")
+            # Alternative loading method for problematic checkpoints
+            import argparse
+            arg_overrides = {'data': '.'}  # dummy data path
+            models, cfg = fairseq.checkpoint_utils.load_model_ensemble(
+                [cp_path], 
+                arg_overrides=arg_overrides,
+            )
+            model = models
+        
         self.model = model[0]
         self.device = device
         self.out_dim = 1024
