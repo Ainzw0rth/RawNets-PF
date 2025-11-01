@@ -261,20 +261,58 @@ class MyConformer(nn.Module):
 class SSLModel(nn.Module):  # W2V
     def __init__(self, device, cp_path='xlsr2_300m.pt'):
         super(SSLModel, self).__init__()
-        # Change the pre-trained XLSR model path.
+        print(f"Loading pretrained model from: {cp_path}")
+        
+        # Direct checkpoint loading to handle corrupted metadata
         try:
-            # Try loading with task inference
-            model, cfg, task = fairseq.checkpoint_utils.load_model_ensemble_and_task([cp_path])
-        except (AttributeError, KeyError, TypeError) as e:
-            print(f"Warning: Standard loading failed ({e}), trying alternative method...")
-            # Alternative loading method for problematic checkpoints
-            import argparse
-            arg_overrides = {'data': '.'}  # dummy data path
-            models, cfg = fairseq.checkpoint_utils.load_model_ensemble(
-                [cp_path], 
-                arg_overrides=arg_overrides,
-            )
-            model = models
+            checkpoint = torch.load(cp_path, map_location='cpu')
+            
+            # Try standard fairseq loading first
+            try:
+                model, cfg, task = fairseq.checkpoint_utils.load_model_ensemble_and_task([cp_path])
+                print("Successfully loaded with load_model_ensemble_and_task")
+            except (AttributeError, KeyError, TypeError) as e:
+                print(f"Standard loading failed: {e}")
+                print("Attempting direct model reconstruction...")
+                
+                # Manual model construction from checkpoint
+                from fairseq.models.wav2vec import Wav2Vec2Model
+                
+                # Fix the checkpoint structure if args is None
+                if checkpoint.get('args') is None:
+                    print("Checkpoint args is None, creating default args...")
+                    from argparse import Namespace
+                    # Create minimal args for wav2vec2
+                    checkpoint['args'] = Namespace(
+                        task='audio_pretraining',
+                        data='.',
+                        w2v_path=cp_path,
+                        no_pretrained_weights=False,
+                        dropout_input=0.0,
+                        final_dropout=0.0,
+                        dropout=0.0,
+                        attention_dropout=0.0,
+                        activation_dropout=0.0,
+                    )
+                
+                # Build model from checkpoint
+                cfg = checkpoint.get('cfg', None)
+                if cfg is not None:
+                    model = [Wav2Vec2Model.build_model(cfg.model)]
+                else:
+                    # Last resort: load state dict directly
+                    print("Building model from state dict...")
+                    model = [Wav2Vec2Model.build_model(checkpoint['args'])]
+                
+                # Load the state dict
+                model[0].load_state_dict(checkpoint['model'], strict=False)
+                print("Successfully loaded model from checkpoint")
+        
+        except Exception as e:
+            print(f"Error loading checkpoint: {e}")
+            print("\nPlease ensure you have downloaded the correct XLSR checkpoint.")
+            print("Download command: wget https://dl.fbaipublicfiles.com/fairseq/wav2vec/xlsr_53_56k.pt -O xlsr2_300m.pt")
+            raise e
         
         self.model = model[0]
         self.device = device
