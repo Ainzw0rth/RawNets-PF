@@ -263,58 +263,75 @@ class SSLModel(nn.Module):  # W2V
         super(SSLModel, self).__init__()
         print(f"Loading pretrained model from: {cp_path}")
         
-        # Direct checkpoint loading to handle corrupted metadata
+        # Load checkpoint
+        checkpoint = torch.load(cp_path, map_location='cpu')
+        print(f"Checkpoint keys: {checkpoint.keys()}")
+        
+        # Try multiple loading strategies
+        model = None
+        
+        # Strategy 1: Standard fairseq loading
         try:
-            checkpoint = torch.load(cp_path, map_location='cpu')
+            models, cfg, task = fairseq.checkpoint_utils.load_model_ensemble_and_task([cp_path])
+            model = models[0]
+            print("✓ Successfully loaded with load_model_ensemble_and_task")
+        except Exception as e1:
+            print(f"✗ Strategy 1 failed: {type(e1).__name__}")
             
-            # Try standard fairseq loading first
+            # Strategy 2: Direct model loading with fixed args
             try:
-                model, cfg, task = fairseq.checkpoint_utils.load_model_ensemble_and_task([cp_path])
-                print("Successfully loaded with load_model_ensemble_and_task")
-            except (AttributeError, KeyError, TypeError) as e:
-                print(f"Standard loading failed: {e}")
-                print("Attempting direct model reconstruction...")
-                
-                # Manual model construction from checkpoint
+                print("Trying Strategy 2: Direct model construction...")
                 from fairseq.models.wav2vec import Wav2Vec2Model
                 
-                # Fix the checkpoint structure if args is None
-                if checkpoint.get('args') is None:
-                    print("Checkpoint args is None, creating default args...")
-                    from argparse import Namespace
-                    # Create minimal args for wav2vec2
-                    checkpoint['args'] = Namespace(
-                        task='audio_pretraining',
-                        data='.',
-                        w2v_path=cp_path,
-                        no_pretrained_weights=False,
-                        dropout_input=0.0,
-                        final_dropout=0.0,
-                        dropout=0.0,
-                        attention_dropout=0.0,
-                        activation_dropout=0.0,
-                    )
-                
-                # Build model from checkpoint
-                cfg = checkpoint.get('cfg', None)
-                if cfg is not None:
-                    model = [Wav2Vec2Model.build_model(cfg.model)]
+                # Get config from checkpoint
+                if 'cfg' in checkpoint and checkpoint['cfg'] is not None:
+                    cfg = checkpoint['cfg']
+                    # Convert OmegaConf to namespace if needed
+                    if hasattr(cfg, 'model'):
+                        model_cfg = cfg.model
+                    else:
+                        model_cfg = cfg
+                    
+                    # Build model from config
+                    model = Wav2Vec2Model.build_model(model_cfg, task=None)
+                    model.load_state_dict(checkpoint['model'], strict=False)
+                    print("✓ Successfully loaded with Strategy 2")
                 else:
-                    # Last resort: load state dict directly
-                    print("Building model from state dict...")
-                    model = [Wav2Vec2Model.build_model(checkpoint['args'])]
+                    raise ValueError("No valid cfg in checkpoint")
+                    
+            except Exception as e2:
+                print(f"✗ Strategy 2 failed: {type(e2).__name__}")
                 
-                # Load the state dict
-                model[0].load_state_dict(checkpoint['model'], strict=False)
-                print("Successfully loaded model from checkpoint")
+                # Strategy 3: Load using transformers library as fallback
+                try:
+                    print("Trying Strategy 3: Using transformers library...")
+                    from transformers import Wav2Vec2Model as HFWav2Vec2Model
+                    
+                    # Try to load with huggingface transformers
+                    model = HFWav2Vec2Model.from_pretrained("facebook/wav2vec2-xls-r-300m")
+                    print("✓ Successfully loaded with transformers library")
+                    print("Note: Using Hugging Face model instead of local checkpoint")
+                    
+                except Exception as e3:
+                    print(f"✗ Strategy 3 failed: {type(e3).__name__}")
+                    
+                    # All strategies failed
+                    print("\n" + "="*60)
+                    print("ERROR: All loading strategies failed!")
+                    print("="*60)
+                    print("\nPlease try one of these solutions:")
+                    print("\n1. Download the correct XLSR checkpoint:")
+                    print("   wget https://dl.fbaipublicfiles.com/fairseq/wav2vec/xlsr_53_56k.pt -O xlsr2_300m.pt")
+                    print("\n2. Or install transformers and use Hugging Face model:")
+                    print("   pip install transformers")
+                    print("\n3. Or verify your checkpoint file is not corrupted:")
+                    print("   ls -lh xlsr2_300m.pt")
+                    raise RuntimeError("Failed to load XLSR model with all strategies")
         
-        except Exception as e:
-            print(f"Error loading checkpoint: {e}")
-            print("\nPlease ensure you have downloaded the correct XLSR checkpoint.")
-            print("Download command: wget https://dl.fbaipublicfiles.com/fairseq/wav2vec/xlsr_53_56k.pt -O xlsr2_300m.pt")
-            raise e
-        
-        self.model = model[0]
+        if model is None:
+            raise RuntimeError("Model loading failed - no model was created")
+            
+        self.model = model
         self.device = device
         self.out_dim = 1024
         return
