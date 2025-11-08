@@ -18,6 +18,17 @@ from sklearn.metrics import (
 )
 from tqdm import tqdm
 
+# ================================================================================
+# WavLM-Nes2Net Trainer Functions
+# ================================================================================
+# This trainer module supports both:
+# 1. WavLMNes2Net (model_Nes2Net.py) - Regular WavLM-Nes2Net with waveform input only
+# 2. WavLMNes2NetDiffPipeline (model_Nes2Net_diff_pipeline.py) - WavLM-Nes2Net with 
+#    pathological features using different pipeline approach
+#
+# All functions are model-agnostic and work with both architectures.
+# ================================================================================
+
 # Assuming metrics are available in these paths - adjust as needed
 try:
     from metrics.CLLR import CLLR
@@ -34,10 +45,10 @@ except ImportError:
 def train_nes2net_with_loaders(model, train_loader, val_loader=None, device="cuda", epochs=100, 
                                 lr=0.0001, start_epoch=0, variation="combined", weight_decay=0.0001):
     """
-    Train WavLM-Nes2Net model with data loaders
+    Train WavLM-Nes2Net model with data loaders (works with both regular and diff_pipeline versions)
     
     Args:
-        model: The WavLM-Nes2Net model
+        model: The WavLM-Nes2Net model (WavLMNes2Net or WavLMNes2NetDiffPipeline)
         train_loader: Training data loader
         val_loader: Validation data loader (optional)
         device: Device to train on ('cuda' or 'cpu')
@@ -110,10 +121,10 @@ def train_nes2net_with_loaders(model, train_loader, val_loader=None, device="cud
 
 def validate_nes2net(model, val_loader, device="cuda"):
     """
-    Validate WavLM-Nes2Net model
+    Validate WavLM-Nes2Net model (works with both regular and diff_pipeline versions)
     
     Args:
-        model: The WavLM-Nes2Net model
+        model: The WavLM-Nes2Net model (WavLMNes2Net or WavLMNes2NetDiffPipeline)
         val_loader: Validation data loader
         device: Device to validate on
     
@@ -166,10 +177,10 @@ def validate_nes2net(model, val_loader, device="cuda"):
 
 def test_nes2net(model, test_loader, class_labels=None, device="cuda"):
     """
-    Test WavLM-Nes2Net model and display results
+    Test WavLM-Nes2Net model and display results (works with both regular and diff_pipeline versions)
     
     Args:
-        model: The WavLM-Nes2Net model
+        model: The WavLM-Nes2Net model (WavLMNes2Net or WavLMNes2NetDiffPipeline)
         test_loader: Test data loader
         class_labels: Labels for confusion matrix display
         device: Device to test on
@@ -232,10 +243,10 @@ def test_nes2net(model, test_loader, class_labels=None, device="cuda"):
 
 def test_nes2net_with_loaders(model, test_loader, device="cuda"):
     """
-    Test WavLM-Nes2Net model (returns only predictions)
+    Test WavLM-Nes2Net model (returns only predictions) - works with both regular and diff_pipeline versions
     
     Args:
-        model: The WavLM-Nes2Net model
+        model: The WavLM-Nes2Net model (WavLMNes2Net or WavLMNes2NetDiffPipeline)
         test_loader: Test data loader
         device: Device to test on
     

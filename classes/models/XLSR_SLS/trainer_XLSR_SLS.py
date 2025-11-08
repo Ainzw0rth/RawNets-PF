@@ -18,6 +18,17 @@ from sklearn.metrics import (
 )
 from tqdm import tqdm
 
+# ================================================================================
+# XLSR-SLS Trainer Functions
+# ================================================================================
+# This trainer module supports both:
+# 1. XLSRSLS (model_XLSR_SLS.py) - Regular XLSR-SLS with waveform input only
+# 2. XLSRSLSDiffPipeline (model_XLSR_SLS_diff_pipeline.py) - XLSR-SLS with 
+#    pathological features using different pipeline approach
+#
+# All functions are model-agnostic and work with both architectures.
+# ================================================================================
+
 # Assuming metrics are available in these paths - adjust as needed
 try:
     from metrics.CLLR import CLLR
@@ -34,17 +45,17 @@ except ImportError:
 def train_xlsr_sls_with_loaders(model, train_loader, val_loader=None, device="cuda", epochs=100, 
                                  lr=0.0001, start_epoch=0, variation="combined", weight_decay=0.0001):
     """
-    Train XLSR-SLS model with data loaders
+    Train XLSR-SLS model with data loaders (works with both regular and diff_pipeline versions)
     
     Args:
-        model: The XLSR-SLS model
+        model: The XLSR-SLS model (XLSRSLS or XLSRSLSDiffPipeline)
         train_loader: Training data loader
         val_loader: Validation data loader (optional)
         device: Device to train on ('cuda' or 'cpu')
         epochs: Number of epochs to train
         lr: Learning rate
         start_epoch: Starting epoch (for resuming training)
-        variation: Variation name for saving models
+        variation: Variation name for saving models (e.g., 'waveform', 'diff_pipeline', 'combined')
         weight_decay: Weight decay for optimizer
     """
     torch.autograd.set_detect_anomaly(True)
@@ -110,10 +121,10 @@ def train_xlsr_sls_with_loaders(model, train_loader, val_loader=None, device="cu
 
 def validate_xlsr_sls(model, val_loader, device="cuda"):
     """
-    Validate XLSR-SLS model
+    Validate XLSR-SLS model (works with both regular and diff_pipeline versions)
     
     Args:
-        model: The XLSR-SLS model
+        model: The XLSR-SLS model (XLSRSLS or XLSRSLSDiffPipeline)
         val_loader: Validation data loader
         device: Device to validate on
     
@@ -168,10 +179,10 @@ def validate_xlsr_sls(model, val_loader, device="cuda"):
 
 def test_xlsr_sls(model, test_loader, class_labels=None, device="cuda"):
     """
-    Test XLSR-SLS model and display results
+    Test XLSR-SLS model and display results (works with both regular and diff_pipeline versions)
     
     Args:
-        model: The XLSR-SLS model
+        model: The XLSR-SLS model (XLSRSLS or XLSRSLSDiffPipeline)
         test_loader: Test data loader
         class_labels: Labels for confusion matrix display
         device: Device to test on
@@ -235,10 +246,10 @@ def test_xlsr_sls(model, test_loader, class_labels=None, device="cuda"):
 
 def test_xlsr_sls_with_loaders(model, test_loader, device="cuda"):
     """
-    Test XLSR-SLS model (returns only predictions)
+    Test XLSR-SLS model (returns only predictions) - works with both regular and diff_pipeline versions
     
     Args:
-        model: The XLSR-SLS model
+        model: The XLSR-SLS model (XLSRSLS or XLSRSLSDiffPipeline)
         test_loader: Test data loader
         device: Device to test on
     

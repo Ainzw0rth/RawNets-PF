@@ -19,6 +19,18 @@ from sklearn.metrics import (
 from tqdm import tqdm
 import numpy as np
 
+# ================================================================================
+# XLSR-Conformer-TCM Trainer Functions
+# ================================================================================
+# This trainer module supports both:
+# 1. XLSRConformerTCM (model_XLSR_Conformer_TCM.py) - Regular XLSR-Conformer-TCM 
+#    with waveform input only
+# 2. XLSRConformerTCMDiffPipeline (model_XLSR_Conformer_TCM_diff_pipeline.py) - 
+#    XLSR-Conformer-TCM with pathological features using different pipeline approach
+#
+# All functions are model-agnostic and work with both architectures.
+# ================================================================================
+
 # Assuming metrics are available in these paths - adjust as needed
 try:
     from metrics.CLLR import CLLR
@@ -35,10 +47,10 @@ except ImportError:
 def train_xlsr_conformer_tcm_with_loaders(model, train_loader, val_loader=None, device="cuda", epochs=100, 
                                           lr=0.0001, start_epoch=0, variation="combined", weight_decay=0.0001):
     """
-    Train XLSR-Conformer with TCM model with data loaders
+    Train XLSR-Conformer with TCM model with data loaders (works with both regular and diff_pipeline versions)
     
     Args:
-        model: The XLSR-Conformer TCM model
+        model: The XLSR-Conformer TCM model (XLSRConformerTCM or XLSRConformerTCMDiffPipeline)
         train_loader: Training data loader
         val_loader: Validation data loader (optional)
         device: Device to train on ('cuda' or 'cpu')
@@ -111,10 +123,10 @@ def train_xlsr_conformer_tcm_with_loaders(model, train_loader, val_loader=None, 
 
 def validate_xlsr_conformer_tcm(model, val_loader, device="cuda"):
     """
-    Validate XLSR-Conformer with TCM model
+    Validate XLSR-Conformer with TCM model (works with both regular and diff_pipeline versions)
     
     Args:
-        model: The XLSR-Conformer TCM model
+        model: The XLSR-Conformer TCM model (XLSRConformerTCM or XLSRConformerTCMDiffPipeline)
         val_loader: Validation data loader
         device: Device to validate on
     
@@ -167,10 +179,10 @@ def validate_xlsr_conformer_tcm(model, val_loader, device="cuda"):
 
 def test_xlsr_conformer_tcm(model, test_loader, class_labels=None, device="cuda"):
     """
-    Test XLSR-Conformer with TCM model and display results
+    Test XLSR-Conformer with TCM model and display results (works with both regular and diff_pipeline versions)
     
     Args:
-        model: The XLSR-Conformer TCM model
+        model: The XLSR-Conformer TCM model (XLSRConformerTCM or XLSRConformerTCMDiffPipeline)
         test_loader: Test data loader
         class_labels: Labels for confusion matrix display
         device: Device to test on
@@ -232,10 +244,10 @@ def test_xlsr_conformer_tcm(model, test_loader, class_labels=None, device="cuda"
 
 def test_xlsr_conformer_tcm_with_loaders(model, test_loader, device="cuda"):
     """
-    Test XLSR-Conformer with TCM model (returns only predictions)
+    Test XLSR-Conformer with TCM model (returns only predictions) - works with both regular and diff_pipeline versions
     
     Args:
-        model: The XLSR-Conformer TCM model
+        model: The XLSR-Conformer TCM model (XLSRConformerTCM or XLSRConformerTCMDiffPipeline)
         test_loader: Test data loader
         device: Device to test on
     
