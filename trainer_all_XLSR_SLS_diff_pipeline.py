@@ -5,48 +5,14 @@ import torch
 from datetime import datetime
 from torch.utils.data import DataLoader
 
-# Import utils - adjust paths as needed based on your project structure
-try:
-    from utils.Logger import Logger
-    from utils.Seed import set_seed
-    from utils.Splitter import stratified_split
-    from classes.FeatureDataset.CombinedFeatureDataset import CombinedFeatureDataset
-    from classes.FeatureDataset.ListDataset import ListDataset
-except ImportError:
-    print("Warning: Some utility modules not found. Using fallbacks.")
-    # Fallback implementations if needed
-    class Logger:
-        def __init__(self, stdout, file):
-            self.stdout = stdout
-            self.file = file
-        def write(self, text):
-            self.stdout.write(text)
-            self.file.write(text)
-        def flush(self):
-            self.stdout.flush()
-            self.file.flush()
-    
-    def set_seed(seed):
-        import random
-        import numpy as np
-        random.seed(seed)
-        np.random.seed(seed)
-        torch.manual_seed(seed)
-        if torch.cuda.is_available():
-            torch.cuda.manual_seed_all(seed)
-    
-    def stratified_split(dataset, splits=(0.7, 0.15, 0.15), seed=42):
-        # Simple implementation
-        set_seed(seed)
-        indices = list(range(len(dataset)))
-        import random
-        random.shuffle(indices)
-        
-        n = len(indices)
-        n_train = int(n * splits[0])
-        n_val = int(n * splits[1])
-        
-        return indices[:n_train], indices[n_train:n_train+n_val], indices[n_train+n_val:]
+# Import utilities
+from utils.Logger import Logger
+from utils.Seed import set_seed
+from utils.Splitter import stratified_split
+
+# Import dataset
+from classes.FeatureDataset.CombinedFeatureDataset import CombinedFeatureDataset
+from classes.FeatureDataset.ListDataset import ListDataset
 
 # Import XLSR-SLS diff pipeline components
 from classes.models.XLSR_SLS.model_XLSR_SLS_diff_pipeline import XLSRSLSDiffPipeline
