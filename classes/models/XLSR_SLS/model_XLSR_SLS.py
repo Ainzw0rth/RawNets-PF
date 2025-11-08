@@ -13,16 +13,84 @@ class SSLModel(nn.Module):
         super(SSLModel, self).__init__()
         print(f"Loading pretrained XLSR model from: {cp_path}")
         
+        # Load checkpoint
+        checkpoint = torch.load(cp_path, map_location='cpu')
+        print(f"Checkpoint keys: {checkpoint.keys()}")
+        
+        # Try multiple loading strategies
+        model = None
+        
+        # Strategy 1: Standard fairseq loading
         try:
-            # Load checkpoint using fairseq
-            model, cfg, task = fairseq.checkpoint_utils.load_model_ensemble_and_task([cp_path])
-            self.model = model[0]
-            self.device = device
-            self.out_dim = 1024
-            print("Successfully loaded XLSR model using fairseq")
-        except Exception as e:
-            print(f"Error loading XLSR model: {e}")
-            raise RuntimeError(f"Failed to load XLSR model from {cp_path}. Make sure the checkpoint file exists and fairseq is installed.")
+            models, cfg, task = fairseq.checkpoint_utils.load_model_ensemble_and_task([cp_path])
+            model = models[0]
+            print("✓ Successfully loaded with load_model_ensemble_and_task")
+        except Exception as e1:
+            print(f"✗ Strategy 1 failed: {type(e1).__name__}")
+            
+            # Strategy 2: Direct model loading with fixed args
+            try:
+                print("Trying Strategy 2: Direct model construction...")
+                from fairseq.models.wav2vec import Wav2Vec2Model
+                
+                # Get config from checkpoint
+                if 'cfg' in checkpoint and checkpoint['cfg'] is not None:
+                    cfg = checkpoint['cfg']
+                    # Convert OmegaConf to namespace if needed
+                    if hasattr(cfg, 'model'):
+                        model_cfg = cfg.model
+                    else:
+                        model_cfg = cfg
+                    
+                    # Build model from config
+                    model = Wav2Vec2Model.build_model(model_cfg, task=None)
+                    model.load_state_dict(checkpoint['model'], strict=False)
+                    print("✓ Successfully loaded with Strategy 2")
+                else:
+                    raise ValueError("No valid cfg in checkpoint")
+                    
+            except Exception as e2:
+                print(f"✗ Strategy 2 failed: {type(e2).__name__}")
+                
+                # Strategy 3: Load using transformers library as fallback
+                try:
+                    print("Trying Strategy 3: Using transformers library...")
+                    from transformers import Wav2Vec2Model as HFWav2Vec2Model
+                    
+                    # Try to load with huggingface transformers
+                    model = HFWav2Vec2Model.from_pretrained("facebook/wav2vec2-xls-r-300m")
+                    print("✓ Successfully loaded with transformers library")
+                    print("Note: Using Hugging Face model instead of local checkpoint")
+                    
+                except Exception as e3:
+                    print(f"✗ Strategy 3 failed: {type(e3).__name__}")
+                    
+                    # All strategies failed
+                    print("\n" + "="*60)
+                    print("ERROR: All loading strategies failed!")
+                    print("="*60)
+                    print("\nPlease try one of these solutions:")
+                    print("\n1. Download the correct XLSR checkpoint:")
+                    print("   wget https://dl.fbaipublicfiles.com/fairseq/wav2vec/xlsr_53_56k.pt -O xlsr2_300m.pt")
+                    print("\n2. Or install transformers and use Hugging Face model:")
+                    print("   pip install transformers")
+                    print("\n3. Or verify your checkpoint file is not corrupted:")
+                    print("   ls -lh xlsr2_300m.pt")
+                    raise RuntimeError("Failed to load XLSR model with all strategies")
+        
+        if model is None:
+            raise RuntimeError("Model loading failed - no model was created")
+            
+        self.model = model
+        self.device = device
+        self.out_dim = 1024
+        
+        # Detect which model type we're using (fairseq vs transformers)
+        self.is_hf_model = hasattr(model, 'config') and hasattr(model.config, 'model_type')
+        if self.is_hf_model:
+            print("Detected Hugging Face Transformers model")
+        else:
+            print("Detected fairseq model")
         
         return
 
@@ -40,8 +108,17 @@ class SSLModel(nn.Module):
             input_tmp = input_data
             
         # [batch, length, dim] - Extract features and layer results
-        emb = self.model(input_tmp, mask=False, features_only=True)['x']
-        layerresult = self.model(input_tmp, mask=False, features_only=True)['layer_results']
+        # Handle different model types
+        if self.is_hf_model:
+            # Hugging Face transformers model
+            output = self.model(input_tmp, output_hidden_states=True)
+            emb = output.last_hidden_state
+            # Create layer_results format compatible with fairseq
+            layerresult = [(layer.transpose(0, 1), None) for layer in output.hidden_states]
+        else:
+            # Fairseq model
+            emb = self.model(input_tmp, mask=False, features_only=True)['x']
+            layerresult = self.model(input_tmp, mask=False, features_only=True)['layer_results']
         
         return emb, layerresult
 
@@ -104,9 +181,8 @@ class XLSRSLS(nn.Module):
         self.sig = nn.Sigmoid()
         
         # Classification layers
-        # Note: The input dimension (22847) is calculated based on the feature map size
-        # after pooling. This may need adjustment based on input audio length.
-        self.fc1 = nn.Linear(22847, 1024)
+        # Note: fc1 will be created dynamically based on actual feature size
+        self.fc1 = None  # Will be initialized on first forward pass
         self.fc3 = nn.Linear(1024, 2)
         self.logsoftmax = nn.LogSoftmax(dim=1)
         
@@ -147,6 +223,12 @@ class XLSRSLS(nn.Module):
         
         # Flatten for classification
         x = torch.flatten(x, 1)
+        
+        # Initialize fc1 dynamically based on actual feature size
+        if self.fc1 is None:
+            feature_size = x.size(1)
+            self.fc1 = nn.Linear(feature_size, 1024).to(x.device)
+            print(f"Initialized fc1 with input size: {feature_size}")
         
         # Classification layers
         x = self.fc1(x)
