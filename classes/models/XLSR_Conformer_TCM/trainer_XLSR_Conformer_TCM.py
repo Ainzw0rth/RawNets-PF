@@ -45,7 +45,8 @@ except ImportError:
 
 
 def train_xlsr_conformer_tcm_with_loaders(model, train_loader, val_loader=None, device="cuda", epochs=100, 
-                                          lr=0.0001, start_epoch=0, variation="combined", weight_decay=0.0001):
+                                          lr=0.0001, start_epoch=0, variation="combined", weight_decay=0.0001,
+                                          gradient_accumulation_steps=4):
     """
     Train XLSR-Conformer with TCM model with data loaders (works with both regular and diff_pipeline versions)
     
@@ -59,6 +60,7 @@ def train_xlsr_conformer_tcm_with_loaders(model, train_loader, val_loader=None, 
         start_epoch: Starting epoch (for resuming training)
         variation: Variation name for saving models
         weight_decay: Weight decay for optimizer
+        gradient_accumulation_steps: Number of steps to accumulate gradients (default: 4)
     """
     torch.autograd.set_detect_anomaly(True)
     
@@ -79,8 +81,10 @@ def train_xlsr_conformer_tcm_with_loaders(model, train_loader, val_loader=None, 
         running_loss = 0.0
         num_total = 0.0
         
+        optimizer.zero_grad()  # Zero gradients at the start of epoch
+        
         pbar = tqdm(train_loader, desc=f"Epoch [{epoch+1}/{epochs}]")
-        for inputs, labels in pbar:
+        for batch_idx, (inputs, labels) in enumerate(pbar):
             inputs, labels = inputs.to(device), labels.to(device)
             batch_size = inputs.size(0)
             num_total += batch_size
@@ -88,14 +92,28 @@ def train_xlsr_conformer_tcm_with_loaders(model, train_loader, val_loader=None, 
             with autocast(enabled=False, dtype=torch.float16, cache_enabled=True):
                 outputs, _ = model(inputs)
                 loss = criterion(outputs, labels)
+                # Normalize loss by accumulation steps
+                loss = loss / gradient_accumulation_steps
 
-            optimizer.zero_grad()
             scaler.scale(loss).backward()
+            
+            # Only update weights after accumulating gradients
+            if (batch_idx + 1) % gradient_accumulation_steps == 0:
+                scaler.step(optimizer)
+                scaler.update()
+                optimizer.zero_grad()
+                
+                # Clear cache after each update
+                torch.cuda.empty_cache()
+
+            running_loss += loss.item() * batch_size * gradient_accumulation_steps
+            pbar.set_postfix({'loss': loss.item() * gradient_accumulation_steps})
+        
+        # Update any remaining gradients
+        if (batch_idx + 1) % gradient_accumulation_steps != 0:
             scaler.step(optimizer)
             scaler.update()
-
-            running_loss += loss.item() * batch_size
-            pbar.set_postfix({'loss': loss.item()})
+            optimizer.zero_grad()
 
         epoch_loss = running_loss / num_total
         print(f"Epoch [{epoch+1}/{epochs}] - Train Loss: {epoch_loss:.4f}")

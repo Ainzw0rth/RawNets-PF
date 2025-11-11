@@ -27,7 +27,10 @@ from classes.models.XLSR_Conformer_TCM.trainer_XLSR_Conformer_TCM import (
 # Main Training Script
 # -----------------------------
 if __name__ == "__main__":
-    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = ""
+    # Memory optimization settings
+    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:128"
+    torch.backends.cudnn.benchmark = False
+    torch.backends.cudnn.deterministic = True
 
     # Logger setup
     os.makedirs("logs/train/", exist_ok=True)
@@ -118,10 +121,28 @@ if __name__ == "__main__":
 
     try:
         for batch_size in batch_sizes:
-            # DataLoaders
-            train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-            val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
-            test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+            # DataLoaders with memory optimization
+            train_loader = DataLoader(
+                train_dataset, 
+                batch_size=batch_size, 
+                shuffle=True,
+                num_workers=0,  # Reduce memory overhead
+                pin_memory=False  # Disable pin_memory to save GPU memory
+            )
+            val_loader = DataLoader(
+                val_dataset, 
+                batch_size=batch_size, 
+                shuffle=False,
+                num_workers=0,
+                pin_memory=False
+            )
+            test_loader = DataLoader(
+                test_dataset, 
+                batch_size=batch_size, 
+                shuffle=False,
+                num_workers=0,
+                pin_memory=False
+            )
 
             print(f"\n=========== DATA LOADERS ===========")
             print(f"Train batches: {len(train_loader)}")
@@ -152,6 +173,11 @@ if __name__ == "__main__":
                 print(f"Device: {device}")
                 model = XLSRConformerTCMDiffPipeline(model_config, device).to(device)
                 
+                # Enable gradient checkpointing to save memory
+                if hasattr(model, 'ssl_model') and hasattr(model.ssl_model, 'gradient_checkpointing_enable'):
+                    model.ssl_model.gradient_checkpointing_enable()
+                    print("Gradient checkpointing enabled for SSL model")
+                
                 # Count parameters
                 nb_params = sum([param.view(-1).size()[0] for param in model.parameters() if param.requires_grad])
                 print(f'Number of trainable parameters: {nb_params:,}')
@@ -167,16 +193,19 @@ if __name__ == "__main__":
                     lr=learning_rate, 
                     start_epoch=0, 
                     variation="diff_pipeline",
-                    weight_decay=weight_decay
+                    weight_decay=weight_decay,
+                    gradient_accumulation_steps=4  # Accumulate gradients over 4 steps to reduce memory
                 )
 
                 # Test XLSR-Conformer-TCM Diff Pipeline
                 print("\n--- Testing XLSR-Conformer-TCM Diff Pipeline ---")
                 predictions, targets, metrics = test_xlsr_conformer_tcm(model, test_loader, device=device)
 
-                # Clear CUDA memory
+                # Aggressive memory cleanup
+                del model
                 torch.cuda.empty_cache()
                 torch.cuda.reset_peak_memory_stats()
+                torch.cuda.synchronize()
 
     finally:
         end_time = time.time()
