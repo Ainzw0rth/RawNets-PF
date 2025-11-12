@@ -9,6 +9,7 @@ import fairseq
 import numpy as np
 from torch.nn.modules.transformer import _get_clones
 from torch import Tensor
+from torch.cuda.amp import autocast
 
 # -------------------------
 # Helper Functions
@@ -355,15 +356,53 @@ class SSLModel(nn.Module):
             input_tmp = input_data
         
         # [batch, length, dim]
-        # Handle different model types
-        if self.is_hf_model:
-            # Hugging Face Transformers API
-            outputs = self.model(input_tmp, output_hidden_states=True)
-            emb = outputs.last_hidden_state
-        else:
-            # fairseq API
-            emb = self.model(input_tmp, mask=False, features_only=True)['x']
-        
+        # Handle different model types with memory-reducing settings
+        # Use mixed-precision autocast and avoid requesting hidden states/attentions
+        try:
+            if self.is_hf_model:
+                # Hugging Face Transformers API: request only last_hidden_state
+                # Disable extra outputs to reduce memory (no hidden states, no attentions)
+                with autocast(enabled=True, dtype=torch.float16):
+                    outputs = self.model(
+                        input_tmp,
+                        output_hidden_states=False,
+                        output_attentions=False,
+                        return_dict=True
+                    )
+                    emb = outputs.last_hidden_state
+            else:
+                # fairseq API - ask for features_only; run under autocast
+                with autocast(enabled=True, dtype=torch.float16):
+                    emb = self.model(input_tmp, mask=False, features_only=True)['x']
+
+            # Convert embeddings back to float32 for downstream layers
+            emb = emb.float()
+
+        except RuntimeError as e:
+            # Provide a helpful fallback and message on OOM
+            print("Warning: RuntimeError during SSL feature extraction (likely OOM):", type(e).__name__, str(e))
+            print("Attempting CPU fallback for SSL feature extraction (this will be much slower).")
+            try:
+                torch.cuda.empty_cache()
+            except Exception:
+                pass
+
+            # Try CPU fallback to at least make progress; re-run the model on CPU
+            try:
+                self.model.to('cpu')
+                if self.is_hf_model:
+                    outputs = self.model(input_tmp.cpu(), output_hidden_states=False, output_attentions=False, return_dict=True)
+                    emb = outputs.last_hidden_state.cpu().float()
+                else:
+                    emb = self.model(input_tmp.cpu(), mask=False, features_only=True)['x'].cpu().float()
+                # Move emb back to original device so caller doesn't fail unexpectedly
+                emb = emb.to(input_data.device)
+                print("CPU fallback succeeded; moving embeddings back to device.")
+            except Exception as e2:
+                print("CPU fallback failed:", type(e2).__name__, str(e2))
+                print("Raise original exception for visibility. Recommended mitigations: set fine_tune_ssl=False, reduce batch_size, increase gradient_accumulation_steps, or use a smaller SSL model.")
+                raise
+
         return emb
 
 # -------------------------
