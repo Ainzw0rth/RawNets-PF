@@ -342,12 +342,15 @@ class SSLModel(nn.Module):
         
         return
 
-    def extract_feat(self, input_data):
+    def extract_feat(self, input_data, requires_grad=True):
         # Put the model to GPU if it's not there
-        if next(self.model.parameters()).device != input_data.device \
-           or next(self.model.parameters()).dtype != input_data.dtype:
-            self.model.to(input_data.device, dtype=input_data.dtype)
-            self.model.train()
+        if next(self.model.parameters()).device != input_data.device:
+            self.model.to(input_data.device)
+        
+        # Set model to eval mode to prevent NaN from BatchNorm/Dropout instability
+        # This is critical for SSL models that have BN layers trained on different data distributions
+        was_training = self.model.training
+        self.model.eval()
 
         # Input should be in shape (batch, length)
         if input_data.ndim == 3:
@@ -357,12 +360,15 @@ class SSLModel(nn.Module):
         
         # [batch, length, dim]
         # Handle different model types with memory-reducing settings
-        # Use mixed-precision autocast and avoid requesting hidden states/attentions
+        # Don't use autocast here to avoid NaN gradients - keep in float32
         try:
-            if self.is_hf_model:
-                # Hugging Face Transformers API: request only last_hidden_state
-                # Disable extra outputs to reduce memory (no hidden states, no attentions)
-                with autocast(enabled=True, dtype=torch.float16):
+            # Control gradient computation based on fine-tuning flag
+            grad_context = torch.enable_grad() if requires_grad else torch.no_grad()
+            
+            with grad_context:
+                if self.is_hf_model:
+                    # Hugging Face Transformers API: request only last_hidden_state
+                    # Disable extra outputs to reduce memory (no hidden states, no attentions)
                     outputs = self.model(
                         input_tmp,
                         output_hidden_states=False,
@@ -370,13 +376,9 @@ class SSLModel(nn.Module):
                         return_dict=True
                     )
                     emb = outputs.last_hidden_state
-            else:
-                # fairseq API - ask for features_only; run under autocast
-                with autocast(enabled=True, dtype=torch.float16):
+                else:
+                    # fairseq API - ask for features_only
                     emb = self.model(input_tmp, mask=False, features_only=True)['x']
-
-            # Convert embeddings back to float32 for downstream layers
-            emb = emb.float()
 
         except RuntimeError as e:
             # Provide a helpful fallback and message on OOM
@@ -390,11 +392,13 @@ class SSLModel(nn.Module):
             # Try CPU fallback to at least make progress; re-run the model on CPU
             try:
                 self.model.to('cpu')
-                if self.is_hf_model:
-                    outputs = self.model(input_tmp.cpu(), output_hidden_states=False, output_attentions=False, return_dict=True)
-                    emb = outputs.last_hidden_state.cpu().float()
-                else:
-                    emb = self.model(input_tmp.cpu(), mask=False, features_only=True)['x'].cpu().float()
+                grad_context = torch.enable_grad() if requires_grad else torch.no_grad()
+                with grad_context:
+                    if self.is_hf_model:
+                        outputs = self.model(input_tmp.cpu(), output_hidden_states=False, output_attentions=False, return_dict=True)
+                        emb = outputs.last_hidden_state
+                    else:
+                        emb = self.model(input_tmp.cpu(), mask=False, features_only=True)['x']
                 # Move emb back to original device so caller doesn't fail unexpectedly
                 emb = emb.to(input_data.device)
                 print("CPU fallback succeeded; moving embeddings back to device.")
@@ -402,6 +406,10 @@ class SSLModel(nn.Module):
                 print("CPU fallback failed:", type(e2).__name__, str(e2))
                 print("Raise original exception for visibility. Recommended mitigations: set fine_tune_ssl=False, reduce batch_size, increase gradient_accumulation_steps, or use a smaller SSL model.")
                 raise
+        
+        # Restore training mode if it was on before
+        if was_training:
+            self.model.train()
 
         return emb
 
@@ -475,7 +483,10 @@ class XLSRConformerTCMDiffPipeline(nn.Module):
             has_patho = False
         
         # Pre-trained Wav2vec model fine tuning
-        x_ssl_feat = self.ssl_model.extract_feat(x_waveform.squeeze(-1) if x_waveform.ndim == 3 else x_waveform)
+        x_ssl_feat = self.ssl_model.extract_feat(
+            x_waveform.squeeze(-1) if x_waveform.ndim == 3 else x_waveform,
+            requires_grad=self.fine_tune_ssl
+        )
         x = self.LL(x_ssl_feat)  # (bs, frame_number, feat_out_dim) (bs, 208, emb_size)
         x = x.unsqueeze(dim=1)  # add channel #(bs, 1, frame_number, emb_size)
         x = self.first_bn(x)
