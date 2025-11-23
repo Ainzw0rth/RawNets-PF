@@ -60,7 +60,8 @@ from classes.models.XLSR_Conformer_TCM.trainer_XLSR_Conformer_TCM import (
 # Main Training Script
 # -----------------------------
 if __name__ == "__main__":
-    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = ""
+    os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:128"
 
     # Logger setup
     os.makedirs("logs/train/", exist_ok=True)

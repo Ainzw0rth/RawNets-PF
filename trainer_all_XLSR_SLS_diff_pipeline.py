@@ -103,7 +103,7 @@ if __name__ == "__main__":
     print("\n==================== DATASET SPLITTED ====================\n")
 
     # Training parameters
-    batch_sizes = [32]
+    batch_sizes = [8]
     learning_rates = [0.000001]  # Same as in original main.py
     epochs = 30
     weight_decay = 0.0001

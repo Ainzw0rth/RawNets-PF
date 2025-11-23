@@ -1,4 +1,7 @@
 import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:128"
+
 import sys
 import time
 import torch
@@ -60,7 +63,10 @@ from classes.models.XLSR_SLS.trainer_XLSR_SLS import (
 # Main Training Script
 # -----------------------------
 if __name__ == "__main__":
-    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = ""
+    print("CUDA_VISIBLE_DEVICES:", os.environ.get("CUDA_VISIBLE_DEVICES"))
+    print("torch.cuda.device_count():", torch.cuda.device_count())
+    print("torch.cuda.current_device():", torch.cuda.current_device())
+    print("torch.cuda.get_device_name():", torch.cuda.get_device_name(torch.cuda.current_device()))
 
     # Logger setup
     os.makedirs("logs/train/", exist_ok=True)
@@ -137,7 +143,7 @@ if __name__ == "__main__":
     print("\n==================== DATASET SPLITTED ====================\n")
 
     # Training parameters
-    batch_sizes = [32]
+    batch_sizes = [8]
     learning_rates = [0.000001]  # Same as in original main.py
     epochs = 30
     weight_decay = 0.0001
@@ -170,7 +176,8 @@ if __name__ == "__main__":
                 # Model configuration
                 model_config = {
                     'cp_path': 'xlsr2_300m.pt',  # Path to pretrained XLSR model
-                    'fine_tune_ssl': True        # Whether to fine-tune SSL model
+                    'fine_tune_ssl': True,        # Whether to fine-tune SSL model
+ 	            'gradient_checkpointing': True
                 }
 
                 print(f"Device: {device}")
